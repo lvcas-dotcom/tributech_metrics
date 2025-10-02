@@ -1,21 +1,47 @@
-
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import settings
-from app.api.routes.metrics import router as metrics_router
-from app.api.routes.health import router as health_router
+from app.api.api import api_router
 
-app = FastAPI(title="Tributech • Metrics API", version="1.0.0")
+# -----------------------------------------------------------------------------
+# App
+# -----------------------------------------------------------------------------
+app = FastAPI(
+    title="Tributech • Metrics API",
+    version="1.0.0",
+    openapi_url="/openapi.json",
+    docs_url="/docs",
+    redoc_url="/redoc",
+)
 
-origins = [o.strip() for o in settings.ALLOWED_ORIGINS.split(",") if o.strip()]
+# -----------------------------------------------------------------------------
+# CORS
+# -----------------------------------------------------------------------------
+# ALLOWED_ORIGINS no .env, ex:
+# ALLOWED_ORIGINS=http://localhost:4200,http://127.0.0.1:4200
+allowed_origins = [o.strip() for o in settings.ALLOWED_ORIGINS.split(",") if o.strip()]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins or ["*"],
+    allow_origins=allowed_origins or ["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-app.include_router(health_router, prefix="")
-app.include_router(metrics_router, prefix="/metrics")
+
+# -----------------------------------------------------------------------------
+# Healthcheck
+# -----------------------------------------------------------------------------
+@app.get("/healthz", tags=["Infra"])
+def healthz():
+    return {"status": "ok"}
+
+
+# -----------------------------------------------------------------------------
+# Routers
+# -----------------------------------------------------------------------------
+# /metrics/by-task, /metrics/by-project, etc (Apontamentos)
+# /metrics/catalog/projects, /metrics/catalog/users, /metrics/catalog/tasks (Catálogos)
+app.include_router(api_router)
