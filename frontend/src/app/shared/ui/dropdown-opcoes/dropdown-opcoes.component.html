@@ -1,0 +1,17 @@
+<div class="dropdown-container">
+    <input
+        type="text"
+        placeholder="Escolha a Opção"
+        [(ngModel)]="valorInput"
+        (input)="filtrar($event)"
+        (focus)="mostrarDropdown = true"
+        (blur)="onBlur()"
+        class="input-dropdown"
+    />
+
+    <ul *ngIf="mostrarDropdown" class="dropdown-list">
+        <li *ngFor="let opcao of opcoesFiltradas" (click)="selecionarOpcao(opcao)">
+        {{ getLabel(opcao) }}
+        </li>
+    </ul>
+</div>
