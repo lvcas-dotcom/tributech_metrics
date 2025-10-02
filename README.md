@@ -1,8 +1,8 @@
 
-# Tributech • Metrics API (FastAPI, Clean Architecture)
+# Tributech • Metrics API
 
 Backend para relatórios de apontamento de horas (GitLab-like) com PostgreSQL.
-Arquitetura modular (Clean): API → Services → Repositories → DB/Core.
+Arquitetura: API → Services → Repositories → DB/Core.
 
 ## Endpoints principais
 - `GET /metrics/by-task`
