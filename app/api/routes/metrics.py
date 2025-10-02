@@ -1,7 +1,9 @@
 from datetime import date, timedelta
-from typing import List, Optional
+from typing import List, Optional, Sequence
 
 from fastapi import APIRouter, Depends, Query
+from sqlalchemy.ext.asyncio import AsyncSession
+
 from app.api.deps import get_session
 from app.core.config import settings
 from app.schemas.metrics import (
@@ -10,12 +12,8 @@ from app.schemas.metrics import (
     MetricByUserProjectMonth,
 )
 from app.services.metrics_service import MetricsService
-from sqlalchemy.ext.asyncio import AsyncSession
 
-router = APIRouter(
-    tags=["Métricas"],
-    responses={404: {"description": "Recurso não encontrado"}},
-)
+router = APIRouter(tags=["Apontamentos"])
 
 
 def month_bounds(d: date):
@@ -50,28 +48,13 @@ def default_projects() -> List[str]:
     ),
 )
 async def by_task(
-    start_date: Optional[date] = Query(
-        None,
-        description="Data inicial no formato AAAA-MM-DD. Padrão: 1º dia do mês atual.",
-        example="2025-09-01",
-    ),
-    end_date: Optional[date] = Query(
-        None,
-        description="Data final no formato AAAA-MM-DD. Padrão: último dia do mês atual.",
-        example="2025-09-30",
-    ),
+    start_date: Optional[date] = Query(None, description="Data inicial (YYYY-MM-DD)"),
+    end_date: Optional[date] = Query(None, description="Data final (YYYY-MM-DD)"),
     projects: Optional[List[str]] = Query(
-        None,
-        description=(
-            "Lista de nomes de projetos a filtrar (ex.: `geo`, `suporte-geo`). "
-            "Padrão: valor de `DEFAULT_PROJECTS` nas configurações."
-        ),
-        example=["suporte-geo", "suporte-saovicente", "suporte-reurb", "geo"],
+        None, description="Projetos", example=["geo", "suporte-reurb"]
     ),
     users: Optional[List[str]] = Query(
-        None,
-        description="Lista de usernames para filtrar. Padrão: todos os usuários.",
-        example=["lucas", "bruno.z", "gessica"],
+        None, description="Usernames", example=["lucas"]
     ),
     session: AsyncSession = Depends(get_session),
 ):
@@ -86,33 +69,14 @@ async def by_task(
     response_model=List[MetricByUserMonth],
     summary="Hours by user per month",
     description=(
-        "Retorna o **total de horas por usuário, agregado por mês** dentro do período. "
-        "Útil para visões de capacidade e carga mensal por colaborador."
+        "Retorna o **total de horas por usuário, agregado por mês** dentro do período."
     ),
 )
 async def by_user_month(
-    start_date: Optional[date] = Query(
-        None,
-        description="Data inicial no formato AAAA-MM-DD. Padrão: 1º dia do mês atual.",
-        example="2025-09-01",
-    ),
-    end_date: Optional[date] = Query(
-        None,
-        description="Data final no formato AAAA-MM-DD. Padrão: último dia do mês atual.",
-        example="2025-09-30",
-    ),
-    projects: Optional[List[str]] = Query(
-        None,
-        description=(
-            "Lista de nomes de projetos a filtrar. Padrão: valor de `DEFAULT_PROJECTS`."
-        ),
-        example=["suporte-geo", "geo"],
-    ),
-    users: Optional[List[str]] = Query(
-        None,
-        description="Lista de usernames para filtrar. Padrão: todos os usuários.",
-        example=["lucas", "jefferson"],
-    ),
+    start_date: Optional[date] = Query(None),
+    end_date: Optional[date] = Query(None),
+    projects: Optional[List[str]] = Query(None),
+    users: Optional[List[str]] = Query(None),
     session: AsyncSession = Depends(get_session),
 ):
     s, e = default_period(start_date, end_date)
@@ -122,37 +86,16 @@ async def by_user_month(
 
 
 @router.get(
-    "/by-project",
+    "/by-user-project-month",
     response_model=List[MetricByUserProjectMonth],
-    summary="Hours by user and project per month",
-    description=(
-        "Retorna horas **por usuário e por projeto**, agregadas por mês, dentro do período. "
-        "Ideal para cruzar alocação (quem trabalhou) com destino (em qual projeto)."
-    ),
+    summary="Hours by user per project per month",
+    description="Horas por usuário **por projeto** e **por mês** no período especificado.",
 )
 async def by_user_project_month(
-    start_date: Optional[date] = Query(
-        None,
-        description="Data inicial no formato AAAA-MM-DD. Padrão: 1º dia do mês atual.",
-        example="2025-09-01",
-    ),
-    end_date: Optional[date] = Query(
-        None,
-        description="Data final no formato AAAA-MM-DD. Padrão: último dia do mês atual.",
-        example="2025-09-30",
-    ),
-    projects: Optional[List[str]] = Query(
-        None,
-        description=(
-            "Lista de nomes de projetos a filtrar. Padrão: valor de `DEFAULT_PROJECTS`."
-        ),
-        example=["geo", "suporte-reurb"],
-    ),
-    users: Optional[List[str]] = Query(
-        None,
-        description="Lista de usernames para filtrar. Padrão: todos os usuários.",
-        example=["lucas"],
-    ),
+    start_date: Optional[date] = Query(None),
+    end_date: Optional[date] = Query(None),
+    projects: Optional[List[str]] = Query(None, example=["geo", "suporte-reurb"]),
+    users: Optional[List[str]] = Query(None, example=["lucas"]),
     session: AsyncSession = Depends(get_session),
 ):
     s, e = default_period(start_date, end_date)
