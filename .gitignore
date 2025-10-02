@@ -1,0 +1,75 @@
+# =========================
+# OS / Editor cruft
+# =========================
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+
+# VS Code / JetBrains
+.vscode/
+.idea/
+*.code-workspace
+
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual envs
+.venv/
+venv/
+ENV/
+env/
+
+# Packaging / builds
+build/
+dist/
+wheels/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# Test / coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+
+# Linters / type checkers
+.mypy_cache/
+.pytype/
+.pyre/
+.ruff_cache/
+.cache/
+
+# =========================
+# Env & secrets
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# Logs & runtime
+# =========================
+logs/
+*.log
+*.pid
+
+# =========================
+# Data (opcional — descomente se quiser ignorar)
+# =========================
+# data/
+# data/**/*
+# tmp/
+# exports/
+
+# SQLite / local DBs (opcional)
+# *.sqlite3
+# *.db
