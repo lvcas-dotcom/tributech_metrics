@@ -1,0 +1,26 @@
+<div class="dropdown-container">
+  <input
+    type="text"
+    placeholder="Escolha a Opção"
+    [(ngModel)]="inputValue"
+    (input)="filter($event)"
+    (focus)="showDropdown = true"
+    (blur)="onBlur()"
+    class="input-dropdown"
+    />
+
+    @if (showDropdown) {
+      <ul class="dropdown-list">
+        @for (option of filteredOptions; track option) {
+          <li (click)="selecionarOpcao(option)">
+            {{ getLabel(option) }}
+          </li>
+        }
+        @if(!filteredOptions.length){
+          <li class="muted" aria-disabled="true">
+            {{empyLabel}}
+          </li>
+        }
+      </ul>
+    }
+  </div>

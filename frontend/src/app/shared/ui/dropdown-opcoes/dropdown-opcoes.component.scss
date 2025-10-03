@@ -1,0 +1,57 @@
+@import '../../../styles/variables.scss';
+.dropdown-container {
+  position: relative;
+  width: 15rem;
+  
+  background-color: transparent;
+
+  .input-dropdown {
+    width: 100%;
+    padding: 0.2rem;
+    border-radius: 5px;
+    border: 1px solid $text-color;
+    outline: none;
+    background-color: transparent;
+    color: $text-color;
+    font-family: $font-family-primary;
+
+    &:focus {
+      border-color: $primary-color;
+      box-shadow: 0 0 5px rgba($primary-color, 0.5);
+    }
+  }
+
+  .dropdown-list {
+    position: absolute;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid $text-color;
+    border-radius: 5px;
+    margin-top: 0.2rem;
+    z-index: 100;
+    font-family: $font-family-primary;
+    li {
+      padding: 0.4rem 0.6rem;
+      cursor: pointer;
+
+      &:hover {
+        color: $primary-color;
+      }
+    }
+  }
+
+    .dropdown-list::-webkit-scrollbar {
+        width: 8px;
+    }
+    .dropdown-list::-webkit-scrollbar-thumb {
+        background-color: rgba($background-color, 0.2);
+        border-radius: 4px;
+    }
+    .dropdown-list::-webkit-scrollbar-thumb:hover {
+        background-color: rgba($background-color, 0.4);
+    }
+    .dropdown-list::-webkit-scrollbar-track-piece {
+        background-color: transparent;
+    }
+}
