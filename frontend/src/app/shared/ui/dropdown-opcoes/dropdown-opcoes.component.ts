@@ -1,12 +1,12 @@
 import { Component, EventEmitter, OnChanges, Output, SimpleChanges } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { Input } from '@angular/core';
 
 type inputPattern = {idkey: number, description: string}
 @Component({
     selector: 'dropdown-opcoes',
-    imports: [CommonModule, FormsModule],
+    imports: [FormsModule],
     standalone: true,
     templateUrl: './dropdown-opcoes.component.html',
     styleUrl: './dropdown-opcoes.component.scss'

@@ -1,13 +1,13 @@
 import {Component} from '@angular/core'
-import { DropdownOpcoesComponent } from '../../../shared/ui/dropdown-opcoes/dropdown-opcoes.component'
 import { SidebarComponent } from '../../../core/layout/sidebar/sidebar.component'
 
 import { DataCardComponent } from '../../../shared/ui/data-card/data-card.component'
 
+import { PieGraphicComponent } from '../../../shared/ui/pie-graphic/pie-graphic.component'
 @Component({
     selector: 'app-home-page',
-    imports: [DropdownOpcoesComponent, SidebarComponent,
-        DataCardComponent
+    imports: [ SidebarComponent,
+        DataCardComponent, PieGraphicComponent
     ],
     standalone: true,
     templateUrl: './home-page.component.html',
@@ -22,4 +22,5 @@ export class HomePageComponent {
   horasMinimas: string = '220';
 
   calculoHoras: string = '-190';
+
 }
