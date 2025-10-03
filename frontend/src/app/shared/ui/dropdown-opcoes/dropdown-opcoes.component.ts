@@ -5,11 +5,11 @@ import { Input } from '@angular/core';
 
 type inputPattern = {idkey: number, description: string}
 @Component({
-  selector: 'dropdown-opcoes',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './dropdown-opcoes.component.html',
-  styleUrl: './dropdown-opcoes.component.scss'
+    selector: 'dropdown-opcoes',
+    imports: [CommonModule, FormsModule],
+    standalone: true,
+    templateUrl: './dropdown-opcoes.component.html',
+    styleUrl: './dropdown-opcoes.component.scss'
 })
 export class DropdownOpcoesComponent<T extends inputPattern> implements OnChanges {
   @Input() existingOption?: T | null;
