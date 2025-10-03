@@ -17,4 +17,9 @@ export class HomePageComponent {
   options = [{idkey: 2,description:'B'},
     {idkey: 3,description:'C'}
   ]
+
+  horasFeitas: string = '22';
+  horasMinimas: string = '220';
+
+  calculoHoras: string = '-190';
 }

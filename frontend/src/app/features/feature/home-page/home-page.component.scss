@@ -1,10 +1,14 @@
+@import '../../../styles/variables.scss';
 main{
     display: grid;
     grid-template-columns: 0.15fr 0.85fr ;
     height: 100vh;
+    background-color: $background-dark-color;
 
     .conteiner{
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
+        justify-items: center;
+        padding: 1.5rem;
     }
 }
