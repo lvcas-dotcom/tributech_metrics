@@ -3,12 +3,26 @@ main{
     display: grid;
     grid-template-columns: 0.15fr 0.85fr ;
     height: 100vh;
+    width: 100vw;
     background-color: $background-dark-color;
+
+    .sidebar{
+        width: 100%;
+        height: 100%;
+    }
 
     .conteiner{
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        justify-items: center;
+        grid-template-rows:0.1fr 0.9fr;
         padding: 1.5rem;
+        width: 85vw;
+        align-items: center;
+        .cards{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            
+        }
+
+        
     }
 }
