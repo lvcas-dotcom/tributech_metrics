@@ -5,7 +5,7 @@ import { BaseChartDirective } from 'ng2-charts';
 
 
 @Component({
-  selector: 'app-pie-graphic',
+  selector: 'pie-graphic',
   standalone: true,
   imports: [BaseChartDirective],
   templateUrl: './pie-graphic.component.html',
