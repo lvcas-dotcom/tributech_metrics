@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <main>
     <app-sidebar></app-sidebar>
     <div class="conteiner">
@@ -10,6 +11,42 @@
             [imgUrl]="'../../../../assets/exclamation-triangle.svg'"/>
         </div>
 
+=======
+<section class="main">
+    <div class="sidebar">
+        <app-sidebar></app-sidebar>
+>>>>>>> 542cfd41eaa50be64fe40d6d65cb65fd98a99f1d
     </div>
     
-</main>
+    <div class="conteiner">
+
+        <div class="cards">
+            <app-data-card [title]="horasFeitas" [description]="'horas feitas no mês'"
+            [imgUrl]="'../../../../assets/check.svg'"/>
+
+            <app-data-card [title]="horasMinimas" [description]="'minimo de horas no mês '"
+            [imgUrl]="'../../../../assets/pin.svg'"/>
+
+            <app-data-card [title]="calculoHoras" [description]="'diferença de horas'"
+            [imgUrl]="'../../../../assets/exclamation-triangle.svg'"/>
+        </div>
+        
+        <div class="informations">
+            <div>a</div>
+            <div class="background">
+                <pie-graphic [values]="[40,60]" [labels]="['Atrasados','Feitas']"/>
+            </div>
+            
+        </div>
+        
+        <div class="data">
+            <div></div>
+             <div class="users-active-data">
+                <div class="background">
+                    <div class="teste"></div>
+                </div>
+             </div>
+        </div>
+
+    </div>
+</section>
