@@ -6,13 +6,13 @@
     <div class="conteiner">
 
         <div class="cards">
-            <app-data-card [title]="horasFeitas" [description]="'horas feitas no mês'"
+            <app-data-card class="card" [title]="horasFeitas" [description]="'horas feitas no mês'"
             [imgUrl]="'../../../../assets/check.svg'"/>
 
-            <app-data-card [title]="horasMinimas" [description]="'minimo de horas no mês '"
+            <app-data-card class="card" [title]="horasMinimas" [description]="'minimo de horas no mês '"
             [imgUrl]="'../../../../assets/pin.svg'"/>
 
-            <app-data-card [title]="calculoHoras" [description]="'diferença de horas'"
+            <app-data-card class="card" [title]="calculoHoras" [description]="'diferença de horas'"
             [imgUrl]="'../../../../assets/exclamation-triangle.svg'"/>
         </div>
         
@@ -28,11 +28,14 @@
             <div></div>
              <div class="users-active-data">
                 <div class="background">
-                    <span class="title">ENTREGAS DO MÊS</span>
+                    <div class="title">
+                        <img src="../../../../assets/person.svg" alt="">
+                        <span class="text">ENTREGAS DO MÊS</span>
+                    </div>
                     <div class="card-users">
                         
                         <app-data-card  [title]="'12 issues'" [description]="'Gabriel Arantes'"
-                            [imgUrl]="'../../../../assets/check.svg'"/>
+                            [imgUrl]="'../../../../assets/check.svg'" routerLink="/employee/data" />
                            
                         <app-data-card  [title]="'10 issues'" [description]="'Brunão Troll'"
                             [imgUrl]="'../../../../assets/check.svg'"/>

@@ -10,11 +10,10 @@
     border: 1px solid $background-color;
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     
     background-color: $background-color;
     font-family: $font-family-primary;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    
     .img{
         display: flex;
         align-self: center;

@@ -28,10 +28,15 @@
             padding: 1.5rem;
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            
             gap: 1.5rem; 
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             background: transparent; 
+
+            .card{
+                border-radius: 8px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+            
         }
 
         .informations{
@@ -65,10 +70,19 @@
                     overflow: hidden;
                     .title{
                         align-self: center;
-                        color: $primary-color;
-                        font-family: $font-family-primary;
-                        font-size: $font-subtitle;
-                        font-weight: $font-weight-title;
+                        display: flex;
+                        margin-bottom: 0.3rem;
+                        img{
+                            width: 1.5rem;
+                            height: 1.5rem;
+                            
+                        }
+                        .text{
+                            color: $primary-color;
+                            font-family: $font-family-primary;
+                            font-size: $font-subtitle;
+                            font-weight: $font-weight-title;
+                        }
                     }
 
                     .card-users{
