@@ -1,21 +1,6 @@
-<<<<<<< HEAD
-<main>
-    <app-sidebar></app-sidebar>
-    <div class="conteiner">
-        <div class="cards-horas">
-            <app-data-card [title]="horasFeitas" [description]="'horas feitas no mês'"
-            [imgUrl]="'../../../../assets/check.svg'"/>
-            <app-data-card [title]="horasMinimas" [description]="'minimo de horas no mês '"
-            [imgUrl]="'../../../../assets/pin.svg'"/>
-            <app-data-card [title]="calculoHoras" [description]="'diferença de horas'"
-            [imgUrl]="'../../../../assets/exclamation-triangle.svg'"/>
-        </div>
-
-=======
 <section class="main">
     <div class="sidebar">
         <app-sidebar></app-sidebar>
->>>>>>> 542cfd41eaa50be64fe40d6d65cb65fd98a99f1d
     </div>
     
     <div class="conteiner">
@@ -32,9 +17,9 @@
         </div>
         
         <div class="informations">
-            <div>a</div>
+            <div>G.A</div>
             <div class="background">
-                <pie-graphic [values]="[40,60]" [labels]="['Atrasados','Feitas']"/>
+                <pie-graphic [values]="[100,2]" [labels]="['Atrasados','Feitas']"/>
             </div>
             
         </div>
@@ -43,7 +28,23 @@
             <div></div>
              <div class="users-active-data">
                 <div class="background">
-                    <div class="teste"></div>
+                    <span class="title">ENTREGAS DO MÊS</span>
+                    <div class="card-users">
+                        
+                        <app-data-card  [title]="'12 issues'" [description]="'Gabriel Arantes'"
+                            [imgUrl]="'../../../../assets/check.svg'"/>
+                           
+                        <app-data-card  [title]="'10 issues'" [description]="'Brunão Troll'"
+                            [imgUrl]="'../../../../assets/check.svg'"/>
+                        <app-data-card  [title]="'10 issues'" [description]="'Lucas Rei Delas'"
+                            [imgUrl]="'../../../../assets/check.svg'"/>
+                        <app-data-card  [title]="'9 issues'" [description]="'Senra Microtraições'"
+                            [imgUrl]="'../../../../assets/check.svg'"/>
+                        <app-data-card  [title]="'12 issues'" [description]="'Gabriel Arantes'"
+                            [imgUrl]="'../../../../assets/check.svg'"/>
+                        <app-data-card  [title]="'12 issues'" [description]="'Gabriel Arantes'"
+                            [imgUrl]="'../../../../assets/check.svg'"/>   
+                    </div>
                 </div>
              </div>
         </div>
