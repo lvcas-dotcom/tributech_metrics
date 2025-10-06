@@ -6,9 +6,14 @@ main{
     background-color: $background-dark-color;
 
     .conteiner{
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        justify-items: center;
-        padding: 1.5rem;
+        
+        .cards-horas{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            justify-items: center;
+            padding: 1.5rem 0.5rem;
+            border-bottom: 1px solid #e8e8e8ef;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
     }
 }
