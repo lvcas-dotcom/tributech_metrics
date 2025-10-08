@@ -3,7 +3,7 @@ import { Component, EventEmitter, OnChanges, Output, SimpleChanges } from '@angu
 import { FormsModule } from '@angular/forms';
 import { Input } from '@angular/core';
 
-type inputPattern = {idkey: number, description: string}
+type inputPattern = {description: string}
 @Component({
     selector: 'dropdown-opcoes',
     imports: [FormsModule],

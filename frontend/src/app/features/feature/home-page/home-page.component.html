@@ -1,14 +1,56 @@
-<main>
-    <app-sidebar></app-sidebar>
-    <div class="conteiner">
-        <app-data-card [title]="horasFeitas" [description]="'horas feitas no mês'"
-        [imgUrl]="'../../../../assets/check.svg'"/>
-        <app-data-card [title]="horasMinimas" [description]="'minimo de horas no mês '"
-        [imgUrl]="'../../../../assets/pin.svg'"/>
-        <app-data-card [title]="calculoHoras" [description]="'diferença de horas'"
-        [imgUrl]="'../../../../assets/exclamation-triangle.svg'"/>
-        <br>
-        <app-pie-graphic [labels]="['sla1','sla2','sla3']" [values]="[3,4,5]"/>
+<section class="main">
+    <div class="sidebar">
+        <app-sidebar></app-sidebar>
     </div>
     
-</main>
+    <div class="conteiner">
+
+        <div class="cards">
+            <app-data-card class="card" [title]="horasFeitas" [description]="'horas feitas no mês'"
+            [imgUrl]="'../../../../assets/check.svg'"/>
+
+            <app-data-card class="card" [title]="horasMinimas" [description]="'minimo de horas no mês '"
+            [imgUrl]="'../../../../assets/pin.svg'"/>
+
+            <app-data-card class="card" [title]="calculoHoras" [description]="'diferença de horas'"
+            [imgUrl]="'../../../../assets/exclamation-triangle.svg'"/>
+        </div>
+        
+        <div class="informations">
+            <div>G.A</div>
+            <div class="background">
+                <pie-graphic [values]="[100,2]" [labels]="['Atrasados','Feitas']"/>
+            </div>
+            
+        </div>
+        
+        <div class="data">
+            <div></div>
+             <div class="users-active-data">
+                <div class="background">
+                    <div class="title">
+                        <img src="../../../../assets/person.svg" alt="">
+                        <span class="text">ENTREGAS DO MÊS</span>
+                    </div>
+                    <div class="card-users">
+                        
+                        <app-data-card  [title]="'12 issues'" [description]="'Gabriel Arantes'"
+                            [imgUrl]="'../../../../assets/check.svg'" routerLink="/employee/data" />
+                           
+                        <app-data-card  [title]="'10 issues'" [description]="'Brunão Troll'"
+                            [imgUrl]="'../../../../assets/check.svg'"/>
+                        <app-data-card  [title]="'10 issues'" [description]="'Lucas Rei Delas'"
+                            [imgUrl]="'../../../../assets/check.svg'"/>
+                        <app-data-card  [title]="'9 issues'" [description]="'Senra Microtraições'"
+                            [imgUrl]="'../../../../assets/check.svg'"/>
+                        <app-data-card  [title]="'12 issues'" [description]="'Gabriel Arantes'"
+                            [imgUrl]="'../../../../assets/check.svg'"/>
+                        <app-data-card  [title]="'12 issues'" [description]="'Gabriel Arantes'"
+                            [imgUrl]="'../../../../assets/check.svg'"/>   
+                    </div>
+                </div>
+             </div>
+        </div>
+
+    </div>
+</section>
