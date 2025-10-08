@@ -1,0 +1,85 @@
+@import "../../../styles/variables.scss";
+.container{
+    background-color: transparent;
+    height: 100%;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 0.2fr 0.9fr;
+
+    .calculo{
+        grid-column: 1;
+        background-color: transparent;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        label{
+            background-color: transparent;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            color: $text-color;
+            padding: 0 0.5rem;
+        }
+
+        select {
+            background-color: $background-light-color;
+            color: $text-color;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.2rem;
+            width: 12rem;
+            border: 1px solid $accent-color;
+            border-radius: 6px;
+            outline: none;
+            transition: border-color 0.2s;
+            cursor: pointer;
+
+            &:focus {
+                border-color: $primary-color;
+                box-shadow: 0 0 0 2px rgba($primary-color, 0.15);
+            }
+        }
+    }
+    .barra-pesquisa{
+        grid-column: 2;
+        margin-left: 10%;
+        display: flex;
+        align-self: center;
+        justify-self: start;
+        width: 50%;
+        height: 3.5rem;
+        border-radius: 0.5rem;
+        display: flex;
+        align-items: center;
+        padding: 0 1rem;
+        gap: 0.5rem;
+        background-color: $background-dark-color;
+
+        input{
+            width: 100%;
+            height: 2.5rem;
+            background-color: transparent;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+            color: $text-color;
+        }
+
+        img{
+            width: 1.7rem;   
+            height: 1.7rem;
+            background-color: transparent;
+        }
+
+        &:hover{
+            transform: scale(1.05);
+        }
+        &:focus-within{
+            transform: scale(1.05);
+            border: 1.5px solid $text-color;
+            transition: all 0.1s ease;
+        }
+    }
+    
+
+}
