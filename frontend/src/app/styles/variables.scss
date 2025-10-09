@@ -18,3 +18,12 @@ $text-light-color: #484848;
 
 $img-logo: 1.7rem;
 $background-img-color:#8e56f084;
+
+
+@mixin bg-default{
+    background-color: $background-color;
+    border-radius: 8px;
+    padding: 0.5rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+
+}
