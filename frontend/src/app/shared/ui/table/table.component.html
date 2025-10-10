@@ -1,0 +1,21 @@
+<div class="table">
+    @for(item of itens; track item.id){
+        <div class="table-item" (click)="emitItem(item)">
+            <div class="title">
+                {{item.title}}
+            </div>
+            <div class="labels">
+                <div class="label">
+                    {{item.label1}}
+                </div>
+                
+            </div>
+            <div class="hours">
+                {{item.label2}}
+            </div>
+            <div class="dates">
+                {{item.label3}}
+            </div>
+        </div>
+    }
+</div>
