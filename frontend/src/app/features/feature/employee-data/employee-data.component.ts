@@ -16,7 +16,6 @@ export class EmployeeDataComponent {
   private git = inject(GitLabService);
 
   goToIssue(idIssue: number) {
-  
     window.open(this.git.getIssueUrl('suporte',idIssue), '_blank'); 
   }
 }
