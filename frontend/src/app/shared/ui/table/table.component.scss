@@ -1,0 +1,68 @@
+@use '../../../../app/styles/variables.scss' as v;
+
+.table{ 
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+    max-height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    .table-item{
+        display: grid;
+        grid-template-columns: 0.5fr 0.3fr 0.1fr 0.1fr;
+        align-items: center;
+        justify-items: start;
+        color: v.$text-color;
+        font-family: v.$font-family-primary;
+        font-size: v.$font-text;
+        font-weight: v.$font-weight;
+        align-self: stretch;        
+        box-sizing: border-box; 
+        padding: 0.75rem 1rem;
+        cursor: pointer;
+        border-bottom: 2px solid v.$background-img-color;
+        .title{
+            max-width: 80%;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            font-size: v.$font-subtitle;
+        }
+
+        .labels{
+            display: flex;
+            flex-direction: row;
+            max-width: 70%;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+
+            .label{
+                border: 2px solid v.$secundary-color1;
+                border-radius: 10px;
+                color: v.$secundary-color1;
+                padding: 0 0.2rem;
+                margin-right: 0.5rem;
+            }
+        }
+
+        .hours{
+            border: 2px solid v.$secundary-color2;
+                border-radius: 10px;
+                color: v.$secundary-color2;
+                padding: 0 0.2rem;
+                margin-right: 0.5rem;
+        }
+        .dates{
+            
+        }
+
+        &:hover {
+            background-color: rgba(v.$primery-light-color, 0.25);
+        }
+    }
+}   

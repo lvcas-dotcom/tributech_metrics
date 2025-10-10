@@ -1,4 +1,53 @@
 <section class="main">
     <app-sidebar/>
+    <div class="conteiner">
+        
+        <div class="user-params">
+            <div class="card-data">
+                <app-data-card class="card" [title]="'12'" [description]="'Issues Feitas / Mês'"
+                [imgUrl]="'../../../../assets/exclamation-triangle.svg'"/>
+                <app-data-card class="card" [title]="'-12'" [description]="'Horas Necessárias'"
+                [imgUrl]="'../../../../assets/exclamation-triangle.svg'"/>
+                <app-data-card class="card" [title]="'30'" [description]="'Horas Apontadas'"
+                [imgUrl]="'../../../../assets/exclamation-triangle.svg'"/>
+            </div>
+            <div class="user-graphic">
+                <div class="background">
+                    <span class="text">Gerenciamento das Horas</span>
+                    <pie-graphic [values]="[100,90]" [labels]="['Ajudando','Executando']"/>
+                </div>
+            </div>
+        </div>
+        <div class="user-card">
+            <div class="background">
+                <div class="card">
+                    <div class="img">
+                        <img src="../../../../assets/person.svg" alt="" class="card-img">
+                    </div>
+                    <div class="text">
+                        <span class="name">
+                            Gabriel Arantes
+                        </span>
+                        <span class="description">
+                            gabriel.arantes@tributech.com.br
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <div class="table-issue">
+            <div class="background">
+                <div class="text">
+                    ISSUES ASSIGNADAS  
+                </div>
+                <div class="table">
+                    <app-table [itens]="[{id: 1, title: 'slka', label1: 'null', label2: 'toDo', label3: '21-22-1222'}]"
+                    (item)="goToIssue($event)"/>
+                </div>
+            </div>
+        </div>
+        
 
-</section>
+    </div>
+<section>
