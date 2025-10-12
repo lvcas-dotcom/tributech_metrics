@@ -40,14 +40,38 @@
         }
 
         .informations{
-            padding: 1.5rem;
+            padding: 1.5%;
             width: 100%;
             display: grid;
-            grid-template-columns: 0.7fr 0.2fr;
+            grid-template-columns: 0.7fr 0.3fr;
             align-items: center;
-            justify-content: space-between;
-            gap: 1.5rem;
+            justify-content: stretch;
+            gap: 1.5%;
             
+            .background{
+                width: 85%;
+                height: 100%;
+                justify-self: end;
+                .pie-graphic{
+                    
+                
+                }
+            }
+           
+            
+            .background-point{
+                @include v.bg-default;
+                width: 100%;
+                height: 100%;
+                .point-graphic{
+                    width: 100%;
+                    height: 90%;
+                    grid-column: 1;
+                }
+            }
+            
+            
+
             .text{
                 display: flex;
                 justify-self: center;
@@ -60,15 +84,16 @@
         }
 
         .data{
-            padding-right: 1.5rem;
+            padding-right: 1.5%;
             display: grid;
             min-height: 0;
             grid-template-columns: 1fr 0.33fr; 
-            justify-content: center;
+            justify-content: stretch;
             
             .users-active-data{
                 width: 100%;
                 height: 100%;
+                grid-column: 2;
 
                 .background{
                     display: flex;
@@ -77,6 +102,7 @@
                     justify-content: flex-start;
                     flex: 1;
                     min-height: 0;
+                    max-height: 100%;
                     overflow: hidden;
                     .title{
                         align-self: center;
@@ -109,6 +135,8 @@
                
             
         }
+
+        
     }
 }
 

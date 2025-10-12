@@ -17,16 +17,26 @@
         </div>
         
         <div class="informations">
-            <div>G.A</div>
-            <div class="background">
-                <span class="text">ANÁLSE DE ISSUES</span>
-                <pie-graphic [values]="[100,2]" [labels]="['Atrasados','Feitas']"/>
+            <div class="background-point">
+                <span class="text">ISSUES ENTREGUES POR MÊS</span>
+                <div class="point-graphic">
+                    <app-point-graphic/>
+                </div>
             </div>
+            <div>
+                <div class="background">
+                    <span class="text">ANÁLSE DE ISSUES</span>
+                    <div  class="pie-graphic">
+                        <pie-graphic [values]="[100,2]" [labels]="['Atrasados','Feitas']"/>
+                    </div>
+                    
+                </div>
+            </div>
+            
             
         </div>
         
         <div class="data">
-            <div></div>
              <div class="users-active-data">
                 <div class="background">
                     <div class="title">
@@ -53,5 +63,6 @@
              </div>
         </div>
 
+        
     </div>
 </section>

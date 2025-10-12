@@ -48,6 +48,7 @@ export class PieGraphicComponent {
   // Opções do gráfico
   public lineChartOptions: ChartOptions = {
     responsive: true,
+     maintainAspectRatio: false
   };
 
   // Tipo do gráfico
