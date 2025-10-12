@@ -15,7 +15,7 @@ export class PointGraphicComponent {
 public lineChartType: ChartType = 'line';
 
   public lineChartData: ChartData<'line'> = {
-    labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio','Junho','Julho','Setembro','Outubro','Novembro','Dezembro'],
+    labels: ['JAN', 'FEV', 'MAR', 'ABR', 'MAI','JUN','JUL','SET','OUT','NOV','DEZ'],
     datasets: [
       {
         data: [65, 59, 80, 81, 56,1,50,60,10,20,13],
