@@ -8,6 +8,8 @@ from app.schemas.metrics import (
     MetricByTask,
     MetricByUserMonth,
     MetricByUserProjectMonth,
+    IssueAssignedByUser,
+    HelpHoursByUser,
 )
 
 
@@ -43,5 +45,23 @@ class MetricsService:
         users: Optional[Sequence[str]],
     ) -> List[MetricByUserProjectMonth]:
         return await self.repo.fetch_by_user_project_month(
+            start_date, end_date, projects, users
+        )
+
+    async def issues_assigned_by_user(
+        self,
+        projects: Optional[Sequence[str]],
+        users: Optional[Sequence[str]],
+    ) -> List[IssueAssignedByUser]:
+        return await self.repo.fetch_issues_assigned_by_user(projects, users)
+
+    async def help_hours_by_user(
+        self,
+        start_date: date,
+        end_date: date,
+        projects: Optional[Sequence[str]],
+        users: Optional[Sequence[str]],
+    ) -> List[HelpHoursByUser]:
+        return await self.repo.fetch_help_hours_by_user(
             start_date, end_date, projects, users
         )

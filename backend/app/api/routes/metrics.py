@@ -10,6 +10,8 @@ from app.schemas.metrics import (
     MetricByTask,
     MetricByUserMonth,
     MetricByUserProjectMonth,
+    IssueAssignedByUser,
+    HelpHoursByUser,
 )
 from app.services.metrics_service import MetricsService
 
@@ -102,3 +104,54 @@ async def by_user_project_month(
     prjs = projects if projects is not None else default_projects()
     service = MetricsService(session)
     return await service.by_user_project_month(s, e, prjs, users)
+
+
+@router.get(
+    "/issues-assigned-by-user",
+    response_model=List[IssueAssignedByUser],
+    summary="Issues assigned by user in the current month",
+    description=(
+        "Retorna as **issues assinadas por usuário no mês atual** (issues abertas). "
+        "Se `projects` não for enviado, é usada a lista configurada em `DEFAULT_PROJECTS`."
+    ),
+)
+async def issues_assigned_by_user(
+    projects: Optional[List[str]] = Query(
+        None, description="Projetos", example=["geo", "suporte-reurb"]
+    ),
+    users: Optional[List[str]] = Query(
+        None, description="Usernames", example=["lucas"]
+    ),
+    session: AsyncSession = Depends(get_session),
+):
+    prjs = projects if projects is not None else default_projects()
+    service = MetricsService(session)
+    return await service.issues_assigned_by_user(prjs, users)
+
+
+@router.get(
+    "/help-hours-by-user",
+    response_model=List[HelpHoursByUser],
+    summary="Help hours by user",
+    description=(
+        "Retorna as **horas de ajuda** para outros colaboradores (em issues nas quais o usuário NÃO é responsável). "
+        "Inclui também horas totais do mês e horas líquidas (horas próprias). "
+        "Se `start_date` e `end_date` não forem enviados, o período padrão é o mês atual. "
+        "Se `projects` não for enviado, é usada a lista configurada em `DEFAULT_PROJECTS`."
+    ),
+)
+async def help_hours_by_user(
+    start_date: Optional[date] = Query(None, description="Data inicial (YYYY-MM-DD)"),
+    end_date: Optional[date] = Query(None, description="Data final (YYYY-MM-DD)"),
+    projects: Optional[List[str]] = Query(
+        None, description="Projetos", example=["geo", "suporte-reurb"]
+    ),
+    users: Optional[List[str]] = Query(
+        None, description="Usernames", example=["lucas"]
+    ),
+    session: AsyncSession = Depends(get_session),
+):
+    s, e = default_period(start_date, end_date)
+    prjs = projects if projects is not None else default_projects()
+    service = MetricsService(session)
+    return await service.help_hours_by_user(s, e, prjs, users)

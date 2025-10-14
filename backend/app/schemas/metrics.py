@@ -19,3 +19,18 @@ class MetricByUserProjectMonth(BaseModel):
     projeto: str
     mes: date
     horas_apontadas: float
+
+
+class IssueAssignedByUser(BaseModel):
+    usuario: str
+    mes: date
+    total_issues_assinadas: int
+    projeto: str
+
+
+class HelpHoursByUser(BaseModel):
+    usuario: str
+    mes: date
+    horas_ajuda: float
+    horas_totais_mes: float
+    horas_liquidas: float
