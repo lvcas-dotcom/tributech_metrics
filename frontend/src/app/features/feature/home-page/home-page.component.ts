@@ -5,11 +5,12 @@ import { DataCardComponent } from '../../../shared/ui/data-card/data-card.compon
 
 import { PieGraphicComponent } from '../../../shared/ui/pie-graphic/pie-graphic.component'
 import { RouterLink } from "@angular/router";
+import { PointGraphicComponent } from '../../../shared/ui/point-graphic/point-graphic.component';
 
 @Component({
     selector: 'app-home-page',
     imports: [SidebarComponent,
-    DataCardComponent, PieGraphicComponent, RouterLink],
+    DataCardComponent, PieGraphicComponent, RouterLink, PointGraphicComponent],
     standalone: true,
     templateUrl: './home-page.component.html',
     styleUrl: './home-page.component.scss'
