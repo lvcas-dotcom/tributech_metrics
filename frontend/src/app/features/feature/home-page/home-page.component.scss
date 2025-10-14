@@ -122,7 +122,8 @@
             justify-content: stretch;
             
             .users-active-data{
-                width: 100%;
+                width: 95%;
+                justify-self: end;
                 height: 100%;
                 grid-column: 2;
 
@@ -156,7 +157,7 @@
                         flex: 1 1 auto;
                         min-height: 0;
                         width: 100%;
-                        max-height: 18vh;
+                        max-height: 30vh;
                         overflow-y: auto;
                         overflow-x: hidden;
                     }
