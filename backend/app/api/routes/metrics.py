@@ -12,6 +12,7 @@ from app.schemas.metrics import (
     MetricByUserProjectMonth,
     IssueAssignedByUser,
     HelpHoursByUser,
+    HighPriorityIssue,
 )
 from app.services.metrics_service import MetricsService
 
@@ -155,3 +156,24 @@ async def help_hours_by_user(
     prjs = projects if projects is not None else default_projects()
     service = MetricsService(session)
     return await service.help_hours_by_user(s, e, prjs, users)
+
+
+@router.get(
+    "/high-priority-issues",
+    response_model=List[HighPriorityIssue],
+    summary="High priority issues",
+    description=(
+        "Retorna as **issues com prioridade alta** (label P_Alta) que estão abertas. "
+        "Ideal para mostrar em cards de atenção/urgência. "
+        "Se `projects` não for enviado, é usada a lista configurada em `DEFAULT_PROJECTS`."
+    ),
+)
+async def high_priority_issues(
+    projects: Optional[List[str]] = Query(
+        None, description="Projetos", example=["geo", "suporte-reurb"]
+    ),
+    session: AsyncSession = Depends(get_session),
+):
+    prjs = projects if projects is not None else default_projects()
+    service = MetricsService(session)
+    return await service.high_priority_issues(prjs)

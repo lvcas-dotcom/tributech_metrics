@@ -1,5 +1,5 @@
 
-from datetime import date
+from datetime import date, datetime
 from pydantic import BaseModel
 
 class MetricByTask(BaseModel):
@@ -34,3 +34,12 @@ class HelpHoursByUser(BaseModel):
     horas_ajuda: float
     horas_totais_mes: float
     horas_liquidas: float
+
+
+class HighPriorityIssue(BaseModel):
+    issue_id: int
+    titulo_issue: str
+    projeto: str
+    label: str
+    created_at: datetime
+    updated_at: datetime

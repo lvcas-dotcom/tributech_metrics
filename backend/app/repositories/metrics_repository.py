@@ -10,6 +10,7 @@ from app.schemas.metrics import (
     MetricByUserProjectMonth,
     IssueAssignedByUser,
     HelpHoursByUser,
+    HighPriorityIssue,
 )
 
 
@@ -118,6 +119,27 @@ class MetricsRepository:
     """
     )
 
+    SQL_HIGH_PRIORITY_ISSUES = text(
+        """
+        SELECT
+            i.id         AS issue_id,
+            i.title      AS titulo_issue,
+            p.name       AS projeto,
+            l.title      AS label,
+            i.created_at,
+            i.updated_at
+        FROM label_links    ll
+        JOIN labels         l  ON l.id = ll.label_id
+        JOIN issues         i  ON i.id = ll.target_id
+        JOIN projects       p  ON p.id = i.project_id
+        WHERE ll.target_type = 'Issue'
+          AND l.title = 'P_Alta'
+          AND i.closed_at IS NULL
+          AND (:projects_is_null OR p.name = ANY(:projects))
+        ORDER BY i.created_at DESC
+    """
+    )
+
     def __init__(self, session: AsyncSession) -> None:
         self.session = session
 
@@ -210,3 +232,18 @@ class MetricsRepository:
             .all()
         )
         return [HelpHoursByUser(**r) for r in rows]
+
+    async def fetch_high_priority_issues(
+        self,
+        projects: Optional[Sequence[str]],
+    ) -> List[HighPriorityIssue]:
+        params = {
+            "projects": list(projects) if projects else [],
+            "projects_is_null": projects is None or len(projects) == 0,
+        }
+        rows = (
+            (await self.session.execute(self.SQL_HIGH_PRIORITY_ISSUES, params))
+            .mappings()
+            .all()
+        )
+        return [HighPriorityIssue(**r) for r in rows]

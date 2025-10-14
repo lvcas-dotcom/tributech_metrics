@@ -10,6 +10,7 @@ from app.schemas.metrics import (
     MetricByUserProjectMonth,
     IssueAssignedByUser,
     HelpHoursByUser,
+    HighPriorityIssue,
 )
 
 
@@ -65,3 +66,9 @@ class MetricsService:
         return await self.repo.fetch_help_hours_by_user(
             start_date, end_date, projects, users
         )
+
+    async def high_priority_issues(
+        self,
+        projects: Optional[Sequence[str]],
+    ) -> List[HighPriorityIssue]:
+        return await self.repo.fetch_high_priority_issues(projects)
