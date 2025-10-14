@@ -18,78 +18,140 @@
         align-items: center;
         width: 15vw;
         margin: 0.5rem;
-        font-family: Poppins, sans-serif;
+        font-family: $font-family-primary;
         color: $text-color;
         font-size: 1.5rem;
-        border-bottom: 1px solid $text-light-color;
         padding: 1rem;
+        box-shadow: 0px 4px 4px -2px rgba(0, 0, 0, 0.185);
+        letter-spacing: 0.15rem;
         cursor: pointer;
         img{
             width: 2.5rem;
             height: 2.5rem;
-            margin-right: 0.5rem;
+            margin-right: 1rem;
         }
     }
 
-    .menu{
+    .menu {
         display: flex;
         flex-direction: column;
-        background-color: $background-color;
-        align-items: baseline;
-        justify-content: center;
-        gap: 1rem;
-        .navegador-opcoes{
+        padding: 0.75rem 0.75rem 1rem;
+        gap: 0.35rem;
+        overflow: auto;
+
+        scrollbar-width: thin;
+        scrollbar-color: rgba(0, 0, 0, .25) transparent;
+
+        &::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, .25);
+            border-radius: 8px;
+        }
+
+        .navegador-opcoes {
+            position: relative;
             display: flex;
-            margin-left: 1rem;
-            width: 15vw;
             align-items: center;
-            justify-content: start;
+            gap: 1rem;
+            font-family: $font-family-primary;
             font-size: $font-subtitle;
-            font-family: Poppins, sans-serif;
-            padding: 0.5rem ;
             color: $text-color;
-            width: 85%;
+            width: 100%;
+            padding: 0.85rem 1.25rem 0.85rem 1.15rem;
+            border-radius: 12px;
             cursor: pointer;
-            background-color: inherit !important;
-            transition: all 0.3s ease;
-            
+            background-color: transparent;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            transition:
+                background-color .25s ease,
+                color .25s ease,
+                transform .18s ease,
+                box-shadow .2s ease;
 
-            .icon{
-                width: $img-logo;
-                height: $img-logo;
-                margin-right: 0.5rem;
+            &::before {
+                content: "";
+                position: absolute;
+                left: 0.35rem;
+                top: 50%;
+                transform: translateY(-50%) scaleY(0);
+                transform-origin: top;
+                width: 3px;
+                height: 70%;
+                border-radius: 2px;
+                background: $primary-color;
+                transition: transform .22s ease;
+                opacity: .9;
             }
-            
-            &:HOVER{
-                border-bottom: 1.5px solid $primary-color;
-                padding: 0.3rem;
+
+            &:hover {
+                background-color: rgba(0, 0, 0, 0.08);
                 color: $primary-color;
-                transform: scale(1.1);
-                background-color: $primary-color;
+                transform: translateX(4px);
             }
-            
-            &.active{
-                color:$primary-color;
-                border-bottom:1.5px solid $primary-color;
 
-                .icon { filter: brightness(0) invert(1); }
+            &:hover::before {
+                transform: translateY(-50%) scaleY(1);
             }
-    
+
+            &:active {
+                transform: translateX(2px) scale(0.995);
+            }
+
+            &:focus-visible {
+                outline: 2px solid rgba($primary-color, .65);
+                outline-offset: 2px;
+            }
+
+            &.active {
+                color: #fff;
+                background: linear-gradient(90deg,
+                        rgba($primary-color, 0.92) 0%,
+                        rgba($primary-color, 0.82) 100%);
+                box-shadow: 0 6px 16px rgba(0, 0, 0, 0.22);
+
+                &::before {
+                    background: #fff;
+                    opacity: .95;
+                    transform: translateY(-50%) scaleY(1);
+                }
+
+                svg,
+                img {
+                    filter: brightness(0) invert(1);
+                }
+            }
+
+            svg,
+            img {
+                width: 1.25rem;
+                height: 1.25rem;
+                flex: 0 0 1.25rem;
+                opacity: .92;
+            }
         }
     }
 
-    .footer{
-        width: 15vw;
+    .footer {
+        width: 16vw;
         display: flex;
         flex-direction: column;
-        align-items: self-end;
+        align-items: center;
         justify-content: center;
-        font-family: Poppins, sans-serif;
+        font-family: Montserrat, sans-serif;
         color: $text-color;
-        font-size: 0.8rem;
+        font-size: 0.95rem;
         text-align: center;
         padding: 1rem;
-        border-top: 1px solid $text-light-color;
+        box-shadow: 0px -4px 4px -2px rgba(0, 0, 0, 0.185);
+        letter-spacing: 0.05rem;
     }
 
 }

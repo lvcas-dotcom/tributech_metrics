@@ -16,8 +16,8 @@
     .conteiner{
         display: grid;
         grid-template-columns: 1fr;
-        grid-template-rows:  0.1fr 0.3fr 0.6fr; 
-        min-height: 0;
+        grid-template-rows:  0.1fr 0.4fr 0.6fr; 
+        /* min-height: 0; */
         width: 100%;
         height: 100%;
 
@@ -49,7 +49,7 @@
             gap: 1.5%;
             
             .background{
-                width: 85%;
+                width: 90%;
                 height: 100%;
                 justify-self: end;
                 
@@ -74,8 +74,8 @@
                     justify-content: center;
                     text-align: center;
                     .background{
-                        border-radius: 30px 0;
-                        background-color: v.$background-img-color;
+                        border-radius: 10px;
+                        background-color: v.$background-cards;
                         margin: 0.5rem;
                         width: 80%;
                         height: 30%;
@@ -91,7 +91,7 @@
                             font-weight: v.$font-weight-title;
                         }
                         .descripton{
-                            font-style: italic;
+                            /* font-style: italic; */
                             color: v.$text-color;
                             font-family: v.$font-family-primary;
                             font-size: v.$font-subtitle;

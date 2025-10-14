@@ -6,6 +6,7 @@
 }
 .card {
     display: grid;
+    height: 130%;
     grid-template-columns: 0.3fr 0.7fr;
     border: 1px solid $background-color;
     border-radius: 8px;
@@ -49,9 +50,9 @@
     }
   
     &:hover{
-        scale: (1.05);
         .img{
             animation: tilt-shaking 0.5s infinite;
+            scale: (1.05);
         }
     }
     @keyframes tilt-shaking {
