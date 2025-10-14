@@ -122,7 +122,7 @@ class MetricsRepository:
     SQL_HIGH_PRIORITY_ISSUES = text(
         """
         SELECT
-            i.id         AS issue_id,
+            i.iid         AS issue_id,
             i.title      AS titulo_issue,
             p.name       AS projeto,
             l.title      AS label,
