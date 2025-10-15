@@ -161,19 +161,21 @@
                         max-height: 18vh;
                         overflow-y: auto;
                         overflow-x: hidden;
+                        padding: 3px 0;
 
                         app-data-card {
                             display: block;
                             position: relative;
                             cursor: pointer;
+                            margin: 2px 0;
                             transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 
                             &::before {
                                 content: '';
                                 position: absolute;
                                 inset: 0;
-                                border-radius: 8px;
-                                padding: 1px;
+                                border-radius: 10px;
+                                padding: 1.6px;
                                 background: linear-gradient(135deg, transparent, v.$primary-color, transparent);
                                 -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
                                 -webkit-mask-composite: xor;
@@ -187,6 +189,7 @@
                             &:hover {
                                 transform: translateY(-2px) translateX(2px) scale(1.01);
                                 filter: brightness(1.05);
+                                z-index: 10;
 
                                 &::before {
                                     opacity: 0.6;
