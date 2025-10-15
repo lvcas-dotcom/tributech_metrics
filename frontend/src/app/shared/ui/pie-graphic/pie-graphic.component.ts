@@ -42,7 +42,7 @@ export class PieGraphicComponent {
           ],
           borderColor: '#12131A',
           borderWidth: 2,
-          hoverBorderColor: '#ffffff',
+          hoverBorderColor: '#12131A',
           hoverBorderWidth: 2,
           offset: 2,
           hoverOffset: 8
