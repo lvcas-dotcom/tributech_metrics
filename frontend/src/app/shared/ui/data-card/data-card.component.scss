@@ -24,11 +24,14 @@
         border-radius: 100%;
         width: calc($img-logo * 1.6); 
         height: calc($img-logo * 1.6); 
-        overflow: hidden; 
+        overflow: visible;
+        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
        
         .card-img {
             width: $img-logo;
             height: $img-logo;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform-origin: center center;
         }
     }
   
@@ -51,15 +54,13 @@
   
     &:hover{
         .img{
-            animation: tilt-shaking 0.5s infinite;
-            scale: (1.05);
+            transform: scale(1.15) rotate(8deg);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            background-color: lighten($background-img-color, 5%);
         }
-    }
-    @keyframes tilt-shaking {
-        0% { transform: rotate(0deg); }
-        25% { transform: rotate(5deg); }
-        50% { transform: rotate(0eg); }
-        75% { transform: rotate(-5deg); }
-        100% { transform: rotate(0deg); }
+
+        .card-img {
+            transform: scale(1.05);
+        }
     }
 }
