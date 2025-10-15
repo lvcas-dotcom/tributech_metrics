@@ -161,6 +161,69 @@
                         max-height: 18vh;
                         overflow-y: auto;
                         overflow-x: hidden;
+                        padding: 3px 0;
+                        scrollbar-width: thin;
+                        scrollbar-color: rgba(v.$primary-color, 0.3) transparent;
+
+                        &::-webkit-scrollbar {
+                            width: 6px;
+                        }
+
+                        &::-webkit-scrollbar-track {
+                            background: transparent;
+                            border-radius: 10px;
+                        }
+
+                        &::-webkit-scrollbar-thumb {
+                            background: rgba(v.$primary-color, 0.3);
+                            border-radius: 10px;
+                        }
+
+                        app-data-card {
+                            display: block;
+                            position: relative;
+                            cursor: pointer;
+                            margin: 2px 0;
+                            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+                            --mouse-x: 50%;
+                            --mouse-y: 50%;
+
+                            &::before {
+                                content: '';
+                                position: absolute;
+                                inset: 0;
+                                border-radius: 10px;
+                                padding: 1.6px;
+                                background: radial-gradient(
+                                    circle at var(--mouse-x) var(--mouse-y),
+                                    v.$primary-color 0%,
+                                    v.$primary-color 20%,
+                                    rgba(v.$primary-color, 0.4) 40%,
+                                    transparent 70%
+                                );
+                                -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                                -webkit-mask-composite: xor;
+                                mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                                mask-composite: exclude;
+                                opacity: 0;
+                                transition: opacity 0.35s ease;
+                                pointer-events: none;
+                            }
+
+                            &:hover {
+                                transform: translateY(-2px) translateX(2px) scale(1.01);
+                                filter: brightness(1.05);
+                                z-index: 10;
+
+                                &::before {
+                                    opacity: 0.7;
+                                }
+                            }
+
+                            &:active {
+                                transform: translateY(-1px) translateX(1px) scale(1);
+                            }
+                        }
                     }
                 }
                 

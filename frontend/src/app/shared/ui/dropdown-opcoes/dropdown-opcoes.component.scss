@@ -1,4 +1,4 @@
-@import '../../../styles/variables.scss';
+@use '../../../styles/variables' as *;
 .dropdown-container {
   position: relative;
   width: 15rem;

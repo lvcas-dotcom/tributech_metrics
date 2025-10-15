@@ -15,29 +15,108 @@ export class PointGraphicComponent {
 public lineChartType: ChartType = 'line';
 
   public lineChartData: ChartData<'line'> = {
-    labels: ['JAN', 'FEV', 'MAR', 'ABR', 'MAI','JUN','JUL','SET','OUT','NOV','DEZ'],
+    labels: ['JAN', 'FEV', 'MAR', 'ABR', 'MAI','JUN','JUL','AGO','SET','OUT','NOV','DEZ'],
     datasets: [
       {
-        data: [65, 59, 80, 81, 56,1,50,60,10,20,13],
-        label: 'Issues Feitas',
+        data: [65, 59, 80, 81, 56, 45, 50, 60, 70, 75, 68, 72],
+        label: 'Issues Concluídas',
         borderColor: '#7C3AED',
-        backgroundColor: '#8b4cf974',
+        backgroundColor: (context: any) => {
+          const ctx = context.chart.ctx;
+          const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+          gradient.addColorStop(0, 'rgba(124, 58, 237, 0.4)');
+          gradient.addColorStop(0.5, 'rgba(124, 58, 237, 0.2)');
+          gradient.addColorStop(1, 'rgba(124, 58, 237, 0.05)');
+          return gradient;
+        },
         fill: true,
-        tension: 0.4
+        tension: 0.4,
+        borderWidth: 3,
+        pointRadius: 5,
+        pointHoverRadius: 8,
+        pointBackgroundColor: '#7C3AED',
+        pointBorderColor: '#ffffff',
+        pointBorderWidth: 2,
+        pointHoverBackgroundColor: '#ffffff',
+        pointHoverBorderColor: '#7C3AED',
+        pointHoverBorderWidth: 3
       }
     ]
   };
 
   public lineChartOptions: ChartOptions = {
     responsive: true,
-     maintainAspectRatio: false,
+    maintainAspectRatio: false,
+    interaction: {
+      mode: 'index',
+      intersect: false
+    },
     plugins: {
-      legend: { display: true },
-      tooltip: { enabled: true }
+      legend: { 
+        display: true,
+        position: 'top',
+        align: 'end',
+        labels: {
+          color: '#9CA3AF',
+          font: {
+            size: 12,
+            weight: 500,
+            family: 'Montserrat, sans-serif'
+          },
+          padding: 15,
+          usePointStyle: true,
+          pointStyle: 'circle'
+        }
+      },
+      tooltip: { 
+        enabled: true,
+        backgroundColor: 'rgba(17, 24, 39, 0.95)',
+        titleColor: '#F3F4F6',
+        bodyColor: '#E5E7EB',
+        borderColor: '#7C3AED',
+        borderWidth: 1,
+        padding: 12,
+        displayColors: true,
+        callbacks: {
+          label: (context: any) => {
+            return `${context.dataset.label}: ${context.parsed.y} issues`;
+          }
+        }
+      }
     },
     scales: {
-      x: { title: { display: true, text: '' } },
-      y: { title: { display: true, text: 'Issues Feitas' }, beginAtZero: true }
+      x: { 
+        grid: {
+          display: true,
+          color: 'rgba(156, 163, 175, 0.1)',
+          lineWidth: 1
+        },
+        ticks: {
+          color: '#9CA3AF',
+          font: {
+            size: 11,
+            weight: 500,
+            family: 'Montserrat, sans-serif'
+          }
+        }
+      },
+      y: { 
+        grid: {
+          display: true,
+          color: 'rgba(156, 163, 175, 0.1)',
+          lineWidth: 1
+        },
+        ticks: {
+          color: '#9CA3AF',
+          font: {
+            size: 11,
+            weight: 500,
+            family: 'Montserrat, sans-serif'
+          },
+          padding: 8
+        },
+        beginAtZero: true
+      }
     }
   };
 }

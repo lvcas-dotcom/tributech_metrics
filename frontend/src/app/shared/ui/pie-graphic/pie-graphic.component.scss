@@ -1,11 +1,78 @@
+@use '../../../styles/variables' as *;
+
 :host {
-  display: block;     /* fundamental p/ ocupar largura da coluna */
+  display: block;
   width: 100%;
   height: 100%;
 }
 
 .chart-host {
-  position: relative; /* Chart.js recomenda position:relative no wrapper */
+  position: relative;
   width: 100%;
   height: 100%;
+
+  ::ng-deep {
+    ul {
+      li {
+        cursor: pointer;
+        transition: opacity 0.2s ease;
+        position: relative;
+        padding-left: 24px;
+
+        &::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 14px;
+          height: 14px;
+          border: 2px solid rgba($text-color, 0.3);
+          border-radius: 3px;
+          transition: all 0.2s ease;
+        }
+
+        &::after {
+          content: '✓';
+          position: absolute;
+          left: 2px;
+          top: 50%;
+          transform: translateY(-50%);
+          font-size: 10px;
+          color: $text-color;
+          opacity: 1;
+          transition: all 0.2s ease;
+        }
+
+        &:hover::before {
+          border-color: $primary-color;
+        }
+
+        &.hidden {
+          opacity: 0.5;
+
+          &::before {
+            border-color: rgba($text-color, 0.2);
+            background-color: transparent;
+          }
+
+          &::after {
+            opacity: 0;
+          }
+
+          span {
+            text-decoration: line-through;
+          }
+        }
+
+        span {
+          color: $text-color;
+          font-family: $font-family-primary;
+          font-size: 13px;
+          font-weight: 500;
+          transition: opacity 0.2s ease;
+        }
+      }
+    }
+  }
 }

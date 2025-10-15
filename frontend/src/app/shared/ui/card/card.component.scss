@@ -1,4 +1,4 @@
-@import '../../../styles/variables.scss';
+@use '../../../styles/variables' as *;
 .card {
   --grad: red, blue;
   padding: 1rem;

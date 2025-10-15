@@ -1,4 +1,4 @@
-@import '../../../styles/variables.scss';
+@use '../../../styles/variables' as *;
 :host {
   display: block;
   width: 100%;
@@ -24,11 +24,14 @@
         border-radius: 100%;
         width: calc($img-logo * 1.6); 
         height: calc($img-logo * 1.6); 
-        overflow: hidden; 
+        overflow: visible;
+        transition: all 0.3s ease;
        
         .card-img {
             width: $img-logo;
             height: $img-logo;
+            transition: all 0.3s ease;
+            transform-origin: center center;
         }
     }
   
@@ -51,15 +54,12 @@
   
     &:hover{
         .img{
-            animation: tilt-shaking 0.5s infinite;
-            scale: (1.05);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
         }
-    }
-    @keyframes tilt-shaking {
-        0% { transform: rotate(0deg); }
-        25% { transform: rotate(5deg); }
-        50% { transform: rotate(0eg); }
-        75% { transform: rotate(-5deg); }
-        100% { transform: rotate(0deg); }
+
+        .card-img {
+            opacity: 0.85;
+        }
     }
 }

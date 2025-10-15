@@ -1,11 +1,20 @@
 :host {
-  display: block;     /* fundamental p/ ocupar largura da coluna */
+  display: block;
   width: 100%;
   height: 100%;
 }
 
 .chart-host {
-  position: relative; /* Chart.js recomenda position:relative no wrapper */
+  position: relative;
   width: 100%;
   height: 100%;
+  padding: 1rem;
+  
+  canvas {
+    transition: all 0.3s ease;
+    
+    &:hover {
+      filter: brightness(1.02);
+    }
+  }
 }
