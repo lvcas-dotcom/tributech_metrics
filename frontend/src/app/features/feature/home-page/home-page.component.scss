@@ -162,6 +162,22 @@
                         overflow-y: auto;
                         overflow-x: hidden;
                         padding: 3px 0;
+                        scrollbar-width: thin;
+                        scrollbar-color: rgba(v.$primary-color, 0.3) transparent;
+
+                        &::-webkit-scrollbar {
+                            width: 6px;
+                        }
+
+                        &::-webkit-scrollbar-track {
+                            background: transparent;
+                            border-radius: 10px;
+                        }
+
+                        &::-webkit-scrollbar-thumb {
+                            background: rgba(v.$primary-color, 0.3);
+                            border-radius: 10px;
+                        }
 
                         app-data-card {
                             display: block;

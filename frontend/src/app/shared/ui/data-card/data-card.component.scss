@@ -1,4 +1,4 @@
-@import '../../../styles/variables.scss';
+@use '../../../styles/variables' as *;
 :host {
   display: block;
   width: 100%;
@@ -25,12 +25,12 @@
         width: calc($img-logo * 1.6); 
         height: calc($img-logo * 1.6); 
         overflow: visible;
-        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        transition: all 0.3s ease;
        
         .card-img {
             width: $img-logo;
             height: $img-logo;
-            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: all 0.3s ease;
             transform-origin: center center;
         }
     }
@@ -54,13 +54,12 @@
   
     &:hover{
         .img{
-            transform: scale(1.15) rotate(8deg);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            background-color: lighten($background-img-color, 5%);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
         }
 
         .card-img {
-            transform: scale(1.05);
+            opacity: 0.85;
         }
     }
 }
