@@ -93,14 +93,16 @@
             }
 
             .issue-data{
-                margin-top: 1rem;
+                margin-top: 1.5rem;
                 display: flex;
                 flex-direction: column;
                 justify-content: start;
                 align-items: center;
+                flex: 1;
                 
                 .card{
                     width: 100%;
+                    min-height: 5rem;
                     border-radius: 10px;
                     box-shadow: 0 2px 10px rgba(0,0,0,0.2);
                 }
