@@ -31,56 +31,65 @@
             .background{
                 width: 100%;
                 height: 100%;
-                border: 1.5px solid v.$primary-color;
-                background-color: v.$background-dark-color;
+                background: linear-gradient(135deg, 
+                    rgba(v.$primary-color, 0.08) 0%, 
+                    transparent 100%);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 10px;
+                overflow: hidden;
+                
                 .card{
-                    display: grid;
-                    grid-template-columns: 1fr;
-                    grid-template-rows: 1fr 0.3fr;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    padding: 2rem 1.5rem;
+                    
                     .img{
-                        margin-top: 1.5rem;
                         display: flex;
-                        align-self: center;
-                        justify-self: center;
                         align-items: center;
                         justify-content: center;
                         background-color: v.$background-img-color;
-                        border-radius: 100%;
-                        width: calc(8rem * 1.6); 
-                        height: calc(8rem * 1.6); 
-                        overflow: hidden; 
+                        border-radius: 50%;
+                        width: 140px; 
+                        height: 140px; 
+                        overflow: hidden;
                     
                         .card-img {
-                            width: 8rem;
-                            height: 8rem;
+                            width: 75px;
+                            height: 75px;
+                            opacity: 0.8;
                         }
                     }
+                    
                     .text{
                         display: flex;
                         align-items: center;
                         flex-direction: column;
+                        gap: 0.75rem;
+                        margin-top: 1.5rem;
+                        
                         .name{
-                            margin-top: 5%;
                             font-family: v.$font-family-primary;
-                            font-weight: v.$font-weight-title;
-                            font-size: v.$font-title;
+                            font-weight: 600;
+                            font-size: 1.25rem;
                             color: v.$primary-color;
-
+                            letter-spacing: -0.02em;
+                            text-align: center;
                         }
+                        
                         .description{
-                            padding: 0.5rem;
+                            padding: 0.5rem 1rem;
                             border-radius: 10px;
-                            background-color: v.$background-img-color;
+                            background-color: v.$background-cards;
                             border: 1.5px solid v.$primary-color;
                             font-family: v.$font-family-primary;
-                            font-weight: v.$font-weight;
-                            font-size: v.$font-subtitle;
+                            font-weight: 500;
+                            font-size: 0.85rem;
                             color: v.$primary-color;
+                            text-align: center;
                         }
                     }
-                    
                 }
-                
             }
 
             .issue-data{
