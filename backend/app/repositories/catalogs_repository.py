@@ -41,7 +41,7 @@ class CatalogsRepository:
     SQL_LIST_TASKS = text(
         """
         SELECT
-            i.id      AS id,
+            i.iid      AS id,
             i.title   AS title,
             p.name    AS projeto
         FROM timelogs t
