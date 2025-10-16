@@ -1,10 +1,10 @@
 @use '../../../styles/variables.scss' as v;
 
 .main{
-    height: 100vh;
+    min-height: 100vh;
     width: 100%;
     display: grid;
-    grid-template-columns: 0.15fr 1fr;
+    grid-template-columns: minmax(12rem, 16vw) 1fr;
     background-color: v.$background-dark-color;
 
     .sidebar{
@@ -16,11 +16,11 @@
     .conteiner{
         display: grid;
         grid-template-columns: 1fr;
-        grid-template-rows:  0.15fr 0.4fr 0.55fr; 
-        
+        grid-auto-rows: minmax(min-content, auto);
+        row-gap: 1rem;
         width: 100%;
         height: 100%;
-
+        min-height: 0; /* permite os filhos encolherem quando necessário */
         align-items: stretch;
         justify-items: stretch;
 
@@ -34,11 +34,44 @@
             background: transparent; 
 
             .card{
-                height: 130%;
+                height: auto;
                 border-radius: 8px;
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             }
             
+        }
+
+        .issues-cards{
+            padding: 0 1.5rem 1rem 1.5rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+            align-items: stretch;
+
+            .issue-card{
+                min-height: 160px;
+                transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+                &:hover {
+                    z-index: 10;
+                }
+            }
+        }
+
+        /* Responsividade dos cards de issues */
+        @media (max-width: 1024px) {
+            .issues-cards {
+                gap: 1rem;
+                .issue-card { min-height: 150px; }
+            }
+        }
+
+        @media (max-width: 820px) {
+            .issues-cards {
+                grid-template-columns: 1fr;
+                padding: 0 1rem 1rem 1rem;
+                .issue-card { min-height: 140px; }
+            }
         }
 
         .informations{
@@ -49,9 +82,10 @@
             align-items: center;
             justify-content: stretch;
             gap: 1.5%;
+            min-height: 0;
             
             .background{
-                width: 90%;
+                width: 100%;
                 height: 100%;
                 justify-self: end;
                 
@@ -63,9 +97,10 @@
                 display: grid;
                 grid-template-columns: 0.65fr 0.35fr;
                 height: 100%;
+                min-height: 0;
                 .point-graphic{
                     width: 100%;
-                    height: 90%;
+                    height: clamp(180px, 28vh, 320px);
                     grid-column: 1;
                 }
 
@@ -79,7 +114,7 @@
                         border-radius: 10px;
                         background-color: v.$background-cards;
                         margin: 0.5rem;
-                        width: 80%;
+                        width: 90%;
                         height: 30%;
                         display: flex;
                         flex-direction: column;
@@ -110,7 +145,7 @@
                 justify-self: center;
                 color: v.$primary-color;
                 font-family: v.$font-family-primary;
-                font-size: v.$font-subtitle;
+                font-size: clamp(0.85rem, 1.6vw, v.$font-subtitle);
                 font-weight: v.$font-weight-title;
             }
             
@@ -142,8 +177,8 @@
                         display: flex;
                         margin-bottom: 0.3rem;
                         img{
-                            width: 1.5rem;
-                            height: 1.5rem;
+                            width: clamp(1rem, 2.5vw, 1.5rem);
+                            height: clamp(1rem, 2.5vw, 1.5rem);
                             
                         }
                         .text{
@@ -158,7 +193,7 @@
                         flex: 1 1 auto;
                         min-height: 0;
                         width: 100%;
-                        max-height: 18vh;
+                        max-height: clamp(160px, 28vh, 280px);
                         overflow-y: auto;
                         overflow-x: hidden;
                         padding: 3px 0;
@@ -166,7 +201,7 @@
                         scrollbar-color: rgba(v.$primary-color, 0.3) transparent;
 
                         &::-webkit-scrollbar {
-                            width: 6px;
+                            width: 0.375rem; /* 6px */
                         }
 
                         &::-webkit-scrollbar-track {
@@ -238,4 +273,53 @@
 
 .background{
     @include v.bg-default
+}
+
+/* ========= Breakpoints ========= */
+@media (max-width: 1200px) {
+    .main {
+        grid-template-columns: 220px 1fr;
+    }
+    .conteiner .cards {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1.2rem;
+    }
+}
+
+@media (max-width: 1024px) {
+    .main {
+        grid-template-columns: 200px 1fr;
+    }
+    .conteiner .cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+    }
+    .conteiner .informations {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 820px) {
+    .main {
+        grid-template-columns: 1fr; /* sidebar acima do conteúdo */
+    }
+    .conteiner {
+        row-gap: 0.8rem;
+        .cards { grid-template-columns: 1fr; }
+        .issues-cards { grid-template-columns: 1fr; padding: 0 1rem 1rem 1rem; }
+        .informations { grid-template-columns: 1fr; }
+        .data { grid-template-columns: 1fr; }
+        .users-active-data { grid-column: auto; }
+        .graphic-data .issues-comparation .background { width: 100%; }
+    }
+}
+
+@media (max-width: 576px) {
+    .conteiner {
+        .cards { padding: 1rem; gap: 0.8rem; }
+        .issues-cards { gap: 0.8rem; }
+        .informations { padding: 1rem; }
+        .data { padding-right: 1rem; }
+    }
 }

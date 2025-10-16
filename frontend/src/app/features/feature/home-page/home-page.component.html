@@ -15,6 +15,35 @@
             <app-data-card class="card" [title]="calculoHoras" [description]="'Diferença de horas'"
             [imgUrl]="'../../../../assets/exclamation-triangle.svg'"/>
         </div>
+
+        <!-- Novos cards de Issues -->
+        <div class="issues-cards">
+            <app-issue-card 
+                class="issue-card"
+                [title]="'Issues Criadas no Mês'"
+                [value]="issuesCreatedCount"
+                [iconUrl]="'../../../../assets/table.svg'"
+                [showDatePicker]="true"
+                [showChart]="true"
+                [chartData]="chartData"
+                [chartLabels]="chartLabels"
+                [selectedDate]="selectedMonth"
+                [loading]="loadingIssuesCreated"
+                [accentColor]="'primary'"
+                (dateChanged)="onMonthChanged($event)">
+            </app-issue-card>
+
+            <app-issue-card 
+                class="issue-card"
+                [title]="'Issues Concluídas Antes do Prazo'"
+                [value]="issuesCompletedBeforeDeadlineCount"
+                [iconUrl]="'../../../../assets/clock.svg'"
+                [showDatePicker]="false"
+                [showChart]="false"
+                [loading]="loadingIssuesCompleted"
+                [accentColor]="'secondary1'">
+            </app-issue-card>
+        </div>
         
         <div class="informations">
             <div class="graphic-data">
