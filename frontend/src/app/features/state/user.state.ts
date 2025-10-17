@@ -7,10 +7,37 @@ import { Issue } from "../data-acess/entities/issue.model";
   providedIn: "root"})
 export class UserState {
     private _user = signal<User | null>(null);
+
+    private _listUsers = signal<User[]>([]);
+    listUsers = computed(() => this._listUsers());
+
     users = computed(() => this._user());
 
     constructor(private userService: UserService) {
     }
+
+    loadUsers(startDate?: string, endDate?: string,projects?: string){
+        this.userService.getAllUsers('suporte-geo',startDate, endDate).subscribe({
+            next: (users) => {
+                const userList: User[] = users.map(user => ({
+                    username: user.usuario,
+                    hours: {
+                        total: user.horas_apontadas,
+                        helpingHours: 0,
+                        activeHours: 0
+                    },
+                    issues: []
+                }));
+                this._listUsers.set(userList);
+            },
+            error: (err) => {
+                console.error('Error loading users:', err);
+                this._listUsers.set([]);
+            }
+        })
+        console.log(this.listUsers())
+    }
+    
 
     loadUserHours(username: string, startDate?: string, endDate?: string,projects?: string){
         this.userService.getHoursByUser(username, startDate, endDate,projects).subscribe({
@@ -71,6 +98,7 @@ export class UserState {
             }
         });
 
-        console.log(this._user());
     }
+
+
 }

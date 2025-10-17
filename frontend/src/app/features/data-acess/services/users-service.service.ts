@@ -31,5 +31,14 @@ export class UserService{
         return this.http.get<{id:number, title:string, projeto:string}[]>(
             `${this.api}/metrics/catalog/tasks`,{params});
     }
-    
+
+    getAllUsers(projects: string,startDate?: string, endDate?: string){
+        let params = new HttpParams();
+        if(startDate) params = params.set('start_date',startDate);
+        
+        if(endDate) params = params.set('end_date',endDate);
+        
+        if(projects) params = params.set('projects',projects);
+        return this.http.get<{usuario: string, horas_apontadas: number}[]>(`${this.api}/metrics/by-user-month`,{params});
+    }
 }

@@ -1,4 +1,4 @@
-import {Component, AfterViewInit, ElementRef} from '@angular/core'
+import {Component, AfterViewInit, ElementRef, inject} from '@angular/core'
 import { SidebarComponent } from '../../../core/layout/sidebar/sidebar.component'
 
 import { DataCardComponent } from '../../../shared/ui/data-card/data-card.component'
@@ -6,6 +6,7 @@ import { DataCardComponent } from '../../../shared/ui/data-card/data-card.compon
 import { PieGraphicComponent } from '../../../shared/ui/pie-graphic/pie-graphic.component'
 import { RouterLink } from "@angular/router";
 import { PointGraphicComponent } from '../../../shared/ui/point-graphic/point-graphic.component';
+import { UserState } from '../../state/user.state';
 
 @Component({
     selector: 'app-home-page',
@@ -16,12 +17,11 @@ import { PointGraphicComponent } from '../../../shared/ui/point-graphic/point-gr
     styleUrl: './home-page.component.scss'
 })
 export class HomePageComponent implements AfterViewInit {
-  options = [{idkey: 2,description:'B'},
-    {idkey: 3,description:'C'}
-  ]
 
-  horasFeitas: string = '22';
-  horasMinimas: string = '220';
+  private state = inject(UserState);
+  users = this.state.listUsers;
+  horasFeitas: string = '0';
+  horasMinimas: string = (this.users.length * 220).toString();
 
   calculoHoras: string = '-190';
 
@@ -48,6 +48,16 @@ export class HomePageComponent implements AfterViewInit {
         card.style.setProperty('--mouse-y', '50%');
       });
     });
+  }
+
+  ngOnInit(): void {
+    this.state.loadUsers();
+    console.log(this.users())
+  }
+
+  get teamHours(): string{
+    
+    return this.users().reduce((total, user) => total + (user.hours?.total || 0), 0).toFixed(2).toString();
   }
 
 }
