@@ -15,6 +15,45 @@
             <app-data-card class="card" [title]="calculoHoras" [description]="'Diferença de horas'"
             [imgUrl]="'../../../../assets/exclamation-triangle.svg'"/>
         </div>
+
+        <!-- Novos cards de Issues -->
+        <div class="issues-cards">
+            <app-issue-card 
+                class="issue-card"
+                [title]="'Issues Criadas no Mês'"
+                [value]="issuesCreatedCount"
+                [iconUrl]="'../../../../assets/table.svg'"
+                [showDatePicker]="true"
+                [showChart]="true"
+                [chartData]="chartData"
+                [chartLabels]="chartLabels"
+                [selectedDate]="selectedMonth"
+                [loading]="loadingIssuesCreated"
+                [accentColor]="'primary'"
+                (dateChanged)="onMonthChanged($event)">
+            </app-issue-card>
+
+            <app-issue-card 
+                class="issue-card"
+                [title]="'Issues Concluídas Antes do Prazo'"
+                [value]="issuesCompletedBeforeDeadlineCount"
+                [iconUrl]="'../../../../assets/clock.svg'"
+                [showDatePicker]="false"
+                [showChart]="false"
+                [loading]="loadingIssuesCompleted"
+                [accentColor]="'secondary1'">
+            </app-issue-card>
+
+             <div>
+                <div class="background">
+                    <span class="text">ANÁLISE DE ISSUES</span>
+                    <div  class="pie-graphic">
+                        <pie-graphic [values]="[100,2]" [labels]="['Atrasadas','Feitas']"/>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
         
         <div class="informations">
             <div class="graphic-data">
@@ -35,21 +74,8 @@
                     </div>
                 </div>
             </div>
-            <div>
-                <div class="background">
-                    <span class="text">ANÁLISE DE ISSUES</span>
-                    <div  class="pie-graphic">
-                        <pie-graphic [values]="[100,2]" [labels]="['Atrasadas','Feitas']"/>
-                    </div>
-                    
-                </div>
-            </div>
-            
-            
-        </div>
-        
-        <div class="data">
-             <div class="users-active-data">
+            <div class="data">
+            <div class="users-active-data">
                 <div class="background">
                     <div class="title">
                         <img src="../../../../assets/person.svg" alt="">
@@ -59,7 +85,7 @@
                         
                         <app-data-card  [title]="'6 issues'" [description]="'Gabriel Arantes'"
                             [imgUrl]="'../../../../assets/check.svg'" routerLink="/employee/data/gabriel.arantes" />
-                           
+                        
                         <app-data-card  [title]="'11 issues'" [description]="'Bruno Zotarelli'"
                             [imgUrl]="'../../../../assets/check.svg'"/>
                         <app-data-card  [title]="'8 issues'" [description]="'Lucas Henrique'"
@@ -72,8 +98,12 @@
                             [imgUrl]="'../../../../assets/check.svg'"/>   
                     </div>
                 </div>
-             </div>
+            </div>
         </div>
+            
+        </div>
+        
+        
 
         
     </div>

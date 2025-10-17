@@ -7,7 +7,8 @@ import { Chart, registerables } from 'chart.js';
 import { provideHttpClient } from '@angular/common/http';
 Chart.register(...registerables);
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes),
+  providers: [
+    provideRouter(routes),
     provideHttpClient(),
     { provide: API_URL, useValue: environment.apiUrl },
   ]
