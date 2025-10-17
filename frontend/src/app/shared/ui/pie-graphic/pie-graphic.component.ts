@@ -27,8 +27,8 @@ export class PieGraphicComponent {
           data: this.values,
           label: 'Issues',
           backgroundColor: [
-            '#8B44F8',
-            '#F472B6',
+            '#A384FF',
+            '#ff91f0ff',
             '#22D3EE',
             '#10B981',
             '#EF4444',

@@ -19,7 +19,7 @@
         <!-- Novos cards de Issues -->
         <div class="issues-cards">
             <app-issue-card 
-                class="issue-card"
+                class="issue-card glass"
                 [title]="'Issues Criadas no Mês'"
                 [value]="issuesCreatedCount"
                 [iconUrl]="'../../../../assets/table.svg'"
@@ -35,7 +35,7 @@
             </app-issue-card>
 
             <app-issue-card 
-                class="issue-card issues-concluidas"
+                class="issue-card issues-concluidas glass"
                 [title]="'Issues Concluídas Antes do Prazo'"
                 [value]="issuesCompletedBeforeDeadlineCount"
                 [iconUrl]="'../../../../assets/clock.svg'"
@@ -45,10 +45,10 @@
                 [chartData]="completedChartData"
                 [chartLabels]="completedChartLabels"
                 [chartDatasetLabel]="'Concluídas no Prazo'"
-                [chartLineColor]="'#22D3EE'"
-                [chartFillFrom]="'rgba(34, 211, 238, 0.35)'"
-                [chartFillMid]="'rgba(34, 211, 238, 0.18)'"
-                [chartFillTo]="'rgba(34, 211, 238, 0.06)'"
+                [chartLineColor]="'#E195FF'"
+                [chartFillFrom]="'rgba(225, 149, 255, 0.35)'"
+                [chartFillMid]="'rgba(225, 149, 255, 0.18)'"
+                [chartFillTo]="'rgba(225, 149, 255, 0.06)'"
                 [chartBorderWidth]="3"
                 [chartPointRadius]="5"
                 [chartPointHoverRadius]="8"

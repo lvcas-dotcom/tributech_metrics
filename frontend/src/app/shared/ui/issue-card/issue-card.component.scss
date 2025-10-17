@@ -96,7 +96,7 @@
                 font-family: v.$font-family-primary;
                 font-size: clamp(0.85rem, 1.6vw, 1rem);
                 font-weight: v.$font-weight-title;
-                color: v.$primary-color;
+                color: v.$text-color;
                 text-transform: uppercase;
                 letter-spacing: 0.02em;
             }
@@ -113,7 +113,7 @@
                 background: v.$background-cards;
                 border: 1px solid rgba(v.$primary-color, 0.2);
                 border-radius: 8px;
-                color: v.$text-color;
+                color: v.$primary-color;
                 font-family: v.$font-family-primary;
                 font-size: clamp(0.75rem, 1.4vw, 0.9rem);
                 font-weight: 500;
@@ -298,7 +298,7 @@
 :host(.issues-concluidas) {
     .issue-card {
         .header-left .card-title {
-            color: v.$primary-color;
+            color: v.$text-color;
         }
 
         .value-section .value {

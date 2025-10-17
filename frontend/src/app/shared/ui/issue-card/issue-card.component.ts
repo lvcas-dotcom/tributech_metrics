@@ -20,7 +20,6 @@ export class IssueCardComponent {
   @Input() chartType: 'bar' | 'line' = 'bar';
   @Input() chartData: number[] = [];
   @Input() chartLabels: string[] = [];
-  // Estilo/Config do gráfico (usado quando chartType === 'line')
   @Input() chartDatasetLabel: string = 'Issues Concluídas';
   @Input() chartLineColor: string = '#7C3AED';
   @Input() chartFillFrom: string = 'rgba(124, 58, 237, 0.4)';

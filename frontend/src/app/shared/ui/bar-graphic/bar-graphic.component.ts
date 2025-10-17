@@ -16,10 +16,10 @@ export class BarGraphicComponent implements OnInit, OnChanges {
   @Input() labels: string[] = [];
 
    private availableColors: string[] = [
-    '#8B44F8',
-    '#adfff1ff',
-    '#77a6ffff',
-    '#b6ffc0ff',
+    '#e195ffff',
+    '#a384ffff',
+    '#95c5ffff',
+    '#7b88ffff',
   ];
   public barChartOptions: ChartOptions = {
       responsive: true,
@@ -32,7 +32,7 @@ export class BarGraphicComponent implements OnInit, OnChanges {
       scales: {
         x: { 
           ticks: {
-            color: '#c197ff',
+            color: '#f4ecffff',
             font: {
               size: 11,
               family: 'Inter'
