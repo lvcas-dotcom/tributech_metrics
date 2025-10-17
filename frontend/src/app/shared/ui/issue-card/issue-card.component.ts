@@ -25,11 +25,13 @@ export class IssueCardComponent {
   @Input() chartFillFrom: string = 'rgba(124, 58, 237, 0.4)';
   @Input() chartFillMid: string = 'rgba(124, 58, 237, 0.2)';
   @Input() chartFillTo: string = 'rgba(124, 58, 237, 0.05)';
+  @Input() selectedDate: Date = new Date();
+//a partir daqui da para tirar tudo
   @Input() chartBorderWidth: number = 3;
   @Input() chartPointRadius: number = 5;
   @Input() chartPointHoverRadius: number = 8;
   @Input() chartShowLegend: boolean = false;
-  @Input() selectedDate: Date = new Date();
+  
   @Input() loading: boolean = false;
   @Input() accentColor: string = 'primary';
   

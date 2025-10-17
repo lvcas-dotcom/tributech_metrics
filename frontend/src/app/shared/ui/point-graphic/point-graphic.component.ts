@@ -18,7 +18,7 @@ public lineChartType: ChartType = 'line';
   @Input() values: number[] | null = null;
   @Input() labels: string[] | null = null;
   @Input() datasetLabel: string = 'Issues Concluídas';
-  @Input() lineColor: string = '#E195FF';
+  
   @Input() fillFrom: string = 'rgba(225, 149, 255, 0.35)';
   @Input() fillMid: string = 'rgba(225, 149, 255, 0.18)';
   @Input() fillTo: string = 'rgba(225, 149, 255, 0.06)';
@@ -26,6 +26,8 @@ public lineChartType: ChartType = 'line';
   @Input() pointRadius: number = 5;
   @Input() pointHoverRadius: number = 8;
   @Input() showLegend: boolean = true;
+
+  lineColor: string = '#E195FF';
 
   public lineChartData!: ChartData<'line'>;
 
@@ -58,7 +60,7 @@ public lineChartType: ChartType = 'line';
         backgroundColor: 'rgba(17, 24, 39, 0.95)',
         titleColor: '#F3F4F6',
         bodyColor: '#E5E7EB',
-  borderColor: this.lineColor,
+        borderColor: this.lineColor,
         borderWidth: 1,
         padding: 12,
         displayColors: true,
