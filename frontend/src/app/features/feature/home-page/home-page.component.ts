@@ -44,13 +44,19 @@ export class HomePageComponent implements AfterViewInit, OnInit {
   loadingIssuesCreated: boolean = false;
   loadingIssuesCompleted: boolean = false;
 
-  // Dados do gráfico
+  // Dados do gráfico de barras (Issues Criadas por Projeto)
   chartData: number[] = [];
   chartLabels: string[] = [];
+
+  // Dados do gráfico de linha (Issues Concluídas antes do Prazo - Mensal)
+  completedChartData: number[] = [];
+  completedChartLabels: string[] = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
 
   constructor(private elementRef: ElementRef) {}
 
   ngOnInit(): void {
+    // Inicializa dados de exemplo (substituídos quando API responder)
+    this.initializeExampleData();
     this.loadIssuesData();
     this.loadHighPriorityIssues();
   }
@@ -132,6 +138,21 @@ export class HomePageComponent implements AfterViewInit, OnInit {
   onMonthChanged(date: Date): void {
     this.selectedMonth = date;
     this.loadIssuesData();
+  }
+
+  /**
+   * Inicializa dados de exemplo para apresentação dos gráficos
+   * Estes dados são apenas placeholders até a API responder
+   */
+  private initializeExampleData(): void {
+    // Exemplo para Issues Criadas no Mês por projeto
+    this.chartLabels = ['Suporte', 'Desenvolvimento', 'São Vicente', 'Reurb'];
+    this.chartData = [10, 22, 7, 12];
+    this.issuesCreatedCount = this.chartData.reduce((acc, v) => acc + v, 0);
+
+    // Exemplo para Issues Concluídas antes do Prazo (mensal)
+    this.completedChartData = [12, 18, 15, 22, 19, 25, 28, 24, 30, 26, 20, 18];
+    this.issuesCompletedBeforeDeadlineCount = this.completedChartData.reduce((acc, v) => acc + v, 0);
   }
 
 }

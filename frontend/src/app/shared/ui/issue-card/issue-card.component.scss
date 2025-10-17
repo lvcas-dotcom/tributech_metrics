@@ -268,7 +268,6 @@
     }
 }
 
-// Variações de cor
 .issue-card[data-accent="secondary1"] {
     .header-left .card-title {
         color: v.$secundary-color1;
@@ -294,5 +293,21 @@
 
     .card-header {
         border-bottom-color: rgba(v.$secundary-color2, 0.1);
+    }
+}
+:host(.issues-concluidas) {
+    .issue-card {
+        .header-left .card-title {
+            color: v.$primary-color;
+        }
+
+        .value-section .value {
+            color: v.$primary-color;
+        }
+
+        .card-header::after {
+            background: rgba(v.$primary-color, 0.25);
+        }
+        
     }
 }

@@ -2,11 +2,12 @@ import { Component, EventEmitter, Input, Output, HostListener, ElementRef } from
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BarGraphicComponent } from '../bar-graphic/bar-graphic.component';
+import { PointGraphicComponent } from '../point-graphic/point-graphic.component';
 
 @Component({
   selector: 'app-issue-card',
   standalone: true,
-  imports: [CommonModule, FormsModule, BarGraphicComponent],
+  imports: [CommonModule, FormsModule, BarGraphicComponent, PointGraphicComponent],
   templateUrl: './issue-card.component.html',
   styleUrls: ['./issue-card.component.scss']
 })
@@ -16,8 +17,19 @@ export class IssueCardComponent {
   @Input() iconUrl: string = '';
   @Input() showDatePicker: boolean = false;
   @Input() showChart: boolean = false;
+  @Input() chartType: 'bar' | 'line' = 'bar';
   @Input() chartData: number[] = [];
   @Input() chartLabels: string[] = [];
+  // Estilo/Config do gráfico (usado quando chartType === 'line')
+  @Input() chartDatasetLabel: string = 'Issues Concluídas';
+  @Input() chartLineColor: string = '#7C3AED';
+  @Input() chartFillFrom: string = 'rgba(124, 58, 237, 0.4)';
+  @Input() chartFillMid: string = 'rgba(124, 58, 237, 0.2)';
+  @Input() chartFillTo: string = 'rgba(124, 58, 237, 0.05)';
+  @Input() chartBorderWidth: number = 3;
+  @Input() chartPointRadius: number = 5;
+  @Input() chartPointHoverRadius: number = 8;
+  @Input() chartShowLegend: boolean = false;
   @Input() selectedDate: Date = new Date();
   @Input() loading: boolean = false;
   @Input() accentColor: string = 'primary';

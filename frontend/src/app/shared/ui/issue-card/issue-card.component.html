@@ -34,9 +34,25 @@
         
         <div class="chart-section" *ngIf="showChart && chartData.length > 0">
             <app-bar-graphic 
+                *ngIf="chartType === 'bar'"
                 [values]="chartData" 
                 [labels]="chartLabels">
             </app-bar-graphic>
+            
+            <app-point-graphic
+                *ngIf="chartType === 'line'"
+                [values]="chartData"
+                [labels]="chartLabels"
+                [datasetLabel]="chartDatasetLabel"
+                [lineColor]="chartLineColor"
+                [fillFrom]="chartFillFrom"
+                [fillMid]="chartFillMid"
+                [fillTo]="chartFillTo"
+                [borderWidth]="chartBorderWidth"
+                [pointRadius]="chartPointRadius"
+                [pointHoverRadius]="chartPointHoverRadius"
+                [showLegend]="chartShowLegend">
+            </app-point-graphic>
         </div>
     </div>
 </div>

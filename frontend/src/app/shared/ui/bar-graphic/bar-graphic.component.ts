@@ -17,9 +17,9 @@ export class BarGraphicComponent implements OnInit, OnChanges {
 
    private availableColors: string[] = [
     '#8B44F8',
-    '#b79fffff',
-    '#7dffa4ff',
-    '#f2ff81ff',
+    '#adfff1ff',
+    '#77a6ffff',
+    '#b6ffc0ff',
   ];
   public barChartOptions: ChartOptions = {
       responsive: true,

@@ -25,6 +25,7 @@
                 [iconUrl]="'../../../../assets/table.svg'"
                 [showDatePicker]="true"
                 [showChart]="true"
+                [chartType]="'bar'"
                 [chartData]="chartData"
                 [chartLabels]="chartLabels"
                 [selectedDate]="selectedMonth"
@@ -34,14 +35,26 @@
             </app-issue-card>
 
             <app-issue-card 
-                class="issue-card"
+                class="issue-card issues-concluidas"
                 [title]="'Issues Concluídas Antes do Prazo'"
                 [value]="issuesCompletedBeforeDeadlineCount"
                 [iconUrl]="'../../../../assets/clock.svg'"
                 [showDatePicker]="false"
-                [showChart]="false"
+                [showChart]="true"
+                [chartType]="'line'"
+                [chartData]="completedChartData"
+                [chartLabels]="completedChartLabels"
+                [chartDatasetLabel]="'Concluídas no Prazo'"
+                [chartLineColor]="'#22D3EE'"
+                [chartFillFrom]="'rgba(34, 211, 238, 0.35)'"
+                [chartFillMid]="'rgba(34, 211, 238, 0.18)'"
+                [chartFillTo]="'rgba(34, 211, 238, 0.06)'"
+                [chartBorderWidth]="3"
+                [chartPointRadius]="5"
+                [chartPointHoverRadius]="8"
+                [chartShowLegend]="false"
                 [loading]="loadingIssuesCompleted"
-                [accentColor]="'secondary1'">
+                [accentColor]="'secondary2'">
             </app-issue-card>
 
              <div>
