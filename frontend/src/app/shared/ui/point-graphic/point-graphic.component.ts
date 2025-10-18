@@ -14,18 +14,10 @@ export class PointGraphicComponent implements OnChanges {
 
 public lineChartType: ChartType = 'line';
   
-  // Inputs para permitir customização por card
   @Input() values: number[] | null = null;
   @Input() labels: string[] | null = null;
   @Input() datasetLabel: string = 'Issues Concluídas';
-  
-  @Input() fillFrom: string = 'rgba(225, 149, 255, 0.35)';
-  @Input() fillMid: string = 'rgba(225, 149, 255, 0.18)';
-  @Input() fillTo: string = 'rgba(225, 149, 255, 0.06)';
-  @Input() borderWidth: number = 3;
-  @Input() pointRadius: number = 5;
-  @Input() pointHoverRadius: number = 8;
-  @Input() showLegend: boolean = true;
+
 
   lineColor: string = '#E195FF';
 
@@ -40,7 +32,7 @@ public lineChartType: ChartType = 'line';
     },
     plugins: {
       legend: { 
-        display: this.showLegend,
+        display: true,
         position: 'top',
         align: 'end',
         labels: {
@@ -123,7 +115,7 @@ public lineChartType: ChartType = 'line';
         ...this.lineChartOptions,
         plugins: {
           ...this.lineChartOptions.plugins,
-          legend: { ...(this.lineChartOptions.plugins?.legend || {}), display: this.showLegend },
+          legend: { ...(this.lineChartOptions.plugins?.legend || {})},
           tooltip: { ...(this.lineChartOptions.plugins?.tooltip || {}), borderColor: this.lineColor }
         }
       };
@@ -148,16 +140,16 @@ public lineChartType: ChartType = 'line';
           backgroundColor: (context: any) => {
             const ctx = context.chart.ctx;
             const gradient = ctx.createLinearGradient(0, 0, 0, 300);
-            gradient.addColorStop(0, this.fillFrom);
-            gradient.addColorStop(0.5, this.fillMid);
-            gradient.addColorStop(1, this.fillTo);
+            gradient.addColorStop(0, 'rgba(225, 149, 255, 0.35)');
+            gradient.addColorStop(0.5, 'rgba(225, 149, 255, 0.18)');
+            gradient.addColorStop(1, 'rgba(225, 149, 255, 0.06)');
             return gradient;
           },
           fill: true,
           tension: 0.4,
-          borderWidth: this.borderWidth,
-          pointRadius: this.pointRadius,
-          pointHoverRadius: this.pointHoverRadius,
+          borderWidth: 3,
+          pointRadius: 5,
+          pointHoverRadius: 8,
           pointBackgroundColor: this.lineColor,
           pointBorderColor: '#ffffff',
           pointBorderWidth: 2,

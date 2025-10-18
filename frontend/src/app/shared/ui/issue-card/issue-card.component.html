@@ -26,12 +26,12 @@
     
     <div class="card-body">
         <div class="value-section">
-            <span class="value" *ngIf="!loading">{{ value }}</span>
-            <span class="value" *ngIf="loading">--</span>
+            <span class="value" >{{ value }}</span>
+            
             <span class="value-label">issues</span>
         </div>
         
-        <div class="chart-section" *ngIf="showChart && chartData.length > 0">
+        <div class="chart-section" *ngIf="chartData.length > 0">
             <app-bar-graphic 
                 *ngIf="chartType === 'bar'"
                 [values]="chartData" 
@@ -42,14 +42,7 @@
                 *ngIf="chartType === 'line'"
                 [values]="chartData"
                 [labels]="chartLabels"
-                [datasetLabel]="chartDatasetLabel"
-                [fillFrom]="chartFillFrom"
-                [fillMid]="chartFillMid"
-                [fillTo]="chartFillTo"
-                [borderWidth]="chartBorderWidth"
-                [pointRadius]="chartPointRadius"
-                [pointHoverRadius]="chartPointHoverRadius"
-                [showLegend]="chartShowLegend">
+                [datasetLabel]="chartDatasetLabel">
             </app-point-graphic>
         </div>
     </div>

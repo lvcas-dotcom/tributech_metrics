@@ -16,23 +16,13 @@ export class IssueCardComponent {
   @Input() value: number = 0;
   @Input() iconUrl: string = '';
   @Input() showDatePicker: boolean = false;
-  @Input() showChart: boolean = false;
   @Input() chartType: 'bar' | 'line' = 'bar';
   @Input() chartData: number[] = [];
   @Input() chartLabels: string[] = [];
   @Input() chartDatasetLabel: string = 'Issues Concluídas';
-  @Input() chartLineColor: string = '#7C3AED';
-  @Input() chartFillFrom: string = 'rgba(124, 58, 237, 0.4)';
-  @Input() chartFillMid: string = 'rgba(124, 58, 237, 0.2)';
-  @Input() chartFillTo: string = 'rgba(124, 58, 237, 0.05)';
   @Input() selectedDate: Date = new Date();
-//a partir daqui da para tirar tudo
-  @Input() chartBorderWidth: number = 3;
-  @Input() chartPointRadius: number = 5;
-  @Input() chartPointHoverRadius: number = 8;
-  @Input() chartShowLegend: boolean = false;
   
-  @Input() loading: boolean = false;
+ 
   @Input() accentColor: string = 'primary';
   
   @Output() dateChanged = new EventEmitter<Date>();

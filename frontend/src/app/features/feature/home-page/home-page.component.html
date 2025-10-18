@@ -23,12 +23,10 @@
                 [value]="issuesCreatedCount"
                 [iconUrl]="'../../../../assets/table.svg'"
                 [showDatePicker]="true"
-                [showChart]="true"
                 [chartType]="'bar'"
                 [chartData]="chartData"
                 [chartLabels]="chartLabels"
                 [selectedDate]="selectedMonth"
-                [loading]="loadingIssuesCreated"
                 [accentColor]="'primary'"
                 (dateChanged)="onMonthChanged($event)">
             </app-issue-card>
@@ -39,24 +37,14 @@
                 [value]="issuesCompletedBeforeDeadlineCount"
                 [iconUrl]="'../../../../assets/clock.svg'"
                 [showDatePicker]="false"
-                [showChart]="true"
                 [chartType]="'line'"
                 [chartData]="completedChartData"
                 [chartLabels]="completedChartLabels"
                 [chartDatasetLabel]="'Concluídas no Prazo'"
-                [chartLineColor]="'#E195FF'"
-                [chartFillFrom]="'rgba(225, 149, 255, 0.35)'"
-                [chartFillMid]="'rgba(225, 149, 255, 0.18)'"
-                [chartFillTo]="'rgba(225, 149, 255, 0.06)'"
-                [chartBorderWidth]="3"
-                [chartPointRadius]="5"
-                [chartPointHoverRadius]="8"
-                [chartShowLegend]="false"
-                [loading]="loadingIssuesCompleted"
                 [accentColor]="'secondary2'">
             </app-issue-card>
 
-            <div>
+            <div class="pie-chart">
                 <div class="background">
                     <span class="text">ANÁLISE DE ISSUES</span>
                     <div  class="pie-graphic">

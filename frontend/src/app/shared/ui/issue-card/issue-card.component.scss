@@ -151,7 +151,7 @@
                 }
             }
 
-            // Input de mês oculto acessível
+        
             .visually-hidden-month {
                 position: absolute;
                 width: 1px;
@@ -162,9 +162,9 @@
                 clip: rect(0, 0, 0, 0);
                 white-space: nowrap;
                 border: 0;
-                color-scheme: dark; // força tema escuro no seletor nativo
+                color-scheme: dark; 
 
-                // melhora UX em navegadores que exibem o seletor ancorado ao input
+               
                 right: 0;
                 top: 100%;
             }
@@ -175,7 +175,7 @@
         flex: 1;
         display: flex;
         flex-direction: column;
-    gap: clamp(0.5rem, 2vw, 1rem);
+        gap: clamp(0.5rem, 2vw, 1rem);
 
         .value-section {
             display: flex;
@@ -214,7 +214,7 @@
     }
 }
 
-/* Breakpoints para responsividade */
+
 @media (max-width: 1024px) {
     .issue-card {
         padding: clamp(0.5rem, 1.2vw, 1rem);
