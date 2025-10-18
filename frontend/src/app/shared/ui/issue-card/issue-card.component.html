@@ -1,0 +1,56 @@
+<div class="issue-card" [attr.data-accent]="accentColor">
+    <div class="card-header">
+        <div class="header-left">
+            <div class="icon-wrapper">
+                <img [src]="iconUrl" [alt]="title" class="card-icon">
+            </div>
+            <div class="card-title">{{ title }}</div>
+        </div>
+        
+        <div class="header-right" *ngIf="showDatePicker">
+            <input
+                #monthInput
+                type="month"
+                [value]="getInputValue()"
+                class="visually-hidden-month"
+                aria-label="Selecionar mês"
+                (change)="onDateChange($event)"
+            />
+
+            <button class="date-button" (click)="openMonthPicker(monthInput)">
+                <img src="../../../../assets/clock.svg" alt="calendar" class="calendar-icon">
+                <span>{{ getFormattedDate() }}</span>
+            </button>
+        </div>
+    </div>
+    
+    <div class="card-body">
+        <div class="value-section">
+            <span class="value" *ngIf="!loading">{{ value }}</span>
+            <span class="value" *ngIf="loading">--</span>
+            <span class="value-label">issues</span>
+        </div>
+        
+        <div class="chart-section" *ngIf="showChart && chartData.length > 0">
+            <app-bar-graphic 
+                *ngIf="chartType === 'bar'"
+                [values]="chartData" 
+                [labels]="chartLabels">
+            </app-bar-graphic>
+            
+            <app-point-graphic
+                *ngIf="chartType === 'line'"
+                [values]="chartData"
+                [labels]="chartLabels"
+                [datasetLabel]="chartDatasetLabel"
+                [fillFrom]="chartFillFrom"
+                [fillMid]="chartFillMid"
+                [fillTo]="chartFillTo"
+                [borderWidth]="chartBorderWidth"
+                [pointRadius]="chartPointRadius"
+                [pointHoverRadius]="chartPointHoverRadius"
+                [showLegend]="chartShowLegend">
+            </app-point-graphic>
+        </div>
+    </div>
+</div>

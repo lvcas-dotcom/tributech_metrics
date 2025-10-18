@@ -6,7 +6,7 @@
     <div class="conteiner">
 
         <div class="cards">
-            <app-data-card class="card" [title]="teamHours" [description]="'Horas feitas no mês'"
+            <app-data-card class="card" [title]="horasFeitas" [description]="'Horas feitas no mês'"
             [imgUrl]="'../../../../assets/check.svg'"/>
 
             <app-data-card class="card" [title]="horasMinimas" [description]="'Minimo de horas no mês'"
@@ -14,6 +14,57 @@
 
             <app-data-card class="card" [title]="calculoHoras" [description]="'Diferença de horas'"
             [imgUrl]="'../../../../assets/exclamation-triangle.svg'"/>
+        </div>
+
+        <div class="issues-cards">
+            <app-issue-card 
+                class="issue-card glass"
+                [title]="'Issues Criadas no Mês'"
+                [value]="issuesCreatedCount"
+                [iconUrl]="'../../../../assets/table.svg'"
+                [showDatePicker]="true"
+                [showChart]="true"
+                [chartType]="'bar'"
+                [chartData]="chartData"
+                [chartLabels]="chartLabels"
+                [selectedDate]="selectedMonth"
+                [loading]="loadingIssuesCreated"
+                [accentColor]="'primary'"
+                (dateChanged)="onMonthChanged($event)">
+            </app-issue-card>
+
+            <app-issue-card 
+                class="issue-card issues-concluidas glass"
+                [title]="'Issues Concluídas Antes do Prazo'"
+                [value]="issuesCompletedBeforeDeadlineCount"
+                [iconUrl]="'../../../../assets/clock.svg'"
+                [showDatePicker]="false"
+                [showChart]="true"
+                [chartType]="'line'"
+                [chartData]="completedChartData"
+                [chartLabels]="completedChartLabels"
+                [chartDatasetLabel]="'Concluídas no Prazo'"
+                [chartLineColor]="'#E195FF'"
+                [chartFillFrom]="'rgba(225, 149, 255, 0.35)'"
+                [chartFillMid]="'rgba(225, 149, 255, 0.18)'"
+                [chartFillTo]="'rgba(225, 149, 255, 0.06)'"
+                [chartBorderWidth]="3"
+                [chartPointRadius]="5"
+                [chartPointHoverRadius]="8"
+                [chartShowLegend]="false"
+                [loading]="loadingIssuesCompleted"
+                [accentColor]="'secondary2'">
+            </app-issue-card>
+
+            <div>
+                <div class="background">
+                    <span class="text">ANÁLISE DE ISSUES</span>
+                    <div  class="pie-graphic">
+                        <pie-graphic [values]="[100,2]" [labels]="['Atrasadas','Feitas']"/>
+                    </div>
+                    
+                </div>
+            </div>
         </div>
         
         <div class="informations">
@@ -35,45 +86,36 @@
                     </div>
                 </div>
             </div>
-            <div>
-                <div class="background">
-                    <span class="text">ANÁLISE DE ISSUES</span>
-                    <div  class="pie-graphic">
-                        <pie-graphic [values]="[100,2]" [labels]="['Atrasadas','Feitas']"/>
+            <div class="data">
+                <div class="users-active-data">
+                    <div class="background">
+                        <div class="title">
+                            <img src="../../../../assets/person.svg" alt="">
+                            <span class="text">ENTREGAS DO MÊS</span>
+                        </div>
+                        <div class="card-users">
+                            
+                            <app-data-card  [title]="'6 issues'" [description]="'Gabriel Arantes'"
+                                [imgUrl]="'../../../../assets/check.svg'" routerLink="/employee/data/gabriel.arantes" />
+                            
+                            <app-data-card  [title]="'11 issues'" [description]="'Bruno Zotarelli'"
+                                [imgUrl]="'../../../../assets/check.svg'"/>
+                            <app-data-card  [title]="'8 issues'" [description]="'Lucas Henrique'"
+                                [imgUrl]="'../../../../assets/check.svg'"/>
+                            <app-data-card  [title]="'3 issues'" [description]="'Filipe Senra'"
+                                [imgUrl]="'../../../../assets/check.svg'"/>
+                            <app-data-card  [title]="'-2 issues'" [description]="'Filipe Ruiz Boligon'"
+                                [imgUrl]="'../../../../assets/check.svg'"/>
+                            <app-data-card  [title]="'9 issues'" [description]="'Thiago Zulli'"
+                                [imgUrl]="'../../../../assets/check.svg'"/>   
+                        </div>
                     </div>
-                    
                 </div>
             </div>
             
-            
         </div>
         
-        <div class="data">
-             <div class="users-active-data">
-                <div class="background">
-                    <div class="title">
-                        <img src="../../../../assets/person.svg" alt="">
-                        <span class="text">ENTREGAS DO MÊS</span>
-                    </div>
-                    <div class="card-users">
-                        
-                        <app-data-card  [title]="'6 issues'" [description]="'Gabriel Arantes'"
-                            [imgUrl]="'../../../../assets/check.svg'" routerLink="/employee/data/gabriel.arantes" />
-                           
-                        <app-data-card  [title]="'11 issues'" [description]="'Bruno Zotarelli'"
-                            [imgUrl]="'../../../../assets/check.svg'"/>
-                        <app-data-card  [title]="'8 issues'" [description]="'Lucas Henrique'"
-                            [imgUrl]="'../../../../assets/check.svg'"/>
-                        <app-data-card  [title]="'3 issues'" [description]="'Filipe Senra'"
-                            [imgUrl]="'../../../../assets/check.svg'"/>
-                        <app-data-card  [title]="'-2 issues'" [description]="'Filipe Ruiz Boligon'"
-                            [imgUrl]="'../../../../assets/check.svg'"/>
-                        <app-data-card  [title]="'9 issues'" [description]="'Thiago Zulli'"
-                            [imgUrl]="'../../../../assets/check.svg'"/>   
-                    </div>
-                </div>
-             </div>
-        </div>
+        
 
         
     </div>
