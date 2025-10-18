@@ -27,3 +27,40 @@ $background-cards: rgba(255, 255, 255, .06);
     padding: 0.5rem;
     box-shadow: 0 20px 40px rgba(0, 0, 0, .45), 0 1px 0 rgba(255, 255, 255, .02) inset;
 }
+
+@mixin card-default{
+    .title {
+        justify-self: start;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        width: 100%;
+        border-bottom: 1px solid $background-img-color;
+        padding: 0.7rem;
+
+        .icon-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: clamp(1.4rem, 2.5vw, 2rem);
+            height: clamp(1.4rem, 2.5vw, 2rem);
+            background: $background-img-color;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+
+            .card-icon {
+                width: clamp(0.9rem, 2vw, 1.1rem);
+                height: clamp(0.9rem, 2vw, 1.1rem);
+            }
+        }
+
+        .card-title {
+            font-family: $font-family-primary;
+            font-size: clamp(0.85rem, 1.6vw, 1rem);
+            font-weight: $font-weight-title;
+            color: $text-color;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+    }
+}

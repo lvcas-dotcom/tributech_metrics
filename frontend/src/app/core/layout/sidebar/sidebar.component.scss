@@ -101,32 +101,27 @@
                 transform: translateY(-50%) scaleY(1);
             }
 
-            &:active {
-                transform: translateX(2px) scale(0.995);
+            &.active {
+                color: $primary-color;
+                background-color: rgba(0,0,0,0.04);
+
+                &::before {
+                    transform: translateY(-50%) scaleY(1);
+                    opacity: .95;
+                    background: $primary-color;
+                }
+            }
+
+            &.inactive {
+                &::before {
+                    transform: translateY(-50%) scaleY(0);
+                }
+                opacity: .92;
             }
 
             &:focus-visible {
                 outline: 2px solid rgba($primary-color, .65);
-                outline-offset: 2px;
-            }
-
-            &.active {
-                color: #fff;
-                background: linear-gradient(90deg,
-                        rgba($primary-color, 0.92) 0%,
-                        rgba($primary-color, 0.82) 100%);
-                box-shadow: 0 6px 16px rgba(0, 0, 0, 0.22);
-
-                &::before {
-                    background: #fff;
-                    opacity: .95;
-                    transform: translateY(-50%) scaleY(1);
-                }
-
-                svg,
-                img {
-                    filter: brightness(0) invert(1);
-                }
+                outline-offset: 3px;
             }
 
             svg,

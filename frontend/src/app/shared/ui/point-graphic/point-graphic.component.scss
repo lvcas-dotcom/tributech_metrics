@@ -10,11 +10,9 @@
   height: 100%;
   padding: 1rem;
   
-  canvas {
-    transition: all 0.3s ease;
-    
-    &:hover {
-      filter: brightness(1.02);
-    }
+
+  canvas:hover {
+    filter: brightness(1.02);
   }
+  
 }

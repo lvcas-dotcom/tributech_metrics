@@ -46,7 +46,12 @@
 
             <div class="pie-chart">
                 <div class="background">
-                    <span class="text">ANÁLISE DE ISSUES</span>
+                    <div class="title">
+                        <div class="icon-wrapper">
+                            <img src="../../../../assets/check.svg"  class="card-icon">
+                        </div>
+                        <div class="card-title">ANÁLISE DE ISSUES</div>
+                    </div>
                     <div  class="pie-graphic">
                         <pie-graphic [values]="[100,2]" [labels]="['Atrasadas','Feitas']"/>
                     </div>
@@ -58,7 +63,12 @@
         <div class="informations">
             <div class="graphic-data">
                 <div>
-                    <span class="text">ISSUES ENTREGUES POR MÊS</span>
+                    <div class="title">
+                        <div class="icon-wrapper">
+                            <img src="../../../../assets/busca_icon.svg"  class="card-icon">
+                        </div>
+                        <div class="card-title">ISSUES ENTREGUES POR MÊS</div>
+                    </div>
                     <div class="point-graphic">
                         <app-point-graphic/>
                     </div>
@@ -78,8 +88,10 @@
                 <div class="users-active-data">
                     <div class="background">
                         <div class="title">
-                            <img src="../../../../assets/person.svg" alt="">
-                            <span class="text">ENTREGAS DO MÊS</span>
+                            <div class="icon-wrapper">
+                                <img src="../../../../assets/person.svg"  class="card-icon">
+                            </div>
+                            <div class="card-title">ENTREGAS POR MÊS</div>
                         </div>
                         <div class="card-users">
                             
