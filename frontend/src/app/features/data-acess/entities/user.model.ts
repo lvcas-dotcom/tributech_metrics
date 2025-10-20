@@ -7,6 +7,6 @@ export interface User{
         helpingHours: number;
         activeHours: number;
     }
-    issues: Issue[];
+    issues?: Issue[];
 
 }

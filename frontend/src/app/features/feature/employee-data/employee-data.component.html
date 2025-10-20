@@ -42,7 +42,7 @@
                         <img src="../../../../assets/table.svg" alt="Issues icon">
                     </div>
                     <h3 class="header-title">Issues sob Responsabilidade</h3>
-                    <div class="header-badge">3</div>
+                    <div class="header-badge">{{CountIssues}}</div>
                 </div>
                 <div class="table">
                     <app-table [itens]="issuesTable"
@@ -54,7 +54,7 @@
         <div class="user-graphic">
             <div class="background">
                 <span class="text">Gerenciamento das Horas</span>
-                <pie-graphic [values]="chartValues" [labels]="['Ajudando','Executando']"/>
+                <pie-graphic [values]="chartValues()" [labels]="['Ajudando','Executando']" [graphicLabel]="'Horas'"/>
             </div>
         </div>
     </div>
