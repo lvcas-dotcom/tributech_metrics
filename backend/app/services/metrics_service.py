@@ -11,6 +11,7 @@ from app.schemas.metrics import (
     IssueAssignedByUser,
     HelpHoursByUser,
     HighPriorityIssue,
+    IssuesCreatedByProject,
 )
 
 
@@ -72,3 +73,13 @@ class MetricsService:
         projects: Optional[Sequence[str]],
     ) -> List[HighPriorityIssue]:
         return await self.repo.fetch_high_priority_issues(projects)
+
+    async def issues_created_by_project(
+        self,
+        start_date: date,
+        end_date: date,
+        projects: Optional[Sequence[str]],
+    ) -> List[IssuesCreatedByProject]:
+        return await self.repo.fetch_issues_created_by_project(
+            start_date, end_date, projects
+        )

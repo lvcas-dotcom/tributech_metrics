@@ -11,6 +11,7 @@ from app.schemas.metrics import (
     IssueAssignedByUser,
     HelpHoursByUser,
     HighPriorityIssue,
+    IssuesCreatedByProject,
 )
 
 
@@ -100,11 +101,24 @@ class MetricsRepository:
         SELECT
             u.username AS usuario,
             DATE_TRUNC('month', t.spent_at)::date AS mes,
-            ROUND(SUM(CASE WHEN iau.user_id IS NULL THEN t.time_spent ELSE 0 END) / 3600.0, 2) AS horas_ajuda,
+            ROUND(
+                SUM(
+                    CASE WHEN iau.user_id IS NULL THEN t.time_spent ELSE 0 END
+                ) / 3600.0,
+                2
+            ) AS horas_ajuda,
             ROUND(SUM(t.time_spent) / 3600.0, 2) AS horas_totais_mes,
             ROUND(
-                (SUM(t.time_spent) - SUM(CASE WHEN iau.user_id IS NULL THEN t.time_spent ELSE 0 END)) / 3600.0
-            , 2) AS horas_liquidas
+                (
+                    SUM(t.time_spent) -
+                    SUM(
+                        CASE WHEN iau.user_id IS NULL THEN
+                            t.time_spent
+                        ELSE 0 END
+                    )
+                ) / 3600.0,
+                2
+            ) AS horas_liquidas
         FROM timelogs t
         JOIN users u    ON u.id = t.user_id
         JOIN issues i   ON i.id = t.issue_id
@@ -138,6 +152,20 @@ class MetricsRepository:
           AND (:projects_is_null OR p.name = ANY(:projects))
         ORDER BY i.created_at DESC
     """
+    )
+
+    SQL_ISSUES_CREATED_BY_PROJECT = text(
+        """
+        SELECT
+            p.name AS projeto,
+            COUNT(i.id) AS issues_criadas
+        FROM issues i
+        JOIN projects p ON p.id = i.project_id
+        WHERE i.created_at::date BETWEEN :start_date AND :end_date
+          AND (:projects_is_null OR p.name = ANY(:projects))
+        GROUP BY p.name
+        ORDER BY p.name
+        """
     )
 
     def __init__(self, session: AsyncSession) -> None:
@@ -247,3 +275,22 @@ class MetricsRepository:
             .all()
         )
         return [HighPriorityIssue(**r) for r in rows]
+
+    async def fetch_issues_created_by_project(
+        self,
+        start_date: date,
+        end_date: date,
+        projects: Optional[Sequence[str]],
+    ) -> List[IssuesCreatedByProject]:
+        params: Dict[str, Any] = {
+            "start_date": start_date,
+            "end_date": end_date,
+            "projects": list(projects) if projects else [],
+            "projects_is_null": projects is None or len(projects) == 0,
+        }
+        rows = (
+            (await self.session.execute(self.SQL_ISSUES_CREATED_BY_PROJECT, params))
+            .mappings()
+            .all()
+        )
+        return [IssuesCreatedByProject(**r) for r in rows]

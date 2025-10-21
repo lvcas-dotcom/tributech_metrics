@@ -1,6 +1,6 @@
-
 from datetime import date, datetime
 from pydantic import BaseModel
+
 
 class MetricByTask(BaseModel):
     projeto: str
@@ -9,10 +9,12 @@ class MetricByTask(BaseModel):
     horas_apontadas: float
     data: date
 
+
 class MetricByUserMonth(BaseModel):
     usuario: str
     mes: date
     horas_apontadas: float
+
 
 class MetricByUserProjectMonth(BaseModel):
     usuario: str
@@ -43,3 +45,8 @@ class HighPriorityIssue(BaseModel):
     label: str
     created_at: datetime
     updated_at: datetime
+
+
+class IssuesCreatedByProject(BaseModel):
+    projeto: str
+    issues_criadas: int
