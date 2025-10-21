@@ -15,3 +15,11 @@ class TaskItem(BaseModel):
     id: int
     title: str
     projeto: str
+
+
+class TaskWithHoursItem(BaseModel):
+    id: int
+    title: str
+    projeto: str
+    usuario: str
+    horas_apontadas: float
