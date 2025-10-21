@@ -50,3 +50,11 @@ class HighPriorityIssue(BaseModel):
 class IssuesCreatedByProject(BaseModel):
     projeto: str
     issues_criadas: int
+
+
+class IssuesCompletionByProject(BaseModel):
+    projeto: str
+    total_abertas: int
+    total_finalizadas_no_prazo: int
+    total_finalizadas_com_atraso: int
+    total_abertas_atrasadas: int

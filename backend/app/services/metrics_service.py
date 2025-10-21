@@ -12,6 +12,7 @@ from app.schemas.metrics import (
     HelpHoursByUser,
     HighPriorityIssue,
     IssuesCreatedByProject,
+    IssuesCompletionByProject,
 )
 
 
@@ -81,5 +82,15 @@ class MetricsService:
         projects: Optional[Sequence[str]],
     ) -> List[IssuesCreatedByProject]:
         return await self.repo.fetch_issues_created_by_project(
+            start_date, end_date, projects
+        )
+
+    async def issues_completion_by_project(
+        self,
+        start_date: date,
+        end_date: date,
+        projects: Optional[Sequence[str]],
+    ) -> List[IssuesCompletionByProject]:
+        return await self.repo.fetch_issues_completion_by_project(
             start_date, end_date, projects
         )

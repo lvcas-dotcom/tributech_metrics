@@ -14,6 +14,7 @@ from app.schemas.metrics import (
     HelpHoursByUser,
     HighPriorityIssue,
     IssuesCreatedByProject,
+    IssuesCompletionByProject,
 )
 from app.services.metrics_service import MetricsService
 
@@ -210,3 +211,28 @@ async def issues_created_by_project(
     prjs = projects if projects is not None else default_projects()
     service = MetricsService(session)
     return await service.issues_created_by_project(s, e, prjs)
+
+
+@router.get(
+    "/issues-completion-by-project",
+    response_model=List[IssuesCompletionByProject],
+    summary="Issues concluídas no prazo e atrasadas por projeto",
+    description=(
+        "Retorna, por projeto, a quantidade de issues concluídas no prazo e "
+        "as concluídas com atraso dentro do período informado. Se não forem "
+        "enviadas `start_date` e `end_date`, usa o mês atual. Pode filtrar "
+        "por `projects`."
+    ),
+)
+async def issues_completion_by_project(
+    start_date: Optional[date] = Query(None, description="Data inicial (YYYY-MM-DD)"),
+    end_date: Optional[date] = Query(None, description="Data final (YYYY-MM-DD)"),
+    projects: Optional[List[str]] = Query(
+        None, description="Projetos", example=["geo", "suporte-reurb"]
+    ),
+    session: AsyncSession = Depends(get_session),
+):
+    s, e = default_period(start_date, end_date)
+    prjs = projects if projects is not None else default_projects()
+    service = MetricsService(session)
+    return await service.issues_completion_by_project(s, e, prjs)
