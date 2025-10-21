@@ -1,0 +1,10 @@
+@use '../../../styles/variables.scss' as v;
+.conteiner{
+    @include v.card-default;
+    display: grid;
+    grid-template-rows: 0.4fr 0.6fr;
+    margin: 2%;
+    
+        @include v.bg-default
+    
+}
