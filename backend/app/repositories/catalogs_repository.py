@@ -4,7 +4,11 @@ from typing import Optional, Sequence, Dict, Any, List
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.schemas.catalogs import ProjectItem, UserItem, TaskItem
+from app.schemas.catalogs import (
+    ProjectItem,
+    UserItem,
+    TaskWithHoursItem,
+)
 
 
 class CatalogsRepository:
@@ -41,9 +45,11 @@ class CatalogsRepository:
     SQL_LIST_TASKS = text(
         """
         SELECT
-            i.iid      AS id,
-            i.title   AS title,
-            p.name    AS projeto
+            i.iid AS id,
+            i.title AS title,
+            p.name AS projeto,
+            u.username AS usuario,
+            ROUND(SUM(t.time_spent) / 3600.0, 2) AS horas_apontadas
         FROM timelogs t
         JOIN users u    ON u.id = t.user_id
         JOIN issues i   ON i.id = t.issue_id
@@ -51,8 +57,8 @@ class CatalogsRepository:
         WHERE t.spent_at::date BETWEEN :start_date AND :end_date
           AND (:projects_is_null OR p.name = ANY(:projects))
           AND (:users_is_null OR u.username = ANY(:users))
-        GROUP BY i.id, i.title, p.name
-        ORDER BY i.title
+        GROUP BY i.id, i.iid, i.title, p.name, u.username
+        ORDER BY i.title, u.username
     """
     )
 
@@ -106,9 +112,9 @@ class CatalogsRepository:
         end_date: date,
         projects: Optional[Sequence[str]],
         users: Optional[Sequence[str]],
-    ) -> List[TaskItem]:
+    ) -> List[TaskWithHoursItem]:
         params = self._bind_params(start_date, end_date, projects, users)
         rows = (
             (await self.session.execute(self.SQL_LIST_TASKS, params)).mappings().all()
         )
-        return [TaskItem(**r) for r in rows]
+        return [TaskWithHoursItem(**r) for r in rows]
