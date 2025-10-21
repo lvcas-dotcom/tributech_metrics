@@ -60,7 +60,9 @@ export class EmployeeDataComponent {
     return issues.map(issue => ({
         id: issue.id,
         title: issue.title,
-        label1: issue.project
+        label1: issue.project,
+        label2: (issue.hours?.toFixed(1).toString() ?? '0') + 'Hrs Apontadas',
+        label3: issue.status ?? 'N/A'
       }));
   }
 

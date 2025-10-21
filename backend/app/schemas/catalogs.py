@@ -1,5 +1,6 @@
 from pydantic import BaseModel
-
+from datetime import datetime, timedelta
+from typing import Optional
 
 class ProjectItem(BaseModel):
     id: int
@@ -18,8 +19,13 @@ class TaskItem(BaseModel):
 
 
 class TaskWithHoursItem(BaseModel):
-    id: int
+    project: str
+    issue_id: int
     title: str
-    projeto: str
-    usuario: str
-    horas_apontadas: float
+    user: Optional[str]
+    hours: float
+    status: str
+    blocked_time: Optional[timedelta]
+    init_todo: Optional[datetime]
+    due_date: Optional[datetime]
+    closed_at: Optional[datetime]

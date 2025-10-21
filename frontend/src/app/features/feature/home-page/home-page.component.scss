@@ -75,7 +75,7 @@
         }
 
         .informations{
-            padding: 1.5%;
+            padding: 0 1rem;
             width: 100%;
             height: 100%;
             display: grid;
@@ -91,9 +91,10 @@
                 @include v.bg-default;
                 @include v.card-default;
                 display: grid;
+                align-self: baseline;
                 grid-template-columns: 0.65fr 0.35fr;
                 grid-template-rows: auto 1fr;
-                height: 100%;
+                height: 95%;
                 min-height: 0;
                 .point-graphic{
                     width: 100%;

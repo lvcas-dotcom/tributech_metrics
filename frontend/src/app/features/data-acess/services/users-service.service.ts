@@ -28,7 +28,18 @@ export class UserService{
         if(endDate) params = params.set('end_date',endDate);
         
         if(projects) params = params.set('projects',projects);
-        return this.http.get<{id:number, title:string, projeto:string}[]>(
+        return this.http.get<{
+            issue_id:number, 
+            title:string, 
+            project:string,
+            user:string | null,
+            hours:number | null,
+            status:string | null,
+            blocked_time:number | null,
+            init_todo:string  | null,
+            due_date:string  | null,
+            closed_at:string  |null
+        }[]>(
             `${this.api}/metrics/catalog/tasks`,{params});
     }
 
