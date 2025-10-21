@@ -44,22 +44,89 @@ class CatalogsRepository:
 
     SQL_LIST_TASKS = text(
         """
+        WITH proj AS (
+            SELECT p.id, p.name
+            FROM projects p
+            WHERE (:projects_is_null OR p.name = ANY(:projects))
+        ),
+        todo_events AS (
+            SELECT
+                rle.issue_id,
+                MIN(rle.created_at) AS todo_start_time
+            FROM proj p
+            JOIN issues i
+                ON p.id = i.project_id
+            JOIN resource_label_events rle
+                ON i.id = rle.issue_id
+            JOIN labels l
+                ON rle.label_id = l.id
+            WHERE
+                rle.action = 1
+                AND (
+                    (p.name = 'geo' AND l.title = 'ST_To Do') OR
+                    (p.name = 'suporte-geo' AND l.title = 'ST_1_To_Do') OR
+                    (p.name = 'suporte-reurb' AND l.title = 'ST_1_Todo') OR
+                    (p.name = 'suporte-saovicente' AND l.title = 'To Do')
+                )
+            GROUP BY rle.issue_id
+        ),
+        issue_assignees_list AS (
+            SELECT
+                ia.issue_id,
+                CASE
+                    WHEN COUNT(u.id) = 1 THEN MAX(u.username)
+                    WHEN COUNT(u.id) > 1 THEN 'Múltiplos'
+                    ELSE NULL
+                END AS usuario_responsavel
+            FROM issue_assignees ia
+            JOIN users u ON ia.user_id = u.id
+            GROUP BY ia.issue_id
+        )
         SELECT
-            i.iid AS id,
-            i.title AS title,
             p.name AS projeto,
-            u.username AS usuario,
-            ROUND(SUM(t.time_spent) / 3600.0, 2) AS horas_apontadas
-        FROM timelogs t
-        JOIN users u    ON u.id = t.user_id
-        JOIN issues i   ON i.id = t.issue_id
-        JOIN projects p ON p.id = i.project_id
-        WHERE t.spent_at::date BETWEEN :start_date AND :end_date
-          AND (:projects_is_null OR p.name = ANY(:projects))
-          AND (:users_is_null OR u.username = ANY(:users))
-        GROUP BY i.id, i.iid, i.title, p.name, u.username
-        ORDER BY i.title, u.username
-    """
+            i.iid AS issue_id,
+            i.title AS titulo_da_issue,
+            asl.usuario_responsavel,
+            ROUND(COALESCE(SUM(t.time_spent), 0) / 3600.0, 2)
+                AS horas_apontadas,
+            CASE
+                WHEN i.closed_at IS NULL THEN 'Em Andamento'
+                WHEN i.due_date IS NOT NULL
+                    AND i.closed_at::date > i.due_date::date
+                    THEN 'Concluída (Atrasada)'
+                WHEN i.closed_at IS NOT NULL
+                    AND (i.due_date IS NULL
+                         OR i.closed_at::date <= i.due_date::date)
+                    THEN 'Concluída (No Prazo)'
+                ELSE 'Em Andamento'
+            END AS status,
+            (i.closed_at - todo.todo_start_time) AS tempo_de_ciclo,
+            todo.todo_start_time AS inicio_todo,
+            i.due_date,
+            i.closed_at
+        FROM proj p
+        JOIN issues i
+            ON p.id = i.project_id
+        LEFT JOIN todo_events todo
+            ON i.id = todo.issue_id
+        LEFT JOIN timelogs t
+            ON i.id = t.issue_id
+        INNER JOIN issue_assignees_list asl
+            ON asl.issue_id = i.id
+        WHERE todo.todo_start_time::date BETWEEN :start_date AND :end_date
+        GROUP BY
+            p.name,
+            i.id,
+            i.iid,
+            i.title,
+            asl.usuario_responsavel,
+            i.closed_at,
+            i.due_date,
+            todo.todo_start_time
+        ORDER BY
+            p.name,
+            i.iid
+        """
     )
 
     def __init__(self, session: AsyncSession) -> None:
