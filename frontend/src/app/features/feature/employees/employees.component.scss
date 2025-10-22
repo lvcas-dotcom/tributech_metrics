@@ -362,8 +362,8 @@
                             flex-shrink: 0;
 
                             &.primary { background: rgba(v.$primary-color, 0.15); }
-                            &.secondary1 { background: rgba(v.$secundary-color1, 0.15); }
-                            &.secondary2 { background: rgba(v.$secundary-color2, 0.15); }
+                            &.secondary1 { background: rgba(v.$primary-color, 0.15); }
+                            &.secondary2 { background: rgba(v.$secundary-color3, 0.25); }
 
                             .metric-icon {
                                 width: 16px;
