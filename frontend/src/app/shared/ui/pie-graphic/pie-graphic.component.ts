@@ -14,18 +14,19 @@ import { BaseChartDirective } from 'ng2-charts';
 export class PieGraphicComponent {
   @Input() values: number[] = [];
   @Input() labels: string[] = [];
+  @Input() graphicLabel: string = 'Dados';
 
 
   public lineChartData!: ChartData<'pie'>;
   public lineChartType: 'pie' = 'pie';
 
-  ngOnInit(){
+  ngOnChanges(){
     this.lineChartData = {
       labels: this.labels,
       datasets: [
         {
           data: this.values,
-          label: 'Issues',
+          label: this.graphicLabel,
           backgroundColor: [
             '#A384FF',
             '#ff91f0ff',
@@ -107,7 +108,7 @@ export class PieGraphicComponent {
             const value = context.parsed || 0;
             const total = context.dataset.data.reduce((a: number, b: number) => a + b, 0);
             const percentage = ((value / total) * 100).toFixed(1);
-            return ` ${value} issues (${percentage}%)`;
+            return ` ${value} ${this.graphicLabel} (${percentage}%)`;
           }
         }
       }

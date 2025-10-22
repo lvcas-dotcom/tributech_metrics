@@ -1,4 +1,4 @@
-import { Component, Inject, inject, Input } from '@angular/core';
+import { Component, computed, Inject, inject, Input } from '@angular/core';
 import { SidebarComponent } from '../../../core/layout/sidebar/sidebar.component';
 import { DataCardComponent } from '../../../shared/ui/data-card/data-card.component';
 import { PieGraphicComponent } from '../../../shared/ui/pie-graphic/pie-graphic.component';
@@ -27,7 +27,7 @@ export class EmployeeDataComponent {
   private state = inject(UserState);
   private route = inject(ActivatedRoute);
   
-  user$ = this.state.users;
+  user$ = this.state.user;
   issue: tableType[] = [];
   goToIssue(idIssue: number) { 
     window.open(this.git.getIssueUrl('suporte',idIssue), '_blank'); 
@@ -36,24 +36,35 @@ export class EmployeeDataComponent {
   ngOnInit(): void {
     const routeUsername = this.route.snapshot.paramMap.get('username');
     if (routeUsername) {
-      this.state.loadUserHours(routeUsername);
-      this.state.loadUserIssues(routeUsername);
+      this.state.loadUser(routeUsername);
     }
     
   }
 
-  get chartValues(): number[]{
-    return [
-      this.user$()?.hours?.helpingHours ?? 0,
-      this.user$()?.hours?.activeHours ?? 0
-    ]
-  }
+  chartValues = computed(() => {
+    const u = this.user$();     
+    const helping = Number(u?.hours?.helpingHours ?? 0);
+    const active  = Number(u?.hours?.activeHours  ?? 0);
+    const sum = helping + active;
+    return sum > 0 ? [helping, active] : [0,0];      
+  });
 
   get issuesTable(): tableType[] {
-    return this.user$()?.issues.map(issue => ({
+    const issues = this.user$()?.issues ?? [];
+    if(issues.length === 0){
+      return [{
+        id: -1,
+        title: 'No issues found',
+        label1: 'N/A'
+      }];}
+    return issues.map(issue => ({
         id: issue.id,
         title: issue.title,
         label1: issue.project
-      })) ?? [];
+      }));
+  }
+
+  get CountIssues(): number {
+    return this.user$()?.issues?.length ?? 0;
   }
 }
