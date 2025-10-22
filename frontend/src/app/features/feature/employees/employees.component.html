@@ -1,59 +1,35 @@
 <section class="main">
     <app-sidebar/>
     <section class="employees">
-        <!-- Header com estatísticas gerais -->
+        <!-- Header Minimalista -->
         <div class="employees-header">
             <div class="header-content">
-                <div class="header-title">
+                <div class="header-left">
                     <div class="icon-wrapper">
                         <img src="../../../../assets/person.svg" alt="Colaboradores" class="header-icon">
                     </div>
                     <div class="title-group">
                         <h1>COLABORADORES</h1>
-                        <p class="subtitle">Análise de Desempenho e Métricas</p>
-                    </div>
-                </div>
-                
-                <div class="header-stats">
-                    <div class="stat-card">
-                        <div class="stat-value">{{ totalEmployees }}</div>
-                        <div class="stat-label">Colaboradores</div>
-                    </div>
-                    <div class="stat-card accent-secondary1">
-                        <div class="stat-value">{{ totalHours }}</div>
-                        <div class="stat-label">Horas Totais</div>
-                    </div>
-                    <div class="stat-card accent-secondary2">
-                        <div class="stat-value">{{ avgEfficiency }}%</div>
-                        <div class="stat-label">Eficiência Média</div>
+                        <p class="subtitle">{{ totalEmployees }} colaboradores • {{ totalHours }}h trabalhadas • {{ avgEfficiency }}% eficiência</p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Filtros e busca -->
-        <div class="filters-section">
+        <!-- Controles Minimalistas -->
+        <div class="controls-section">
             <div class="search-wrapper">
-                <app-barra-pesquisa/>
+                <app-barra-pesquisa placeholder="Buscar colaborador..."/>
             </div>
             
-            <div class="filter-controls">
-                <button class="filter-btn" [class.active]="filterBy === 'all'" (click)="setFilter('all')">
-                    <span class="filter-icon">🔍</span>
-                    Todos
-                </button>
-                <button class="filter-btn" [class.active]="filterBy === 'active'" (click)="setFilter('active')">
-                    <span class="filter-icon">✅</span>
-                    Ativos
-                </button>
-                <button class="filter-btn" [class.active]="filterBy === 'high-performance'" (click)="setFilter('high-performance')">
-                    <span class="filter-icon">⭐</span>
-                    Alta Performance
-                </button>
-                <button class="filter-btn" [class.active]="filterBy === 'needs-attention'" (click)="setFilter('needs-attention')">
-                    <span class="filter-icon">⚠️</span>
-                    Atenção
-                </button>
+            <div class="filter-wrapper">
+                <img src="../../../../assets/table.svg" alt="Filtro" class="filter-icon">
+                <select class="filter-select" [(ngModel)]="filterBy" (change)="applyFilter()">
+                    <option value="all">Todos os Colaboradores</option>
+                    <option value="active">Apenas Ativos</option>
+                    <option value="high-performance">Alta Performance (≥90%)</option>
+                    <option value="needs-attention">Requer Atenção (&lt;70%)</option>
+                </select>
             </div>
         </div>
         

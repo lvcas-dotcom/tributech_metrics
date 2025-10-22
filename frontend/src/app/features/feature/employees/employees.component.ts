@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { SidebarComponent } from '../../../core/layout/sidebar/sidebar.component';
 import { BarraPesquisaComponent } from '../../../shared/ui/barra-pesquisa/barra-pesquisa.component';
 import { CardUserComponent } from '../../../shared/ui/card-user/card-user.component';
@@ -24,8 +25,13 @@ export interface Employee {
 
 @Component({
   selector: 'app-employees',
-  imports: [CommonModule, SidebarComponent, BarraPesquisaComponent, CardUserComponent],
   standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    SidebarComponent,
+    BarraPesquisaComponent
+  ],
   templateUrl: './employees.component.html',
   styleUrl: './employees.component.scss'
 })
