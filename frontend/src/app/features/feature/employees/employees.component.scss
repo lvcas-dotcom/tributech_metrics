@@ -1,11 +1,11 @@
-@use '../../../styles/variables' as *;
+@use '../../../styles/variables' as v;
 
 .main{
     height: 100vh;
     width: 100vw;
     display: grid;
     grid-template-columns: 0.15fr 1fr;
-    background-color: $background-dark-color;
+    background-color: v.$background-dark-color;
 
     .sidebar{
         width: 100%;
@@ -39,10 +39,29 @@
 
         .cards-conteiner{
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr;
             grid-template-rows: auto;
             gap: 1.5rem;
+            min-width: 0;
+            max-height: 100vh;
+            overflow-y: auto;
+            row-gap: 0;
+            align-items: start;
 
+            
+            &::-webkit-scrollbar {
+                width: 6px;
+            }
+
+            &::-webkit-scrollbar-track {
+                background: transparent;
+                border-radius: 10px;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background: rgba(v.$primary-color, 0.3);
+                border-radius: 10px;
+            }
         }
         
     }
