@@ -1,5 +1,5 @@
 from datetime import date, timedelta
-from typing import List, Optional, Sequence
+from typing import List, Optional
 
 from fastapi import APIRouter, Depends, Query
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -13,6 +13,8 @@ from app.schemas.metrics import (
     IssueAssignedByUser,
     HelpHoursByUser,
     HighPriorityIssue,
+    IssuesCreatedByProject,
+    IssuesCompletionByProject,
 )
 from app.services.metrics_service import MetricsService
 
@@ -45,9 +47,10 @@ def default_projects() -> List[str]:
     response_model=List[MetricByTask],
     summary="Hours by task",
     description=(
-        "Retorna as horas apontadas **agrupadas por tarefa** no período informado. "
-        "Se `start_date` e `end_date` não forem enviados, o período padrão é o mês atual. "
-        "Se `projects` não for enviado, é usada a lista configurada em `DEFAULT_PROJECTS`."
+        "Retorna as horas apontadas **agrupadas por tarefa** no período "
+        "informado. Se `start_date` e `end_date` não forem enviados, o "
+        "período padrão é o mês atual. Se `projects` não for enviado, é "
+        "usada a lista configurada em `DEFAULT_PROJECTS`."
     ),
 )
 async def by_task(
@@ -72,7 +75,8 @@ async def by_task(
     response_model=List[MetricByUserMonth],
     summary="Hours by user per month",
     description=(
-        "Retorna o **total de horas por usuário, agregado por mês** dentro do período."
+        "Retorna o **total de horas por usuário, agregado por mês** dentro do "
+        "período."
     ),
 )
 async def by_user_month(
@@ -92,7 +96,9 @@ async def by_user_month(
     "/by-user-project-month",
     response_model=List[MetricByUserProjectMonth],
     summary="Hours by user per project per month",
-    description="Horas por usuário **por projeto** e **por mês** no período especificado.",
+    description=(
+        "Horas por usuário **por projeto** e **por mês** no período " "especificado."
+    ),
 )
 async def by_user_project_month(
     start_date: Optional[date] = Query(None),
@@ -112,8 +118,9 @@ async def by_user_project_month(
     response_model=List[IssueAssignedByUser],
     summary="Issues assigned by user in the current month",
     description=(
-        "Retorna as **issues assinadas por usuário no mês atual** (issues abertas). "
-        "Se `projects` não for enviado, é usada a lista configurada em `DEFAULT_PROJECTS`."
+        "Retorna as **issues assinadas por usuário no mês atual** (issues "
+        "abertas). Se `projects` não for enviado, é usada a lista configurada "
+        "em `DEFAULT_PROJECTS`."
     ),
 )
 async def issues_assigned_by_user(
@@ -135,10 +142,12 @@ async def issues_assigned_by_user(
     response_model=List[HelpHoursByUser],
     summary="Help hours by user",
     description=(
-        "Retorna as **horas de ajuda** para outros colaboradores (em issues nas quais o usuário NÃO é responsável). "
-        "Inclui também horas totais do mês e horas líquidas (horas próprias). "
-        "Se `start_date` e `end_date` não forem enviados, o período padrão é o mês atual. "
-        "Se `projects` não for enviado, é usada a lista configurada em `DEFAULT_PROJECTS`."
+        "Retorna as **horas de ajuda** para outros colaboradores (em issues "
+        "nas quais o usuário NÃO é responsável). Inclui também horas totais "
+        "do mês e horas líquidas (horas próprias). Se `start_date` e "
+        "`end_date` não forem enviados, o período padrão é o mês atual. Se "
+        "`projects` não for enviado, é usada a lista configurada em "
+        "`DEFAULT_PROJECTS`."
     ),
 )
 async def help_hours_by_user(
@@ -163,9 +172,10 @@ async def help_hours_by_user(
     response_model=List[HighPriorityIssue],
     summary="High priority issues",
     description=(
-        "Retorna as **issues com prioridade alta** (label P_Alta) que estão abertas. "
-        "Ideal para mostrar em cards de atenção/urgência. "
-        "Se `projects` não for enviado, é usada a lista configurada em `DEFAULT_PROJECTS`."
+        "Retorna as **issues com prioridade alta** (label P_Alta) que estão "
+        "abertas. Ideal para mostrar em cards de atenção/urgência. Se "
+        "`projects` não for enviado, é usada a lista configurada em "
+        "`DEFAULT_PROJECTS`."
     ),
 )
 async def high_priority_issues(
@@ -177,3 +187,52 @@ async def high_priority_issues(
     prjs = projects if projects is not None else default_projects()
     service = MetricsService(session)
     return await service.high_priority_issues(prjs)
+
+
+@router.get(
+    "/issues-created-by-project",
+    response_model=List[IssuesCreatedByProject],
+    summary="Issues criadas por projeto no período",
+    description=(
+        "Retorna a contagem de issues criadas por projeto entre as datas "
+        "informadas. Se não forem enviadas, usa o mês atual. Pode filtrar por "
+        "`projects`."
+    ),
+)
+async def issues_created_by_project(
+    start_date: Optional[date] = Query(None, description="Data inicial (YYYY-MM-DD)"),
+    end_date: Optional[date] = Query(None, description="Data final (YYYY-MM-DD)"),
+    projects: Optional[List[str]] = Query(
+        None, description="Projetos", example=["geo", "suporte-reurb"]
+    ),
+    session: AsyncSession = Depends(get_session),
+):
+    s, e = default_period(start_date, end_date)
+    prjs = projects if projects is not None else default_projects()
+    service = MetricsService(session)
+    return await service.issues_created_by_project(s, e, prjs)
+
+
+@router.get(
+    "/issues-completion-by-project",
+    response_model=List[IssuesCompletionByProject],
+    summary="Issues concluídas no prazo e atrasadas por projeto",
+    description=(
+        "Retorna, por projeto, a quantidade de issues concluídas no prazo e "
+        "as concluídas com atraso dentro do período informado. Se não forem "
+        "enviadas `start_date` e `end_date`, usa o mês atual. Pode filtrar "
+        "por `projects`."
+    ),
+)
+async def issues_completion_by_project(
+    start_date: Optional[date] = Query(None, description="Data inicial (YYYY-MM-DD)"),
+    end_date: Optional[date] = Query(None, description="Data final (YYYY-MM-DD)"),
+    projects: Optional[List[str]] = Query(
+        None, description="Projetos", example=["geo", "suporte-reurb"]
+    ),
+    session: AsyncSession = Depends(get_session),
+):
+    s, e = default_period(start_date, end_date)
+    prjs = projects if projects is not None else default_projects()
+    service = MetricsService(session)
+    return await service.issues_completion_by_project(s, e, prjs)

@@ -1,3 +1,6 @@
+from datetime import datetime, timedelta
+from typing import Optional
+
 from pydantic import BaseModel
 from datetime import datetime, timedelta
 from typing import Optional
@@ -19,6 +22,7 @@ class TaskItem(BaseModel):
 
 
 class TaskWithHoursItem(BaseModel):
+<<<<<<< HEAD
     project: str
     issue_id: int
     title: str
@@ -27,5 +31,15 @@ class TaskWithHoursItem(BaseModel):
     status: str
     blocked_time: Optional[timedelta]
     init_todo: Optional[datetime]
+=======
+    projeto: str
+    issue_id: int
+    titulo_da_issue: str
+    usuario_responsavel: Optional[str]
+    horas_apontadas: float
+    status: str
+    tempo_de_ciclo: Optional[timedelta]
+    inicio_todo: Optional[datetime]
+>>>>>>> origin/frontend_test
     due_date: Optional[datetime]
     closed_at: Optional[datetime]
