@@ -23,51 +23,169 @@
         .employees-header {
             background: v.$background-color;
             border-bottom: 1px solid rgba(v.$primary-color, 0.1);
-            padding: clamp(1.2rem, 2vw, 1.8rem) clamp(1.5rem, 3vw, 2.5rem);
+            padding: clamp(1.2rem, 2vw, 1.5rem) clamp(1.5rem, 3vw, 2.5rem);
             animation: slideDown 0.4s ease-out;
 
             .header-content {
                 max-width: 1600px;
-                margin: 0 auto;
+                display: flex;
+                flex-direction: column;
+                gap: 1.2rem;
 
-                .header-left {
+                .header-top {
                     display: flex;
                     align-items: center;
-                    gap: 1rem;
-
-                    .icon-wrapper {
+                    justify-content: flex-start;
+                    
+                    .header-left {
                         display: flex;
                         align-items: center;
-                        justify-content: center;
-                        width: clamp(2.5rem, 4vw, 3rem);
-                        height: clamp(2.5rem, 4vw, 3rem);
-                        background: rgba(v.$primary-color, 0.12);
-                        border-radius: 10px;
-                        border: 1px solid rgba(v.$primary-color, 0.2);
+                        gap: 0.9rem;
 
-                        .header-icon {
-                            width: clamp(1.2rem, 2vw, 1.6rem);
-                            height: clamp(1.2rem, 2vw, 1.6rem);
-                            filter: brightness(0) invert(1);
+                        .icon-wrapper {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            width: clamp(2.4rem, 3.5vw, 2.8rem);
+                            height: clamp(2.4rem, 3.5vw, 2.8rem);
+                            background: linear-gradient(135deg, rgba(v.$primary-color, 0.15) 0%, rgba(v.$secundary-color1, 0.1) 100%);
+                            border-radius: 12px;
+                            border: 1px solid rgba(v.$primary-color, 0.2);
+                            transition: all 0.3s ease;
+
+                            &:hover {
+                                transform: scale(1.05);
+                                background: linear-gradient(135deg, rgba(v.$primary-color, 0.2) 0%, rgba(v.$secundary-color1, 0.15) 100%);
+                            }
+
+                            .header-icon {
+                                width: clamp(1.2rem, 2vw, 1.5rem);
+                                height: clamp(1.2rem, 2vw, 1.5rem);
+                                filter: brightness(0) invert(1);
+                            }
+                        }
+
+                        .title-group {
+                            h1 {
+                                font-family: v.$font-family-primary;
+                                font-size: clamp(1.2rem, 2.2vw, 1.6rem);
+                                font-weight: 700;
+                                color: v.$text-color;
+                                margin: 0 0 0.2rem 0;
+                                text-transform: uppercase;
+                                letter-spacing: 0.05em;
+                                background: linear-gradient(135deg, v.$text-color 0%, v.$primery-light-color 100%);
+                                -webkit-background-clip: text;
+                                -webkit-text-fill-color: transparent;
+                                background-clip: text;
+                            }
+
+                            .subtitle {
+                                font-family: v.$font-family-primary;
+                                font-size: clamp(0.75rem, 1.1vw, 0.9rem);
+                                color: v.$text-light-color;
+                                margin: 0;
+                                font-weight: 400;
+                            }
                         }
                     }
+                }
 
-                    .title-group {
-                        h1 {
-                            font-family: v.$font-family-primary;
-                            font-size: clamp(1.3rem, 2.2vw, 1.8rem);
-                            font-weight: 600;
-                            color: v.$text-color;
-                            margin: 0 0 0.2rem 0;
-                            text-transform: uppercase;
-                            letter-spacing: 0.05em;
+                .stats-cards {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                    gap: 0.9rem;
+                    max-width: 900px;
+                    
+                    .stat-card {
+                        @include v.bg-default;
+                        display: flex;
+                        align-items: center;
+                        gap: 0.9rem;
+                        padding: 0.9rem 1rem;
+                        border: 1px solid rgba(v.$primary-color, 0.1);
+                        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                        cursor: pointer;
+                        position: relative;
+                        overflow: hidden;
+
+                        &::before {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            width: 3px;
+                            height: 100%;
+                            background: linear-gradient(180deg, transparent 0%, v.$primary-color 50%, transparent 100%);
+                            opacity: 0;
+                            transition: opacity 0.3s ease;
                         }
 
-                        .subtitle {
-                            font-family: v.$font-family-primary;
-                            font-size: clamp(0.8rem, 1.1vw, 0.95rem);
-                            color: v.$text-light-color;
-                            margin: 0;
+                        &:hover {
+                            transform: translateY(-2px);
+                            border-color: rgba(v.$primary-color, 0.3);
+                            
+                            &::before {
+                                opacity: 1;
+                            }
+                        }
+
+                        .stat-icon-wrapper {
+                            width: 42px;
+                            height: 42px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            border-radius: 10px;
+                            flex-shrink: 0;
+                            transition: transform 0.3s ease;
+
+                            &.primary {
+                                background: linear-gradient(135deg, rgba(v.$primary-color, 0.15) 0%, rgba(v.$primery-light-color, 0.1) 100%);
+                                border: 1px solid rgba(v.$primary-color, 0.2);
+                            }
+
+                            &.secondary1 {
+                                background: linear-gradient(135deg, rgba(v.$secundary-color1, 0.15) 0%, rgba(v.$primary-color, 0.1) 100%);
+                                border: 1px solid rgba(v.$secundary-color1, 0.2);
+                            }
+
+                            &.secondary2 {
+                                background: linear-gradient(135deg, rgba(v.$secundary-color3, 0.15) 0%, rgba(v.$primary-color, 0.1) 100%);
+                                border: 1px solid rgba(v.$secundary-color3, 0.2);
+                            }
+
+                            .stat-icon {
+                                width: 20px;
+                                height: 20px;
+                                filter: brightness(0) invert(1);
+                            }
+                        }
+
+                        &:hover .stat-icon-wrapper {
+                            transform: scale(1.1) rotate(5deg);
+                        }
+
+                        .stat-info {
+                            display: flex;
+                            flex-direction: column;
+                            gap: 0.15rem;
+                            flex: 1;
+
+                            .stat-value {
+                                font-size: clamp(1.2rem, 1.8vw, 1.5rem);
+                                font-weight: 700;
+                                color: v.$text-color;
+                                line-height: 1.2;
+                            }
+
+                            .stat-label {
+                                font-size: 0.75rem;
+                                color: v.$text-light-color;
+                                font-weight: 500;
+                                text-transform: uppercase;
+                                letter-spacing: 0.05em;
+                            }
                         }
                     }
                 }
@@ -690,12 +808,25 @@
             .employees-header {
                 padding: 1rem;
                 
-                .header-content .header-left {
-                    gap: 0.7rem;
+                .header-content {
+                    gap: 1rem;
                     
-                    .icon-wrapper {
-                        width: 2.2rem;
-                        height: 2.2rem;
+                    .header-top .header-left {
+                        gap: 0.7rem;
+                        
+                        .icon-wrapper {
+                            width: 2.5rem;
+                            height: 2.5rem;
+                        }
+                    }
+                    
+                    .stats-cards {
+                        grid-template-columns: 1fr;
+                        gap: 0.8rem;
+                        
+                        .stat-card {
+                            padding: 0.9rem 1rem;
+                        }
                     }
                 }
             }
