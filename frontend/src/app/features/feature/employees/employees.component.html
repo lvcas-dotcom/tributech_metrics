@@ -37,7 +37,10 @@
         <div class="cards-conteiner">
             <div class="employee-card" *ngFor="let employee of filteredEmployees" 
                  [class.high-performance]="employee.efficiency >= 90"
-                 [class.needs-attention]="employee.efficiency < 70">
+                 [class.needs-attention]="employee.efficiency < 70"
+                 (mousemove)="onCardMouseMove($event, cardEl)"
+                 (mouseleave)="onCardMouseLeave(cardEl)"
+                 #cardEl>
                 
                 <!-- Header do card -->
                 <div class="card-header">

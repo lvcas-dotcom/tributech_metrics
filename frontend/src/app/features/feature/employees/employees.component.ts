@@ -285,4 +285,16 @@ export class EmployeesComponent implements OnInit {
   getCurrentDayIndex(): number {
     return new Date().getDay();
   }
+
+  // Método para o efeito de mouse nos cards
+  onCardMouseMove(event: MouseEvent, cardElement: HTMLElement): void {
+    const rect = cardElement.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
+    cardElement.style.setProperty('--mouse-x', `${percentage}%`);
+  }
+
+  onCardMouseLeave(cardElement: HTMLElement): void {
+    cardElement.style.setProperty('--mouse-x', '50%');
+  }
 }
