@@ -1,7 +1,6 @@
 import { computed, Injectable, Signal, signal } from "@angular/core";
 import { User } from "../data-acess/entities/user.model";
 import { UserService } from "../data-acess/services/users-service.service";
-import { Issue } from "../data-acess/entities/issue.model";
 import { forkJoin } from "rxjs";
 
 @Injectable({
@@ -64,9 +63,16 @@ export class UserState {
                         activeHours: userHours.horas_liquidas ?? 0
                     },
                     issues: (issues ?? []).map(issue => ({
-                        id: issue.id,
+                        id: issue.issue_id,
                         title: issue.title,
-                        project: issue.projeto 
+                        project: issue.project,
+                        user: issue.user,
+                        hours: issue.hours ?? 0,
+                        status: issue.status,
+                        blocked_time: issue.blocked_time ?? 0,
+                        init_time: issue.init_todo,
+                        due_date: issue.due_date,
+                        closed_date: issue.closed_at ?? "doing"
                     }))
                 });
             },
