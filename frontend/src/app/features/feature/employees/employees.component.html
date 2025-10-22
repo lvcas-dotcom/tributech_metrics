@@ -96,24 +96,23 @@
                     </div>
                 </div>
 
-                <!-- Barra de eficiência -->
-                <div class="efficiency-section">
-                    <div class="efficiency-header">
-                        <span class="efficiency-label">Eficiência</span>
-                        <span class="efficiency-value" 
-                              [class.high]="employee.efficiency >= 90"
-                              [class.medium]="employee.efficiency >= 70 && employee.efficiency < 90"
-                              [class.low]="employee.efficiency < 70">
-                            {{ employee.efficiency }}%
-                        </span>
-                    </div>
-                    <div class="efficiency-bar-container">
-                        <div class="efficiency-bar" 
-                             [style.width.%]="employee.efficiency"
-                             [class.high]="employee.efficiency >= 90"
-                             [class.medium]="employee.efficiency >= 70 && employee.efficiency < 90"
-                             [class.low]="employee.efficiency < 70">
+                <!-- Informações de Produtividade -->
+                <div class="productivity-section">
+                    <div class="productivity-info">
+                        <span class="productivity-label">Produtividade do Mês</span>
+                        <div class="productivity-stats">
+                            <div class="stat-item">
+                                <img src="../../../../assets/check.svg" alt="Concluídas" class="stat-icon">
+                                <span class="stat-value">{{ employee.completedIssues }} concluídas</span>
+                            </div>
+                            <div class="stat-item">
+                                <img src="../../../../assets/clock.svg" alt="Horas" class="stat-icon">
+                                <span class="stat-value">{{ employee.totalHours }}h trabalhadas</span>
+                            </div>
                         </div>
+                    </div>
+                    <div class="productivity-badge">
+                        {{ employee.efficiency }}% Performance
                     </div>
                 </div>
 

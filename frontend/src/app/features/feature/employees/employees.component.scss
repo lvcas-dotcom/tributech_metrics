@@ -180,14 +180,13 @@
                 cursor: pointer;
                 transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
                 animation: cardAppear 0.6s ease-out both;
-                overflow: visible;
+                overflow: hidden;
                 min-height: fit-content;
                 height: auto;                &::before {
                     content: '';
                     position: absolute;
                     top: 0;
                     left: 0;
-                    right: 0;
                     width: 100%;
                     height: 3px;
                     background: radial-gradient(
@@ -201,7 +200,8 @@
                     transition: opacity 0.3s ease;
                     pointer-events: none;
                     z-index: 1;
-                    border-radius: 16px 16px 0 0;
+                    border-top-left-radius: 16px;
+                    border-top-right-radius: 16px;
                 }
 
                 &:hover {
@@ -212,30 +212,6 @@
                     
                     &::before { 
                         opacity: 1;
-                    }
-                }
-
-                &.high-performance {
-                    &:hover::before { 
-                        background: radial-gradient(
-                            circle at var(--mouse-x) 0%, 
-                            rgba(v.$primary-color, 0.9) 0%, 
-                            rgba(v.$primary-color, 0.5) 30%,
-                            rgba(v.$primary-color, 0.15) 60%,
-                            transparent 100%
-                        );
-                    }
-                }
-
-                &.needs-attention {
-                    &:hover::before { 
-                        background: radial-gradient(
-                            circle at var(--mouse-x) 0%, 
-                            rgba(v.$secundary-color2, 0.9) 0%, 
-                            rgba(v.$secundary-color2, 0.5) 30%,
-                            rgba(v.$secundary-color2, 0.15) 60%,
-                            transparent 100%
-                        );
                     }
                 }
 
@@ -366,7 +342,7 @@
                         align-items: center;
                         gap: 0.6rem;
                         padding: 0.75rem 0.65rem;
-                        background: rgba(v.$background-cards, 0.3);
+                        background: rgba(v.$primary-color, 0.06);
                         border-radius: 8px;
                         border: 1px solid rgba(v.$primary-color, 0.08);
                         transition: all 0.2s;
@@ -375,7 +351,7 @@
 
                         &:hover {
                             transform: translateY(-2px);
-                            background: rgba(v.$background-cards, 0.4);
+                            background: rgba(v.$primary-color, 0.1);
                         }
 
                         .metric-icon-wrapper {
@@ -426,47 +402,62 @@
                     }
                 }
 
-                .efficiency-section {
+                .productivity-section {
                     display: flex;
-                    flex-direction: column;
-                    gap: 0.6rem;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 1rem;
+                    background: rgba(v.$primary-color, 0.08);
+                    border-radius: 10px;
+                    border: 1px solid rgba(v.$primary-color, 0.15);
                     flex-shrink: 0;
                     
-                    .efficiency-header {
+                    .productivity-info {
                         display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-
-                        .efficiency-label {
-                            font-size: 0.85rem;
+                        flex-direction: column;
+                        gap: 0.3rem;
+                        
+                        .productivity-label {
+                            font-size: 0.8rem;
                             color: v.$text-light-color;
+                            font-weight: 500;
                         }
-
-                        .efficiency-value {
-                            font-size: 1rem;
-                            font-weight: 700;
-
-                            &.high { color: v.$primary-color; }
-                            &.medium { color: v.$secundary-color2; }
-                            &.low { color: #ef4444; }
+                        
+                        .productivity-stats {
+                            display: flex;
+                            align-items: center;
+                            gap: 0.8rem;
+                            
+                            .stat-item {
+                                display: flex;
+                                align-items: center;
+                                gap: 0.4rem;
+                                
+                                .stat-icon {
+                                    width: 14px;
+                                    height: 14px;
+                                    filter: brightness(0) invert(1);
+                                    opacity: 0.9;
+                                }
+                                
+                                .stat-value {
+                                    font-size: 0.9rem;
+                                    font-weight: 600;
+                                    color: v.$text-color;
+                                }
+                            }
                         }
                     }
-
-                    .efficiency-bar-container {
-                        height: 7px;
-                        background: rgba(v.$background-cards, 0.4);
-                        border-radius: 10px;
-                        overflow: hidden;
-
-                        .efficiency-bar {
-                            height: 100%;
-                            border-radius: 10px;
-                            transition: width 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-
-                            &.high { background: v.$primary-color; }
-                            &.medium { background: v.$secundary-color2; }
-                            &.low { background: #ef4444; }
-                        }
+                    
+                    .productivity-badge {
+                        padding: 0.4rem 0.8rem;
+                        background: rgba(v.$primary-color, 0.15);
+                        color: v.$primary-color;
+                        border-radius: 8px;
+                        font-size: 0.75rem;
+                        font-weight: 600;
+                        border: 1px solid rgba(v.$primary-color, 0.3);
+                        white-space: nowrap;
                     }
                 }
 
@@ -489,7 +480,7 @@
                         gap: 0.4rem;
                         height: 55px;
                         padding: 0.5rem 0.6rem;
-                        background: rgba(v.$background-cards, 0.3);
+                        background: rgba(v.$primary-color, 0.06);
                         border-radius: 8px;
                         border: 1px solid rgba(v.$primary-color, 0.06);
 
