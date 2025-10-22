@@ -1,32 +1,185 @@
 <section class="main">
     <app-sidebar/>
     <section class="employees">
-        <div class="nav">
-            <div class="research">
+        <!-- Header com estatísticas gerais -->
+        <div class="employees-header">
+            <div class="header-content">
+                <div class="header-title">
+                    <div class="icon-wrapper">
+                        <img src="../../../../assets/person.svg" alt="Colaboradores" class="header-icon">
+                    </div>
+                    <div class="title-group">
+                        <h1>COLABORADORES</h1>
+                        <p class="subtitle">Análise de Desempenho e Métricas</p>
+                    </div>
+                </div>
+                
+                <div class="header-stats">
+                    <div class="stat-card">
+                        <div class="stat-value">{{ totalEmployees }}</div>
+                        <div class="stat-label">Colaboradores</div>
+                    </div>
+                    <div class="stat-card accent-secondary1">
+                        <div class="stat-value">{{ totalHours }}</div>
+                        <div class="stat-label">Horas Totais</div>
+                    </div>
+                    <div class="stat-card accent-secondary2">
+                        <div class="stat-value">{{ avgEfficiency }}%</div>
+                        <div class="stat-label">Eficiência Média</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filtros e busca -->
+        <div class="filters-section">
+            <div class="search-wrapper">
                 <app-barra-pesquisa/>
+            </div>
+            
+            <div class="filter-controls">
+                <button class="filter-btn" [class.active]="filterBy === 'all'" (click)="setFilter('all')">
+                    <span class="filter-icon">🔍</span>
+                    Todos
+                </button>
+                <button class="filter-btn" [class.active]="filterBy === 'active'" (click)="setFilter('active')">
+                    <span class="filter-icon">✅</span>
+                    Ativos
+                </button>
+                <button class="filter-btn" [class.active]="filterBy === 'high-performance'" (click)="setFilter('high-performance')">
+                    <span class="filter-icon">⭐</span>
+                    Alta Performance
+                </button>
+                <button class="filter-btn" [class.active]="filterBy === 'needs-attention'" (click)="setFilter('needs-attention')">
+                    <span class="filter-icon">⚠️</span>
+                    Atenção
+                </button>
             </div>
         </div>
         
-       
+        <!-- Grid de colaboradores -->
         <div class="cards-conteiner">
+            <div class="employee-card" *ngFor="let employee of filteredEmployees" 
+                 [class.high-performance]="employee.efficiency >= 90"
+                 [class.needs-attention]="employee.efficiency < 70">
+                
+                <!-- Header do card -->
+                <div class="card-header">
+                    <div class="avatar-section">
+                        <div class="avatar-wrapper">
+                            <img [src]="employee.avatarUrl" [alt]="employee.nome" class="avatar">
+                            <div class="status-indicator" [class.online]="employee.isActive"></div>
+                        </div>
+                        <div class="employee-info">
+                            <h3 class="employee-name">{{ employee.nome }}</h3>
+                            <p class="employee-role">{{ employee.cargo }}</p>
+                            <div class="employee-tags">
+                                <span class="tag" *ngFor="let tag of employee.tags">{{ tag }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="view-details-btn" (click)="viewDetails(employee)">
+                        <img src="../../../../assets/busca_icon.svg" alt="Detalhes" class="btn-icon">
+                    </button>
+                </div>
 
-            <card-user/>
-            <card-user/>
-            <card-user/>
-            <card-user/>
-            <card-user/>
-            <card-user/>
-            <card-user/>
-            <card-user/>
-            <card-user/>
-            <card-user/>
-            <card-user/>
-            <card-user/>
-            <card-user/>
-            <card-user/>
-            <card-user/>
-            <card-user/>
-            
+                <!-- Métricas principais -->
+                <div class="card-metrics">
+                    <div class="metric-item">
+                        <div class="metric-icon-wrapper primary">
+                            <img src="../../../../assets/clock.svg" alt="Horas" class="metric-icon">
+                        </div>
+                        <div class="metric-content">
+                            <span class="metric-value">{{ employee.totalHours }}h</span>
+                            <span class="metric-label">Horas Mês</span>
+                        </div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-icon-wrapper secondary1">
+                            <img src="../../../../assets/table.svg" alt="Issues" class="metric-icon">
+                        </div>
+                        <div class="metric-content">
+                            <span class="metric-value">{{ employee.totalIssues }}</span>
+                            <span class="metric-label">Issues</span>
+                        </div>
+                    </div>
+
+                    <div class="metric-item">
+                        <div class="metric-icon-wrapper secondary2">
+                            <img src="../../../../assets/check.svg" alt="Concluídas" class="metric-icon">
+                        </div>
+                        <div class="metric-content">
+                            <span class="metric-value">{{ employee.completedIssues }}</span>
+                            <span class="metric-label">Concluídas</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Barra de eficiência -->
+                <div class="efficiency-section">
+                    <div class="efficiency-header">
+                        <span class="efficiency-label">Eficiência</span>
+                        <span class="efficiency-value" 
+                              [class.high]="employee.efficiency >= 90"
+                              [class.medium]="employee.efficiency >= 70 && employee.efficiency < 90"
+                              [class.low]="employee.efficiency < 70">
+                            {{ employee.efficiency }}%
+                        </span>
+                    </div>
+                    <div class="efficiency-bar-container">
+                        <div class="efficiency-bar" 
+                             [style.width.%]="employee.efficiency"
+                             [class.high]="employee.efficiency >= 90"
+                             [class.medium]="employee.efficiency >= 70 && employee.efficiency < 90"
+                             [class.low]="employee.efficiency < 70">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gráfico de atividade recente -->
+                <div class="activity-chart">
+                    <div class="chart-header">
+                        <span class="chart-title">Atividade Semanal</span>
+                    </div>
+                    <div class="mini-chart">
+                        <div class="chart-bar" *ngFor="let activity of employee.weeklyActivity; let i = index"
+                             [style.height.%]="(activity / getMaxActivity(employee.weeklyActivity)) * 100"
+                             [class.active]="i === getCurrentDayIndex()">
+                            <span class="bar-value">{{ activity }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Status e projetos -->
+                <div class="card-footer">
+                    <div class="projects-section">
+                        <span class="projects-label">Projetos:</span>
+                        <div class="projects-tags">
+                            <span class="project-tag" *ngFor="let project of employee.projects">
+                                {{ project }}
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="status-badges">
+                        <span class="badge success" *ngIf="employee.onTimeDeliveries > 0">
+                            ✓ {{ employee.onTimeDeliveries }} no prazo
+                        </span>
+                        <span class="badge warning" *ngIf="employee.lateDeliveries > 0">
+                            ⚠ {{ employee.lateDeliveries }} atrasadas
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Empty state -->
+        <div class="empty-state" *ngIf="filteredEmployees.length === 0">
+            <img src="../../../../assets/busca_icon.svg" alt="Sem resultados" class="empty-icon">
+            <h3>Nenhum colaborador encontrado</h3>
+            <p>Tente ajustar os filtros ou a busca</p>
         </div>
     </section>
 </section>
