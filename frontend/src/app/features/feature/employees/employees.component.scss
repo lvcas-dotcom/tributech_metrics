@@ -205,10 +205,8 @@
                 }
 
                 &:hover {
-                    transform: translateY(-4px);
-                    background: rgba(18, 19, 26, 0.85);
-                    box-shadow: 0 12px 40px rgba(139, 68, 248, 0.25);
-                    border-color: rgba(139, 68, 248, 0.35);
+                    transform: translateY(-2px) scale(1.005);
+                    border-color: rgba(139, 68, 248, 0.4);
                     
                     &::before { 
                         opacity: 1;
@@ -295,11 +293,17 @@
                                 .tag {
                                     font-size: 0.7rem;
                                     padding: 0.2rem 0.5rem;
-                                    background: rgba(v.$primary-color, 0.12);
-                                    color: v.$primary-color;
+                                    background: linear-gradient(135deg, rgba(v.$primary-color, 0.12) 0%, rgba(v.$secundary-color1, 0.08) 100%);
+                                    color: v.$primery-light-color;
                                     border-radius: 6px;
                                     border: 1px solid rgba(v.$primary-color, 0.25);
                                     white-space: nowrap;
+                                    
+                                    &:nth-child(even) {
+                                        background: linear-gradient(135deg, rgba(v.$secundary-color1, 0.12) 0%, rgba(v.$primary-color, 0.08) 100%);
+                                        color: v.$secundary-color1;
+                                        border-color: rgba(v.$secundary-color1, 0.25);
+                                    }
                                 }
                             }
                         }
@@ -407,7 +411,7 @@
                     justify-content: space-between;
                     align-items: center;
                     padding: 1rem;
-                    background: rgba(v.$primary-color, 0.08);
+                    background: linear-gradient(135deg, rgba(v.$primary-color, 0.08) 0%, rgba(v.$secundary-color1, 0.05) 100%);
                     border-radius: 10px;
                     border: 1px solid rgba(v.$primary-color, 0.15);
                     flex-shrink: 0;
@@ -451,8 +455,8 @@
                     
                     .productivity-badge {
                         padding: 0.4rem 0.8rem;
-                        background: rgba(v.$primary-color, 0.15);
-                        color: v.$primary-color;
+                        background: linear-gradient(135deg, rgba(v.$primary-color, 0.2) 0%, rgba(v.$secundary-color1, 0.15) 100%);
+                        color: v.$text-color;
                         border-radius: 8px;
                         font-size: 0.75rem;
                         font-weight: 600;
@@ -486,7 +490,7 @@
 
                         .chart-bar {
                             flex: 1;
-                            background: rgba(v.$primary-color, 0.45);
+                            background: linear-gradient(180deg, rgba(v.$secundary-color1, 0.5) 0%, rgba(v.$primary-color, 0.4) 100%);
                             border-radius: 4px 4px 0 0;
                             min-height: 4px;
                             position: relative;
@@ -494,11 +498,11 @@
                             cursor: pointer;
 
                             &.active {
-                                background: v.$primary-color;
+                                background: linear-gradient(180deg, v.$secundary-color1 0%, v.$primary-color 100%);
                             }
 
                             &:hover {
-                                background: v.$primery-light-color;
+                                background: linear-gradient(180deg, v.$secundary-color1 0%, v.$primery-light-color 100%);
                                 .bar-value { opacity: 1; }
                             }
 
@@ -546,10 +550,10 @@
                             .project-tag {
                                 font-size: 0.74rem;
                                 padding: 0.28rem 0.65rem;
-                                background: rgba(v.$primary-color, 0.12);
-                                color: v.$primary-color;
+                                background: linear-gradient(135deg, rgba(v.$primary-color, 0.12) 0%, rgba(v.$secundary-color1, 0.08) 100%);
+                                color: v.$secundary-color1;
                                 border-radius: 6px;
-                                border: 1px solid rgba(v.$primary-color, 0.25);
+                                border: 1px solid rgba(v.$secundary-color1, 0.25);
                                 white-space: nowrap;
                                 overflow: hidden;
                                 text-overflow: ellipsis;
@@ -571,13 +575,13 @@
                             white-space: nowrap;
 
                             &.success {
-                                background: rgba(#10b981, 0.15);
+                                background: linear-gradient(135deg, rgba(#10b981, 0.15) 0%, rgba(v.$secundary-color1, 0.1) 100%);
                                 color: #10b981;
                                 border: 1px solid rgba(#10b981, 0.3);
                             }
 
                             &.warning {
-                                background: rgba(v.$secundary-color2, 0.15);
+                                background: linear-gradient(135deg, rgba(v.$secundary-color2, 0.15) 0%, rgba(v.$primary-color, 0.1) 100%);
                                 color: v.$secundary-color2;
                                 border: 1px solid rgba(v.$secundary-color2, 0.3);
                             }
