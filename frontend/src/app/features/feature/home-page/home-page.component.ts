@@ -77,6 +77,28 @@ export class HomePageComponent implements AfterViewInit, OnInit {
     });
   }
 
+  get totalHours(): string {
+    const users = this.$listUsers();
+    const total = users.reduce((acc, user) => acc + (user.hours?.total ?? 0), 0);
+    return total.toFixed(2);
+  }
+
+  get minimumHours(): string {
+    const users = this.$listUsers();
+    const minimumPerUser = 270;
+    const totalMinimum = users.length * minimumPerUser;
+    return totalMinimum.toString();
+  }
+
+   get diference(): string {
+    const users = this.$listUsers();
+    const total = users.reduce((acc, user) => acc + (user.hours?.total ?? 0), 0);
+    const minimumPerUser = 270;
+    const totalMinimum = users.length * minimumPerUser;
+    const difference = total - totalMinimum;
+    return difference.toFixed(2);
+  }
+
   loadIssuesData(): void {
     const year = this.selectedMonth.getFullYear();
     const month = this.selectedMonth.getMonth() + 1;
