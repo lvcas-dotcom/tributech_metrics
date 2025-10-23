@@ -16,7 +16,8 @@
                     </div>
                 </div>
                 
-                <div class="stats-cards">
+                <div class="stats-row">
+                    <div class="stats-cards">
                     <div class="stat-card">
                         <div class="stat-icon-wrapper primary">
                             <img src="../../../../assets/person.svg" alt="Total" class="stat-icon">
@@ -46,25 +47,27 @@
                             <span class="stat-label">Performance Média</span>
                         </div>
                     </div>
+                    
+                    <div class="header-right">
+                        <div class="filter-wrapper">
+                            <img src="../../../../assets/table.svg" alt="Filtro" class="filter-icon">
+                            <select class="filter-select" [(ngModel)]="filterBy" (change)="applyFilter()">
+                                <option value="all">Todos</option>
+                                <option value="active">Ativos</option>
+                                <option value="high-performance">Alta Performance</option>
+                                <option value="needs-attention">Atenção</option>
+                            </select>
+                        </div>
+                        <div class="search-wrapper">
+                            <app-barra-pesquisa placeholder="Buscar colaborador..."/>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Controles Minimalistas -->
-        <div class="controls-section">
-            <div class="search-wrapper">
-                <app-barra-pesquisa placeholder="Buscar colaborador..."/>
-            </div>
-            
-            <div class="filter-wrapper">
-                <img src="../../../../assets/table.svg" alt="Filtro" class="filter-icon">
-                <select class="filter-select" [(ngModel)]="filterBy" (change)="applyFilter()">
-                    <option value="all">Todos os Colaboradores</option>
-                    <option value="active">Apenas Ativos</option>
-                    <option value="high-performance">Alta Performance (≥90%)</option>
-                    <option value="needs-attention">Requer Atenção (&lt;70%)</option>
-                </select>
-            </div>
+        <div class="controls-section" style="display: none;">
         </div>
         
         <!-- Grid de colaboradores -->
