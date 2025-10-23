@@ -91,23 +91,13 @@
                             <div class="icon-wrapper">
                                 <img src="../../../../assets/person.svg"  class="card-icon">
                             </div>
-                            <div class="card-title">ENTREGAS POR MÊS</div>
+                            <div class="card-title">HORAS NO MÊS</div>
                         </div>
                         <div class="card-users">
                             
-                            <app-data-card  [title]="'6 issues'" [description]="'Gabriel Arantes'"
-                                [imgUrl]="'../../../../assets/check.svg'" routerLink="/employee/data/gabriel.arantes" />
+                            <app-data-card  *ngFor="let user of $listUsers()" [title]="user.hours.total.toFixed(2)" [description]="user.username"
+                                [imgUrl]="'../../../../assets/check.svg'" routerLink="/employee/data/{{user.username}}" />
                             
-                            <app-data-card  [title]="'11 issues'" [description]="'Bruno Zotarelli'"
-                                [imgUrl]="'../../../../assets/check.svg'"/>
-                            <app-data-card  [title]="'8 issues'" [description]="'Lucas Henrique'"
-                                [imgUrl]="'../../../../assets/check.svg'"/>
-                            <app-data-card  [title]="'3 issues'" [description]="'Filipe Senra'"
-                                [imgUrl]="'../../../../assets/check.svg'"/>
-                            <app-data-card  [title]="'-2 issues'" [description]="'Filipe Ruiz Boligon'"
-                                [imgUrl]="'../../../../assets/check.svg'"/>
-                            <app-data-card  [title]="'9 issues'" [description]="'Thiago Zulli'"
-                                [imgUrl]="'../../../../assets/check.svg'"/>   
                         </div>
                     </div>
                 </div>

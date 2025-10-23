@@ -49,7 +49,7 @@ export class UserService{
         
         if(endDate) params = params.set('end_date',endDate);
         
-        if(projects) params = params.set('projects',projects);
+         params = params.set('projects',projects);
         return this.http.get<{usuario: string, horas_apontadas: number}[]>(`${this.api}/metrics/by-user-month`,{params});
     }
 }

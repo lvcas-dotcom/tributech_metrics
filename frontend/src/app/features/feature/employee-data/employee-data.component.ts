@@ -36,7 +36,7 @@ export class EmployeeDataComponent {
   ngOnInit(): void {
     const routeUsername = this.route.snapshot.paramMap.get('username');
     if (routeUsername) {
-      this.state.loadUser(routeUsername);
+      this.state.loadUser(routeUsername,'suporte-geo');
     }
     
   }

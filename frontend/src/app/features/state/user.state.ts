@@ -26,8 +26,8 @@ export class UserState {
     constructor(private userService: UserService) {
     }
 
-    loadUsers(startDate?: string, endDate?: string,projects?: string){
-        this.userService.getAllUsers('suporte-geo',startDate, endDate).subscribe({
+    loadAllUsers(projects: string,startDate?: string, endDate?: string){
+        this.userService.getAllUsers(projects,startDate, endDate).subscribe({
             next: (users) => {
                 const userList: User[] = users.map(user => ({
                     username: user.usuario,
@@ -39,16 +39,17 @@ export class UserState {
                     issues: []
                 }));
                 this._listUsers.set(userList);
+                console.log(this._listUsers());
             },
             error: (err) => {
                 console.error('Error loading users:', err);
                 this._listUsers.set([]);
             }
         })
-        console.log(this.listUsers())
+        
     }
     
-    loadUser(username: string, startDate?: string, endDate?: string,projects?: string){
+    loadUser(username: string,projects: string, startDate?: string, endDate?: string){
         forkJoin({
             hours: this.userService.getHoursByUser(username,startDate, endDate,projects),
             issues: this.userService.getIssuesByUser(username,startDate, endDate,projects)

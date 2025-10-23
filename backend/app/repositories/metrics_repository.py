@@ -51,7 +51,7 @@ class MetricsRepository:
           AND (:projects_is_null OR p.name = ANY(:projects))
           AND (:users_is_null OR u.username = ANY(:users))
         GROUP BY u.username, DATE_TRUNC('month', t.spent_at)
-        ORDER BY u.username, mes
+        ORDER BY horas_apontadas desc
     """
     )
 

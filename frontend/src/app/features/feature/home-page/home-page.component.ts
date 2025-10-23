@@ -9,6 +9,7 @@ import { PointGraphicComponent } from '../../../shared/ui/point-graphic/point-gr
 import { IssueCardComponent } from '../../../shared/ui/issue-card/issue-card.component';
 import { MetricsService, HighPriorityIssue } from '../../data-acess/services/metrics.service';
 import { CommonModule } from '@angular/common';
+import { UserState } from '../../state/user.state';
 
 @Component({
     selector: 'app-home-page',
@@ -27,6 +28,9 @@ import { CommonModule } from '@angular/common';
 })
 export class HomePageComponent implements AfterViewInit, OnInit {
   private metricsService = inject(MetricsService);
+  private state = inject(UserState);
+
+  $listUsers = this.state.listUsers;
 
   horasFeitas: string = '22';
   horasMinimas: string = '220';
@@ -46,9 +50,8 @@ export class HomePageComponent implements AfterViewInit, OnInit {
   constructor(private elementRef: ElementRef) {}
 
   ngOnInit(): void {
+    this.state.loadAllUsers('suporte-geo');
     this.initializeExampleData(); //QUANDO CONECTAR A API, RETIRAR
-    this.loadIssuesData();
-    this.loadHighPriorityIssues();
   }
 
   ngAfterViewInit(): void {
@@ -82,7 +85,6 @@ export class HomePageComponent implements AfterViewInit, OnInit {
       next: (data) => {
         this.issuesCreatedCount = data.length;
         
-        // Processar dados para o gráfico (agrupar por projeto)
         const projectCount: { [key: string]: number } = {};
         data.forEach((item: any) => {
           const project = item.projeto || 'Outros';
