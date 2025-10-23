@@ -29,7 +29,7 @@
             width: 100%; 
             display: flex;
             flex-direction: column;
-
+            animation: slideDown 0.4s ease-out;
             .background{
                 width: 100%;
                 height: 100%;
@@ -45,6 +45,7 @@
                     flex-direction: column;
                     align-items: center;
                     padding: 2rem 1.5rem;
+                    animation: slideDown 0.4s ease-out;
                     
                     .img{
                         display: flex;
@@ -101,6 +102,7 @@
                 justify-content: start;
                 align-items: center;
                 flex: 1;
+                animation: slideDown 0.6s ease-out;
                 
                 .card{
                     width: 100%;
@@ -112,11 +114,11 @@
         }
 
         .card-data{
+            animation: slideDown 0.4s ease-out;
             grid-row: 1;
             grid-column: 1;
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-
             .card{
             
                 width: 90%;
@@ -134,6 +136,7 @@
             grid-row: 2;
             align-self: stretch;
             width: 30%;
+            animation: slideDown 0.4s ease-out;
             
 
             @include v.card-default;
@@ -141,6 +144,7 @@
         }
 
         .table-issue{
+            animation: slideDown 0.8s ease-out;
             grid-row: 3;
             grid-column: 1;
             margin-top: 1rem;
@@ -230,4 +234,9 @@
     font-family: v.$font-family-primary;
     font-size: v.$font-subtitle;
     font-weight: v.$font-weight-title;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
 }

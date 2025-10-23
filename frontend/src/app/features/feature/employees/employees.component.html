@@ -1,7 +1,6 @@
 <section class="main">
     <app-sidebar/>
     <section class="employees">
-        <!-- Header Minimalista -->
         <div class="employees-header">
             <div class="header-content">
                 <div class="header-top">
@@ -48,7 +47,7 @@
                     </div>
 
                     <div class="search-wrapper">
-                        <app-barra-pesquisa placeholder="Buscar colaborador..."/>
+                        <app-barra-pesquisa placeholder="Buscar colaborador..." (filtrar)="filtrar($event)"/>
                     </div>
                 </div>
             </div>
@@ -60,7 +59,6 @@
                 />
         </div>
 
-        <!-- Empty state -->
         <div class="empty-state" *ngIf="filteredEmployees.length === 0">
             <img src="../../../../assets/busca_icon.svg" alt="Sem resultados" class="empty-icon">
             <h3>Nenhum colaborador encontrado</h3>

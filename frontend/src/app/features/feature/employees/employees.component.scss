@@ -94,9 +94,9 @@
 
                 .stats-cards {
                     display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                    grid-template-columns: 0.5fr 0.5fr 0.5fr 1fr;
                     gap: 0.9rem;
-                    max-width: 900px;
+                    align-items: center;
                     
                     .stat-card {
                         @include v.bg-default;
@@ -263,7 +263,6 @@
     }
 }
 
-// Animações
 @keyframes slideDown {
     from { opacity: 0; transform: translateY(-20px); }
     to { opacity: 1; transform: translateY(0); }

@@ -71,21 +71,6 @@
                     border: 2px solid rgba(v.$primary-color, 0.25);
                 }
 
-                .status-indicator {
-                    position: absolute;
-                    bottom: 2px;
-                    right: 2px;
-                    width: 11px;
-                    height: 11px;
-                    border-radius: 50%;
-                    background: #6b7280;
-                    border: 2px solid v.$background-cards;
-
-                    &.online {
-                        background: #10b981;
-                        box-shadow: 0 0 8px rgba(#10b981, 0.6);
-                    }
-                }
             }
 
             .employee-info {

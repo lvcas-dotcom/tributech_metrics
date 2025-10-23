@@ -4,7 +4,7 @@
         <div class="avatar-section">
             <div class="avatar-wrapper">
                 <img [src]="employee.avatarUrl" [alt]="employee.nome" class="avatar">
-                <div class="status-indicator" [class.online]="employee.isActive"></div>
+               
             </div>
             <div class="employee-info">
                 <h3 class="employee-name">{{ employee.nome }}</h3>
@@ -20,7 +20,6 @@
         </button>
     </div>
 
-    <!-- Métricas principais -->
     <div class="card-metrics">
         <div class="metric-item">
             <div class="metric-icon-wrapper primary">
@@ -53,7 +52,6 @@
         </div>
     </div>
 
-    <!-- Informações de Produtividade -->
     <div class="productivity-section">
         <div class="productivity-info">
             <span class="productivity-label">Produtividade do Mês</span>
@@ -87,7 +85,6 @@
         </div>
     </div>
 
-    <!-- Status e projetos -->
     <div class="card-footer">
         <div class="projects-section">
             <span class="projects-label">Projetos:</span>

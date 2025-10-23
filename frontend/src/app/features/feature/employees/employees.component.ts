@@ -252,5 +252,8 @@ export class EmployeesComponent implements OnInit {
     this.avgEfficiency = Math.round(totalEfficiency / this.employees.length);
   }
 
-  
+  filtrar(valor: string) {
+    this.filteredEmployees = this.employees.filter(o => o.nome.toLowerCase()
+    .includes(valor.toLowerCase()));
+  }
 }
