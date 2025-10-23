@@ -83,12 +83,27 @@ class CatalogsRepository:
             GROUP BY ia.issue_id
         )
         SELECT
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> origin/fronted_backend
             p.name AS project,
             i.iid AS issue_id,
             i.title AS title,
             asl.usuario_responsavel AS user,
             ROUND(COALESCE(SUM(t.time_spent), 0) / 3600.0, 2)
                 AS hours,
+<<<<<<< HEAD
+=======
+=======
+            p.name AS projeto,
+            i.iid AS issue_id,
+            i.title AS titulo_da_issue,
+            asl.usuario_responsavel,
+            ROUND(COALESCE(SUM(t.time_spent), 0) / 3600.0, 2)
+                AS horas_apontadas,
+>>>>>>> origin/frontend_test
+>>>>>>> origin/fronted_backend
             CASE
                 WHEN i.closed_at IS NULL THEN 'Em Andamento'
                 WHEN i.due_date IS NOT NULL
@@ -100,8 +115,18 @@ class CatalogsRepository:
                     THEN 'Concluída (No Prazo)'
                 ELSE 'Em Andamento'
             END AS status,
+<<<<<<< HEAD
             (i.closed_at - todo.todo_start_time) AS blocked_time,
             todo.todo_start_time AS inicio_todo,
+=======
+<<<<<<< HEAD
+            (i.closed_at - todo.todo_start_time) AS blocked_time,
+            todo.todo_start_time AS init_todo,
+=======
+            (i.closed_at - todo.todo_start_time) AS tempo_de_ciclo,
+            todo.todo_start_time AS inicio_todo,
+>>>>>>> origin/frontend_test
+>>>>>>> origin/fronted_backend
             i.due_date,
             i.closed_at
         FROM proj p
@@ -113,8 +138,17 @@ class CatalogsRepository:
             ON i.id = t.issue_id
         INNER JOIN issue_assignees_list asl
             ON asl.issue_id = i.id
+<<<<<<< HEAD
         WHERE (todo.todo_start_time::date BETWEEN :start_date AND :end_date) 
         and asl.usuario_responsavel = any(:users)
+=======
+<<<<<<< HEAD
+        WHERE (todo.todo_start_time::date BETWEEN :start_date AND :end_date) 
+        and asl.usuario_responsavel = any(:users)
+=======
+        WHERE todo.todo_start_time::date BETWEEN :start_date AND :end_date
+>>>>>>> origin/frontend_test
+>>>>>>> origin/fronted_backend
         GROUP BY
             p.name,
             i.id,

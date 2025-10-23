@@ -1,7 +1,10 @@
 <section class="main">
     <app-sidebar/>
     <section class="employees">
+<<<<<<< HEAD
         <!-- Header Minimalista -->
+=======
+>>>>>>> origin/fronted_backend
         <div class="employees-header">
             <div class="header-content">
                 <div class="header-top">
@@ -16,8 +19,12 @@
                     </div>
                 </div>
                 
+<<<<<<< HEAD
                 <div class="stats-row">
                     <div class="stats-cards">
+=======
+                <div class="stats-cards">
+>>>>>>> origin/fronted_backend
                     <div class="stat-card">
                         <div class="stat-icon-wrapper primary">
                             <img src="../../../../assets/person.svg" alt="Total" class="stat-icon">
@@ -47,6 +54,7 @@
                             <span class="stat-label">Performance Média</span>
                         </div>
                     </div>
+<<<<<<< HEAD
                     
                     <div class="header-right">
                         <div class="filter-wrapper">
@@ -61,10 +69,16 @@
                         <div class="search-wrapper">
                             <app-barra-pesquisa placeholder="Buscar colaborador..."/>
                         </div>
+=======
+
+                    <div class="search-wrapper">
+                        <app-barra-pesquisa placeholder="Buscar colaborador..." (filtrar)="filtrar($event)"/>
+>>>>>>> origin/fronted_backend
                     </div>
                 </div>
             </div>
         </div>
+<<<<<<< HEAD
 
         <!-- Controles Minimalistas -->
         <div class="controls-section" style="display: none;">
@@ -191,6 +205,15 @@
         </div>
 
         <!-- Empty state -->
+=======
+       
+        <div class="cards-conteiner">
+            <card-user class="employee-card" *ngFor="let employee of filteredEmployees" 
+                [employee]="employee"  
+                />
+        </div>
+
+>>>>>>> origin/fronted_backend
         <div class="empty-state" *ngIf="filteredEmployees.length === 0">
             <img src="../../../../assets/busca_icon.svg" alt="Sem resultados" class="empty-icon">
             <h3>Nenhum colaborador encontrado</h3>

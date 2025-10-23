@@ -30,7 +30,11 @@ export interface Employee {
     CommonModule,
     FormsModule,
     SidebarComponent,
+<<<<<<< HEAD
     BarraPesquisaComponent
+=======
+    BarraPesquisaComponent, CardUserComponent
+>>>>>>> origin/fronted_backend
   ],
   templateUrl: './employees.component.html',
   styleUrl: './employees.component.scss'
@@ -242,7 +246,11 @@ export class EmployeesComponent implements OnInit {
 
   ngOnInit(): void {
     this.calculateStats();
+<<<<<<< HEAD
     this.applyFilter();
+=======
+    this.filteredEmployees = [...this.employees];
+>>>>>>> origin/fronted_backend
   }
 
   calculateStats(): void {
@@ -252,6 +260,7 @@ export class EmployeesComponent implements OnInit {
     this.avgEfficiency = Math.round(totalEfficiency / this.employees.length);
   }
 
+<<<<<<< HEAD
   setFilter(filter: 'all' | 'active' | 'high-performance' | 'needs-attention'): void {
     this.filterBy = filter;
     this.applyFilter();
@@ -298,3 +307,10 @@ export class EmployeesComponent implements OnInit {
     cardElement.style.setProperty('--mouse-x', '50%');
   }
 }
+=======
+  filtrar(valor: string) {
+    this.filteredEmployees = this.employees.filter(o => o.nome.toLowerCase()
+    .includes(valor.toLowerCase()));
+  }
+}
+>>>>>>> origin/fronted_backend

@@ -7,6 +7,10 @@
     grid-template-columns: 0.15fr 1fr;
     background-color: v.$background-dark-color;
     overflow: hidden;
+<<<<<<< HEAD
+=======
+    font-family: v.$font-family-primary ;
+>>>>>>> origin/fronted_backend
 
     .sidebar{
         width: 100%;
@@ -19,7 +23,11 @@
         height: 100vh;
         overflow: hidden;
 
+<<<<<<< HEAD
         // Header Minimalista
+=======
+       
+>>>>>>> origin/fronted_backend
         .employees-header {
             background: v.$background-color;
             border-bottom: 1px solid rgba(v.$primary-color, 0.1);
@@ -27,7 +35,11 @@
             animation: slideDown 0.4s ease-out;
 
             .header-content {
+<<<<<<< HEAD
                 max-width: 1600px;
+=======
+                max-width: 100%;
+>>>>>>> origin/fronted_backend
                 display: flex;
                 flex-direction: column;
                 gap: 1.2rem;
@@ -35,21 +47,34 @@
                 .header-top {
                     display: flex;
                     align-items: center;
+<<<<<<< HEAD
                     justify-content: space-between;
                     margin-bottom: 1.5rem;
+=======
+                    justify-content: flex-start;
+>>>>>>> origin/fronted_backend
                     
                     .header-left {
                         display: flex;
                         align-items: center;
+<<<<<<< HEAD
                         gap: 1rem;
                         flex-shrink: 0;
+=======
+                        gap: 0.9rem;
+>>>>>>> origin/fronted_backend
 
                         .icon-wrapper {
                             display: flex;
                             align-items: center;
                             justify-content: center;
+<<<<<<< HEAD
                             width: clamp(2.5rem, 3.5vw, 2.8rem);
                             height: clamp(2.5rem, 3.5vw, 2.8rem);
+=======
+                            width: clamp(2.4rem, 3.5vw, 2.8rem);
+                            height: clamp(2.4rem, 3.5vw, 2.8rem);
+>>>>>>> origin/fronted_backend
                             background: linear-gradient(135deg, rgba(v.$primary-color, 0.15) 0%, rgba(v.$secundary-color1, 0.1) 100%);
                             border-radius: 12px;
                             border: 1px solid rgba(v.$primary-color, 0.2);
@@ -61,8 +86,13 @@
                             }
 
                             .header-icon {
+<<<<<<< HEAD
                                 width: clamp(1.3rem, 2vw, 1.5rem);
                                 height: clamp(1.3rem, 2vw, 1.5rem);
+=======
+                                width: clamp(1.2rem, 2vw, 1.5rem);
+                                height: clamp(1.2rem, 2vw, 1.5rem);
+>>>>>>> origin/fronted_backend
                                 filter: brightness(0) invert(1);
                             }
                         }
@@ -70,7 +100,11 @@
                         .title-group {
                             h1 {
                                 font-family: v.$font-family-primary;
+<<<<<<< HEAD
                                 font-size: clamp(1.2rem, 2vw, 1.5rem);
+=======
+                                font-size: clamp(1.2rem, 2.2vw, 1.6rem);
+>>>>>>> origin/fronted_backend
                                 font-weight: 700;
                                 color: v.$text-color;
                                 margin: 0 0 0.2rem 0;
@@ -84,7 +118,11 @@
 
                             .subtitle {
                                 font-family: v.$font-family-primary;
+<<<<<<< HEAD
                                 font-size: clamp(0.75rem, 1vw, 0.85rem);
+=======
+                                font-size: clamp(0.75rem, 1.1vw, 0.9rem);
+>>>>>>> origin/fronted_backend
                                 color: v.$text-light-color;
                                 margin: 0;
                                 font-weight: 400;
@@ -92,6 +130,7 @@
                         }
                     }
                 }
+<<<<<<< HEAD
                 
                 .stats-row {
                     display: flex;
@@ -175,6 +214,14 @@
                     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
                     gap: 0.9rem;
                     flex: 1;
+=======
+
+                .stats-cards {
+                    display: grid;
+                    grid-template-columns: 0.5fr 0.5fr 0.5fr 1fr;
+                    gap: 0.9rem;
+                    align-items: center;
+>>>>>>> origin/fronted_backend
                     
                     .stat-card {
                         @include v.bg-default;
@@ -266,6 +313,7 @@
                                 letter-spacing: 0.05em;
                             }
                         }
+<<<<<<< HEAD
                     }
                 }
                 
@@ -329,10 +377,21 @@
                         min-width: 280px;
                         max-width: 350px;
                     }
+=======
+
+                    }
+                    
+                        .search-wrapper {
+                            flex: 1;
+                            width: 100%;
+                            min-width: 100%;
+                        }
+>>>>>>> origin/fronted_backend
                 }
             }
         }
 
+<<<<<<< HEAD
         // Controles Minimalistas
         .controls-section {
             padding: clamp(1rem, 1.5vw, 1.2rem) clamp(1.5rem, 3vw, 2.5rem);
@@ -400,6 +459,10 @@
                 }
             }
         }
+=======
+        
+        
+>>>>>>> origin/fronted_backend
         
         .cards-conteiner{
             flex: 1;
@@ -426,6 +489,7 @@
                 border-radius: 10px;
             }
 
+<<<<<<< HEAD
             .employee-card{
                 position: relative;
                 background: rgba(v.$background-color, 0.7);
@@ -848,6 +912,10 @@
                     }
                 }
             }
+=======
+            
+            
+>>>>>>> origin/fronted_backend
         }
 
         .empty-state {
@@ -881,7 +949,10 @@
     }
 }
 
+<<<<<<< HEAD
 // Animações
+=======
+>>>>>>> origin/fronted_backend
 @keyframes slideDown {
     from { opacity: 0; transform: translateY(-20px); }
     to { opacity: 1; transform: translateY(0); }
@@ -910,6 +981,7 @@
 }
 
 @media (max-width: 1200px) {
+<<<<<<< HEAD
     .main .employees {
         .employees-header {
             .stats-row {
@@ -1036,5 +1108,79 @@
                 gap: 1rem;
             }
         }
+=======
+    .main .employees .cards-conteiner {
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr));
+        gap: clamp(1rem, 1.5vw, 1.5rem);
+    }
+}
+
+@media (max-width: 1024px) {
+    .main {
+        grid-template-columns: 0.2fr 1fr;
+        
+        .employees {
+            .controls-section {
+                flex-direction: column;
+                align-items: stretch;
+                
+                .search-wrapper { max-width: none; }
+                .filter-wrapper { 
+                    justify-content: space-between;
+                    .filter-select { flex: 1; }
+                }
+            }
+
+            .cards-conteiner {
+                grid-template-columns: repeat(auto-fill, minmax(min(100%, 400px), 1fr));
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .main {
+        grid-template-columns: 1fr;
+        
+        app-sidebar { display: none; }
+
+        .employees {
+            .employees-header {
+                padding: 1rem;
+                
+                .header-content {
+                    gap: 1rem;
+                    
+                    .header-top .header-left {
+                        gap: 0.7rem;
+                        
+                        .icon-wrapper {
+                            width: 2.5rem;
+                            height: 2.5rem;
+                        }
+                    }
+                    
+                    .stats-cards {
+                        grid-template-columns: 1fr;
+                        gap: 0.8rem;
+                        
+                        .stat-card {
+                            padding: 0.9rem 1rem;
+                        }
+                    }
+                }
+            }
+            
+            .controls-section {
+                padding: 1rem;
+            }
+            
+            .cards-conteiner {
+                padding: 1rem;
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+>>>>>>> origin/fronted_backend
     }
 }

@@ -23,6 +23,7 @@ class TaskItem(BaseModel):
 
 class TaskWithHoursItem(BaseModel):
 <<<<<<< HEAD
+<<<<<<< HEAD
     projeto: str
     issue_id: int
     titulo_da_issue: str
@@ -32,6 +33,8 @@ class TaskWithHoursItem(BaseModel):
     tempo_de_ciclo: Optional[timedelta]
     inicio_todo: Optional[datetime]
 =======
+=======
+>>>>>>> origin/fronted_backend
     project: str
     issue_id: int
     title: str
@@ -40,6 +43,19 @@ class TaskWithHoursItem(BaseModel):
     status: str
     blocked_time: Optional[timedelta]
     init_todo: Optional[datetime]
+<<<<<<< HEAD
+>>>>>>> origin/fronted_backend
+=======
+=======
+    projeto: str
+    issue_id: int
+    titulo_da_issue: str
+    usuario_responsavel: Optional[str]
+    horas_apontadas: float
+    status: str
+    tempo_de_ciclo: Optional[timedelta]
+    inicio_todo: Optional[datetime]
+>>>>>>> origin/frontend_test
 >>>>>>> origin/fronted_backend
     due_date: Optional[datetime]
     closed_at: Optional[datetime]
