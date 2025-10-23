@@ -11,4 +11,5 @@ export class DataCardComponent {
     @Input() title: string = '';
     @Input() description: string = '';
     @Input() imgUrl: string = '';
+    @Input() label: string = 'Hrs';
 }

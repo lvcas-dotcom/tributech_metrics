@@ -2,22 +2,6 @@
     <app-sidebar/>
     <div class="conteiner">
         
-        <div class="user-params">
-            <div class="card-data">
-                <app-data-card class="card" [title]="'12'" [description]="'Issues Feitas / Mês'"
-                [imgUrl]="'../../../../assets/exclamation-triangle.svg'"/>
-                <app-data-card class="card" [title]="'-12'" [description]="'Horas Necessárias'"
-                [imgUrl]="'../../../../assets/exclamation-triangle.svg'"/>
-                <app-data-card class="card" [title]="'30'" [description]="'Horas Apontadas'"
-                [imgUrl]="'../../../../assets/exclamation-triangle.svg'"/>
-            </div>
-            <div class="user-graphic">
-                <div class="background">
-                    <span class="text">Gerenciamento das Horas</span>
-                    <pie-graphic [values]="[100,90]" [labels]="['Ajudando','Executando']"/>
-                </div>
-            </div>
-        </div>
         <div class="user-card">
             <div class="background">
                 <div class="card">
@@ -35,19 +19,48 @@
                 </div>
                 
             </div>
+
+             <div class="issue-data">
+                <app-data-card class="card" [title]="'12'" [description]="'Issues Criadas/Modificadas'"
+                    [imgUrl]="'../../../../assets/pen.svg'"/>
+            </div>
         </div>
+        
+        <div class="card-data">
+            <app-data-card class="card" [title]="issueCount" [description]="'Issues Feitas / Mês'" [label]="'Issues'"
+            [imgUrl]="'../../../../assets/exclamation-triangle.svg'"/>
+            <app-data-card class="card" [title]="hoursRemain" [description]="'Horas Necessárias'"
+            [imgUrl]="'../../../../assets/exclamation-triangle.svg'"/>
+            <app-data-card class="card" [title]="hoursApontadas" [description]="'Horas Apontadas'"
+            [imgUrl]="'../../../../assets/exclamation-triangle.svg'"/>
+        </div>
+               
         <div class="table-issue">
             <div class="background">
-                <div class="text">
-                    ISSUES ASSIGNADAS  
+                <div class="header">
+                    <div class="header-icon">
+                        <img src="../../../../assets/table.svg" alt="Issues icon">
+                    </div>
+                    <h3 class="header-title">Issues sob Responsabilidade</h3>
+                    <div class="header-badge">{{CountIssues}}</div>
                 </div>
                 <div class="table">
-                    <app-table [itens]="[{id: 1, title: 'slka', label1: 'null', label2: 'toDo', label3: '21-22-1222'}]"
+                    <app-table [itens]="issuesTable"
                     (item)="goToIssue($event)"/>
                 </div>
             </div>
         </div>
-        
 
+        <div class="user-graphic">
+            <div class="background">
+                <div class="title">
+                    <div class="icon-wrapper">
+                        <img src="../../../../assets/check.svg"  class="card-icon">
+                    </div>
+                    <div class="card-title">ANÁLISE DE ISSUES</div>
+                </div>
+                <pie-graphic [values]="chartValues()" [labels]="['Ajudando','Executando']" [graphicLabel]="'Horas'"/>
+            </div>
+        </div>
     </div>
 <section>

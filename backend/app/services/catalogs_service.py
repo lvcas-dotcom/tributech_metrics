@@ -4,7 +4,7 @@ from typing import Optional, Sequence, List
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.repositories.catalogs_repository import CatalogsRepository
-from app.schemas.catalogs import ProjectItem, UserItem, TaskItem
+from app.schemas.catalogs import ProjectItem, UserItem, TaskWithHoursItem
 
 
 class CatalogsService:
@@ -28,5 +28,5 @@ class CatalogsService:
         end_date: date,
         projects: Optional[Sequence[str]],
         users: Optional[Sequence[str]],
-    ) -> List[TaskItem]:
+    ) -> List[TaskWithHoursItem]:
         return await self.repo.list_tasks(start_date, end_date, projects, users)

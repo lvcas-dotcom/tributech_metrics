@@ -1,20 +1,23 @@
 <section class="sidebar">
     <section class="titulo" routerLink="">
         <img src="../../../../assets/tributech_logo.svg" alt="">
-        <span>TRIBUTECH</span>
+        <span>Tributech</span>
     </section>
         
     <section class="menu">  
 
-        <div class = "navegador-opcoes" routerLink="/employee">
+        <div class = "navegador-opcoes" routerLink="/employee" 
+        routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
             <img src="../../../../assets/person.svg" class = "icon"/>
-            <span>FUNCIONÁRIOS</span>
+            <span>COLABORADORES</span>
         </div>
-         <div class = "navegador-opcoes" routerLink="/coeficiente">
+         <div class = "navegador-opcoes" routerLink="/" 
+         routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
             <img src="../../../../assets/house.svg" class = "icon"/>
             <span>GERENCIAR</span>
         </div>
-         <div class = "navegador-opcoes" routerLink="/coeficiente">
+         <div class = "navegador-opcoes" routerLink="/coeficiente"
+         routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
             <img src="../../../../assets/clock.svg" class = "icon"/>
             <span>PROJETO</span>
         </div>
@@ -22,5 +25,5 @@
     
         
     </section>
-    <section class="footer">Calculo de Horas</section>
+    <section class="footer">© 2025 Tributech Gestão Pública</section>
 </section>

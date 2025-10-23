@@ -11,6 +11,8 @@ from app.schemas.metrics import (
     IssueAssignedByUser,
     HelpHoursByUser,
     HighPriorityIssue,
+    IssuesCreatedByProject,
+    IssuesCompletionByProject,
 )
 
 
@@ -49,7 +51,7 @@ class MetricsRepository:
           AND (:projects_is_null OR p.name = ANY(:projects))
           AND (:users_is_null OR u.username = ANY(:users))
         GROUP BY u.username, DATE_TRUNC('month', t.spent_at)
-        ORDER BY u.username, mes
+        ORDER BY horas_apontadas desc
     """
     )
 
@@ -100,11 +102,24 @@ class MetricsRepository:
         SELECT
             u.username AS usuario,
             DATE_TRUNC('month', t.spent_at)::date AS mes,
-            ROUND(SUM(CASE WHEN iau.user_id IS NULL THEN t.time_spent ELSE 0 END) / 3600.0, 2) AS horas_ajuda,
+            ROUND(
+                SUM(
+                    CASE WHEN iau.user_id IS NULL THEN t.time_spent ELSE 0 END
+                ) / 3600.0,
+                2
+            ) AS horas_ajuda,
             ROUND(SUM(t.time_spent) / 3600.0, 2) AS horas_totais_mes,
             ROUND(
-                (SUM(t.time_spent) - SUM(CASE WHEN iau.user_id IS NULL THEN t.time_spent ELSE 0 END)) / 3600.0
-            , 2) AS horas_liquidas
+                (
+                    SUM(t.time_spent) -
+                    SUM(
+                        CASE WHEN iau.user_id IS NULL THEN
+                            t.time_spent
+                        ELSE 0 END
+                    )
+                ) / 3600.0,
+                2
+            ) AS horas_liquidas
         FROM timelogs t
         JOIN users u    ON u.id = t.user_id
         JOIN issues i   ON i.id = t.issue_id
@@ -138,6 +153,86 @@ class MetricsRepository:
           AND (:projects_is_null OR p.name = ANY(:projects))
         ORDER BY i.created_at DESC
     """
+    )
+
+    SQL_ISSUES_CREATED_BY_PROJECT = text(
+        """
+        WITH proj AS (
+            SELECT p.id, p.name
+            FROM projects p
+            WHERE (:projects_is_null OR p.name = ANY(:projects))
+        )
+        SELECT
+            proj.name AS projeto,
+            COUNT(i.id) AS issues_criadas
+        FROM proj
+        LEFT JOIN issues i
+          ON i.project_id = proj.id
+         AND i.created_at::date BETWEEN :start_date AND :end_date
+        GROUP BY proj.name
+        ORDER BY proj.name
+        """
+    )
+
+    SQL_ISSUES_COMPLETION_BY_PROJECT = text(
+        """
+        WITH proj AS (
+            SELECT p.id, p.name
+            FROM projects p
+            WHERE (:projects_is_null OR p.name = ANY(:projects))
+        ),
+        todo_events AS (
+            SELECT
+                rle.issue_id,
+                MIN(rle.created_at) AS todo_start_time
+            FROM proj p
+            JOIN issues i
+                ON p.id = i.project_id
+            JOIN resource_label_events rle
+                ON i.id = rle.issue_id
+            JOIN labels l
+                ON rle.label_id = l.id
+            WHERE
+                rle.action = 1
+                AND (
+                    (p.name = 'geo' AND l.title = 'ST_To Do') OR
+                    (p.name = 'suporte-geo' AND l.title = 'ST_1_To_Do') OR
+                    (p.name = 'suporte-reurb' AND l.title = 'ST_1_Todo') OR
+                    (p.name = 'suporte-saovicente' AND l.title = 'To Do')
+                )
+            GROUP BY rle.issue_id
+        )
+        SELECT
+            proj.name AS projeto,
+            COUNT(i.id) FILTER (
+                WHERE i.closed_at IS NULL
+            ) AS total_abertas,
+            COUNT(i.id) FILTER (
+                WHERE i.closed_at IS NOT NULL
+                  AND (
+                    i.due_date IS NULL
+                    OR i.closed_at::date <= i.due_date::date
+                  )
+            ) AS total_finalizadas_no_prazo,
+            COUNT(i.id) FILTER (
+                WHERE i.closed_at IS NOT NULL
+                  AND i.due_date IS NOT NULL
+                  AND i.closed_at::date > i.due_date::date
+            ) AS total_finalizadas_com_atraso,
+            COUNT(i.id) FILTER (
+                WHERE i.closed_at IS NULL
+                  AND i.due_date IS NOT NULL
+                  AND CURRENT_DATE > i.due_date::date
+            ) AS total_abertas_atrasadas
+        FROM proj
+        LEFT JOIN issues i
+            ON i.project_id = proj.id
+        JOIN todo_events todo
+            ON i.id = todo.issue_id
+        WHERE todo.todo_start_time::date BETWEEN :start_date AND :end_date
+        GROUP BY proj.name
+        ORDER BY proj.name
+        """
     )
 
     def __init__(self, session: AsyncSession) -> None:
@@ -247,3 +342,41 @@ class MetricsRepository:
             .all()
         )
         return [HighPriorityIssue(**r) for r in rows]
+
+    async def fetch_issues_created_by_project(
+        self,
+        start_date: date,
+        end_date: date,
+        projects: Optional[Sequence[str]],
+    ) -> List[IssuesCreatedByProject]:
+        params: Dict[str, Any] = {
+            "start_date": start_date,
+            "end_date": end_date,
+            "projects": list(projects) if projects else [],
+            "projects_is_null": projects is None or len(projects) == 0,
+        }
+        rows = (
+            (await self.session.execute(self.SQL_ISSUES_CREATED_BY_PROJECT, params))
+            .mappings()
+            .all()
+        )
+        return [IssuesCreatedByProject(**r) for r in rows]
+
+    async def fetch_issues_completion_by_project(
+        self,
+        start_date: date,
+        end_date: date,
+        projects: Optional[Sequence[str]],
+    ) -> List[IssuesCompletionByProject]:
+        params: Dict[str, Any] = {
+            "start_date": start_date,
+            "end_date": end_date,
+            "projects": list(projects) if projects else [],
+            "projects_is_null": projects is None or len(projects) == 0,
+        }
+        rows = (
+            (await self.session.execute(self.SQL_ISSUES_COMPLETION_BY_PROJECT, params))
+            .mappings()
+            .all()
+        )
+        return [IssuesCompletionByProject(**r) for r in rows]

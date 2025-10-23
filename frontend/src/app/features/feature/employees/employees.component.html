@@ -1,13 +1,68 @@
 <section class="main">
     <app-sidebar/>
     <section class="employees">
-        <div class="nav">
-            <div class="research">
-                <app-barra-pesquisa/>
+        <div class="employees-header">
+            <div class="header-content">
+                <div class="header-top">
+                    <div class="header-left">
+                        <div class="icon-wrapper">
+                            <img src="../../../../assets/person.svg" alt="Colaboradores" class="header-icon">
+                        </div>
+                        <div class="title-group">
+                            <h1>COLABORADORES</h1>
+                            <p class="subtitle">Gestão e análise de performance da equipe</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stats-cards">
+                    <div class="stat-card">
+                        <div class="stat-icon-wrapper primary">
+                            <img src="../../../../assets/person.svg" alt="Total" class="stat-icon">
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value">{{ totalEmployees }}</span>
+                            <span class="stat-label">Colaboradores</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon-wrapper secondary1">
+                            <img src="../../../../assets/clock.svg" alt="Horas" class="stat-icon">
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value">{{ totalHours }}h</span>
+                            <span class="stat-label">Trabalhadas</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon-wrapper secondary2">
+                            <img src="../../../../assets/check.svg" alt="Performance" class="stat-icon">
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-value">{{ avgEfficiency }}%</span>
+                            <span class="stat-label">Performance Média</span>
+                        </div>
+                    </div>
+
+                    <div class="search-wrapper">
+                        <app-barra-pesquisa placeholder="Buscar colaborador..." (filtrar)="filtrar($event)"/>
+                    </div>
+                </div>
             </div>
         </div>
-        
        
-        <div class=""></div>
+        <div class="cards-conteiner">
+            <card-user class="employee-card" *ngFor="let employee of filteredEmployees" 
+                [employee]="employee"  
+                />
+        </div>
+
+        <div class="empty-state" *ngIf="filteredEmployees.length === 0">
+            <img src="../../../../assets/busca_icon.svg" alt="Sem resultados" class="empty-icon">
+            <h3>Nenhum colaborador encontrado</h3>
+            <p>Tente ajustar os filtros ou a busca</p>
+        </div>
     </section>
 </section>

@@ -10,59 +10,126 @@
     display: flex;
     flex-direction: column;
     align-items: stretch;
+    padding: 0.75rem;
+    
+
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: rgba(v.$primary-color, 0.05);
+        border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba(v.$primary-color, 0.3);
+        border-radius: 10px;
+        transition: background 0.2s ease;
+
+        &:hover {
+            background: rgba(v.$primary-color, 0.5);
+        }
+    }
 
     .table-item{
         display: grid;
-        grid-template-columns: 0.5fr 0.3fr 0.1fr 0.1fr;
+        grid-template-columns: 0.5fr 0.15fr 0.2fr 0.15fr;
         align-items: center;
         justify-items: start;
-        color: v.$text-color;
+        gap: 1rem;
+        color: v.$primary-color;
         font-family: v.$font-family-primary;
         font-size: v.$font-text;
         font-weight: v.$font-weight;
         align-self: stretch;        
         box-sizing: border-box; 
-        padding: 0.75rem 1rem;
+        padding: 1rem 1.5rem;
         cursor: pointer;
-        border-bottom: 2px solid v.$background-img-color;
+        border-bottom: 1px solid rgba(v.$primary-color, 0.08);
+        border-radius: 10px;
+        background: linear-gradient(120deg, 
+            rgba(v.$primary-color, 0.08) 0%,
+            rgba(v.$primary-color, 0.02) 100%);
+        transition: background-color 0.25s ease, 
+                    color 0.25s ease, 
+                    transform 0.18s ease, 
+                    box-shadow 0.2s ease;
+        position: relative;
+
+        &::before{
+            content: '';
+            position: absolute;
+            left: 0.35rem;
+            top: 50%;
+            transform: translateY(-50%) scaleY(0);
+            transform-origin: top;
+            width: 3px;
+            height: 70%;
+            border-radius: 2px;
+            background: v.$primary-color;
+            transition: transform 0.22s ease;
+            opacity: 0.9;
+        }
+
         .title{
-            max-width: 80%;
+            max-width: 90%;
             text-overflow: ellipsis;
             white-space: nowrap;
             overflow: hidden;
-            font-size: v.$font-subtitle;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: v.$text-color;
         }
 
         .labels{
             display: flex;
             flex-direction: row;
-            max-width: 70%;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
+            gap: 6px;
+            max-width: 100%;
 
             .label{
-                border: 2px solid v.$secundary-color1;
+                border: 1.5px solid v.$secundary-color1;
                 border-radius: 10px;
+                background-color: rgba(v.$secundary-color1, 0.08);
                 color: v.$secundary-color1;
-                padding: 0 0.2rem;
-                margin-right: 0.5rem;
+                padding: 4px 10px;
+                font-size: 0.8rem;
+                font-weight: 500;
+                white-space: nowrap;
+                transition: all 0.2s ease;
             }
         }
 
         .hours{
-            border: 2px solid v.$secundary-color2;
-                border-radius: 10px;
-                color: v.$secundary-color2;
-                padding: 0 0.2rem;
-                margin-right: 0.5rem;
+            border: 1.5px solid v.$secundary-color2;
+            border-radius: 10px;
+            background-color: rgba(v.$secundary-color2, 0.08);
+            color: v.$secundary-color2;
+            padding: 4px 10px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: all 0.2s ease;
         }
+
         .dates{
-            
+            color: rgba(v.$text-color, 0.6);
+            font-size: 0.85rem;
         }
 
         &:hover {
-            background-color: rgba(v.$primery-light-color, 0.25);
+            &::before{
+                transform: translateY(-50%) scaleY(1);
+            }
+        }
+
+        &:active {
+            transform: scale(0.995);
+        }
+
+        &:last-child{
+            border-bottom: none;
         }
     }
-}   
+}

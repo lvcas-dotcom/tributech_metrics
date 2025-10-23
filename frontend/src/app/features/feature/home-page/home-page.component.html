@@ -6,52 +6,107 @@
     <div class="conteiner">
 
         <div class="cards">
-            <app-data-card class="card" [title]="horasFeitas" [description]="'horas feitas no mês'"
+            <app-data-card class="card" [title]="totalHours" [description]="'Horas feitas no mês'"
             [imgUrl]="'../../../../assets/check.svg'"/>
 
-            <app-data-card class="card" [title]="horasMinimas" [description]="'minimo de horas no mês '"
+            <app-data-card class="card" [title]="minimumHours" [description]="'Minimo de horas no mês'"
             [imgUrl]="'../../../../assets/pin.svg'"/>
 
-            <app-data-card class="card" [title]="calculoHoras" [description]="'diferença de horas'"
+            <app-data-card class="card" [title]="diference" [description]="'Diferença de horas'"
             [imgUrl]="'../../../../assets/exclamation-triangle.svg'"/>
+        </div>
+
+        <div class="issues-cards">
+            <app-issue-card 
+                class="issue-card glass"
+                [title]="'Issues Criadas no Mês'"
+                [value]="issuesCreatedCount"
+                [iconUrl]="'../../../../assets/table.svg'"
+                [showDatePicker]="true"
+                [chartType]="'bar'"
+                [chartData]="chartData"
+                [chartLabels]="chartLabels"
+                [selectedDate]="selectedMonth"
+                [accentColor]="'primary'"
+                (dateChanged)="onMonthChanged($event)">
+            </app-issue-card>
+
+            <app-issue-card 
+                class="issue-card issues-concluidas glass"
+                [title]="'Issues Concluídas Antes do Prazo'"
+                [value]="issuesCompletedBeforeDeadlineCount"
+                [iconUrl]="'../../../../assets/clock.svg'"
+                [showDatePicker]="false"
+                [chartType]="'line'"
+                [chartData]="completedChartData"
+                [chartLabels]="completedChartLabels"
+                [chartDatasetLabel]="'Concluídas no Prazo'"
+                [accentColor]="'secondary2'">
+            </app-issue-card>
+
+            <div class="pie-chart">
+                <div class="background">
+                    <div class="title">
+                        <div class="icon-wrapper">
+                            <img src="../../../../assets/check.svg"  class="card-icon">
+                        </div>
+                        <div class="card-title">ANÁLISE DE ISSUES</div>
+                    </div>
+                    <div  class="pie-graphic">
+                        <pie-graphic [values]="[100,2]" [labels]="['Atrasadas','Feitas']" [graphicLabel]="'Issues'"/>
+                    </div>
+                    
+                </div>
+            </div>
         </div>
         
         <div class="informations">
-            <div>G.A</div>
-            <div class="background">
-                <span class="text">ANÁLSE DE ISSUES</span>
-                <pie-graphic [values]="[100,2]" [labels]="['Atrasados','Feitas']"/>
+            <div class="graphic-data">
+                <div>
+                    <div class="title">
+                        <div class="icon-wrapper">
+                            <img src="../../../../assets/busca_icon.svg"  class="card-icon">
+                        </div>
+                        <div class="card-title">ISSUES ENTREGUES POR MÊS</div>
+                    </div>
+                    <div class="point-graphic">
+                        <app-point-graphic/>
+                    </div>
+                </div>
+                <div class="issues-comparation">
+                    <div class="background">
+                        <div class="information">14%</div>
+                        <div class="descripton">Crescimento no Nº de Entregas</div>
+                    </div>
+                    <div class="background">
+                        <div class="information">17</div>
+                        <div class="descripton">Demandas Concluídas com Atraso</div>
+                    </div>
+                </div>
+            </div>
+            <div class="data">
+                <div class="users-active-data">
+                    <div class="background">
+                        <div class="title">
+                            <div class="icon-wrapper">
+                                <img src="../../../../assets/person.svg"  class="card-icon">
+                            </div>
+                            <div class="card-title">HORAS NO MÊS</div>
+                        </div>
+                        <div class="card-users">
+                            
+                            <app-data-card  *ngFor="let user of $listUsers()" [title]="user.hours.total.toFixed(2)" [description]="user.username"
+                                [imgUrl]="'../../../../assets/check.svg'" routerLink="/employee/data/{{user.username}}" />
+                            
+                        </div>
+                    </div>
+                </div>
             </div>
             
         </div>
         
-        <div class="data">
-            <div></div>
-             <div class="users-active-data">
-                <div class="background">
-                    <div class="title">
-                        <img src="../../../../assets/person.svg" alt="">
-                        <span class="text">ENTREGAS DO MÊS</span>
-                    </div>
-                    <div class="card-users">
-                        
-                        <app-data-card  [title]="'12 issues'" [description]="'Gabriel Arantes'"
-                            [imgUrl]="'../../../../assets/check.svg'" routerLink="/employee/data" />
-                           
-                        <app-data-card  [title]="'10 issues'" [description]="'Brunão Troll'"
-                            [imgUrl]="'../../../../assets/check.svg'"/>
-                        <app-data-card  [title]="'10 issues'" [description]="'Lucas Rei Delas'"
-                            [imgUrl]="'../../../../assets/check.svg'"/>
-                        <app-data-card  [title]="'9 issues'" [description]="'Senra Microtraições'"
-                            [imgUrl]="'../../../../assets/check.svg'"/>
-                        <app-data-card  [title]="'12 issues'" [description]="'Gabriel Arantes'"
-                            [imgUrl]="'../../../../assets/check.svg'"/>
-                        <app-data-card  [title]="'12 issues'" [description]="'Gabriel Arantes'"
-                            [imgUrl]="'../../../../assets/check.svg'"/>   
-                    </div>
-                </div>
-             </div>
-        </div>
+        
 
+        
     </div>
 </section>

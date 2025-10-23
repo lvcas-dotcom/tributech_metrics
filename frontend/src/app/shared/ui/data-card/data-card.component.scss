@@ -1,4 +1,4 @@
-@import '../../../styles/variables.scss';
+@use '../../../styles/variables' as *;
 :host {
   display: block;
   width: 100%;
@@ -6,6 +6,7 @@
 }
 .card {
     display: grid;
+    height: 100%;
     grid-template-columns: 0.3fr 0.7fr;
     border: 1px solid $background-color;
     border-radius: 8px;
@@ -23,11 +24,14 @@
         border-radius: 100%;
         width: calc($img-logo * 1.6); 
         height: calc($img-logo * 1.6); 
-        overflow: hidden; 
+        overflow: visible;
+        transition: all 0.3s ease;
        
         .card-img {
             width: $img-logo;
             height: $img-logo;
+            transition: all 0.3s ease;
+            transform-origin: center center;
         }
     }
   
@@ -39,7 +43,11 @@
         .card-title {
             font-size: $font-title;
             color: $text-color;
-            font-weight: $font-weight;
+            font-weight: $font-weight;;
+            .hours{
+                font-size: $font-subtitle;
+                font-weight: $font-weight;
+            }
         }
 
         .card-description {
@@ -49,16 +57,13 @@
     }
   
     &:hover{
-        scale: (1.05);
         .img{
-            animation: tilt-shaking 0.5s infinite;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
         }
-    }
-    @keyframes tilt-shaking {
-        0% { transform: rotate(0deg); }
-        25% { transform: rotate(5deg); }
-        50% { transform: rotate(0eg); }
-        75% { transform: rotate(-5deg); }
-        100% { transform: rotate(0deg); }
+
+        .card-img {
+            opacity: 0.85;
+        }
     }
 }

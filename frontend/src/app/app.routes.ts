@@ -8,7 +8,7 @@ export const routes: Routes = [
         component: HomePageComponent
     },
     {
-        path:'employee/data',
+        path:'employee/data/:username',
         component: EmployeeDataComponent
     },
     {

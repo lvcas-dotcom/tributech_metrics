@@ -16,8 +16,9 @@
     .conteiner{
         display: grid;
         grid-template-columns: 1fr;
-        grid-template-rows:  0.1fr 0.3fr 0.6fr; /* em vez de 0.1fr 0.3fr 0.6fr */
-        min-height: 0;
+        grid-template-rows:  0.15fr 0.2fr 0.65fr; 
+        min-height: 0;  
+        min-width: 0;
         width: 100%;
         height: 100%;
 
@@ -25,33 +26,126 @@
         justify-items: stretch;
 
         .cards{
-            padding: 1.5rem;
+            width: 100%;
+            padding: 1%;
+            padding-bottom: 2%;
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             gap: 1.5rem; 
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             background: transparent; 
+            animation: slideDown 0.4s ease-out;
 
-            .card{
+            .card{ 
+                min-width: 0;
+                height: 130%;
                 border-radius: 8px;
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             }
             
         }
 
-        .informations{
-            padding: 1.5rem;
-            width: 100%;
+        .issues-cards{
+            padding: 0 1.5rem 1rem 1.5rem;
             display: grid;
-            grid-template-columns: 0.7fr 0.2fr;
-            align-items: center;
-            justify-content: space-between;
+            grid-template-columns: 1fr 1fr 0.7fr;
             gap: 1.5rem;
+            align-items: stretch;
+            height: 100%;
+            animation: slideDown 0.6s ease-out;
+
+            .issue-card{
+                min-height: 100%;
+                transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+                &:hover {
+                    z-index: 10;
+                }
+            }
+            .pie-chart{
+                .background{
+                    display: flex;
+                    flex-direction: column;
+                    width: 100%;
+                    height: 100%;
+                    justify-self: end;
+                    @include v.card-default;
+                    
+
+                }
+            }
+        }
+
+        .informations{
+            animation: slideDown 0.8s ease-out;
+            padding: 0 1rem;
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: 2fr 0.7fr;
+            align-items: center;
+            justify-content: stretch;
+            gap: 1.5%;
             
+            
+           
+            
+            .graphic-data{
+                @include v.bg-default;
+                @include v.card-default;
+                display: grid;
+                align-self: baseline;
+                grid-template-columns: 0.65fr 0.35fr;
+                grid-template-rows: auto 1fr;
+                height: 95%;
+                min-height: 0;
+                .point-graphic{
+                    width: 100%;
+                    grid-column: 1;
+                    min-height: 0;
+                    max-height: 100%;
+                }
+
+                .issues-comparation{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    text-align: center;
+                    .background{
+                        border-radius: 10px;
+                        background-color: v.$background-cards;
+                        margin: 0.5rem;
+                        width: 80%;
+                        height: 40%;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        .information{
+                            
+                            color: v.$primary-color;
+                            font-family: v.$font-family-primary;
+                            font-size: v.$font-title;
+                            font-weight: v.$font-weight-title;
+                            width: 100%;
+                        }
+                        .descripton{
+                            color: v.$text-color;
+                            font-family: v.$font-family-primary;
+                            font-size: v.$font-subtitle;
+                            font-weight: v.$font-weight;
+                        }
+                    }
+                }
+            }
+            
+            
+
             .text{
                 display: flex;
                 justify-self: center;
-                color: v.$primary-color;
+                color: v.$text-color;
                 font-family: v.$font-family-primary;
                 font-size: v.$font-subtitle;
                 font-weight: v.$font-weight-title;
@@ -60,11 +154,12 @@
         }
 
         .data{
-            padding-right: 1.5rem;
+            align-self: baseline;
+            padding-right: 1.5%;
             display: grid;
             min-height: 0;
-            grid-template-columns: 1fr 0.33fr; 
-            justify-content: center;
+            width: 100%;
+            justify-content: stretch;
             
             .users-active-data{
                 width: 100%;
@@ -77,31 +172,80 @@
                     justify-content: flex-start;
                     flex: 1;
                     min-height: 0;
+                    max-height: 100%;
                     overflow: hidden;
-                    .title{
-                        align-self: center;
-                        display: flex;
-                        margin-bottom: 0.3rem;
-                        img{
-                            width: 1.5rem;
-                            height: 1.5rem;
-                            
-                        }
-                        .text{
-                            color: v.$primary-color;
-                            font-family: v.$font-family-primary;
-                            font-size:v.$font-subtitle;
-                            font-weight: v.$font-weight-title;
-                        }
-                    }
+                    @include v.card-default;
 
                     .card-users{
-                        flex: 1;
+                        flex: 1 1 auto;
                         min-height: 0;
                         width: 100%;
-                        max-height: 29vh;
+                        max-height: 23vh;
                         overflow-y: auto;
                         overflow-x: hidden;
+                        padding: 3px 0;
+                        scrollbar-width: thin;
+                        scrollbar-color: rgba(v.$primary-color, 0.3) transparent;
+
+                        &::-webkit-scrollbar {
+                            width: 6px;
+                        }
+
+                        &::-webkit-scrollbar-track {
+                            background: transparent;
+                            border-radius: 10px;
+                        }
+
+                        &::-webkit-scrollbar-thumb {
+                            background: rgba(v.$primary-color, 0.3);
+                            border-radius: 10px;
+                        }
+
+                        app-data-card {
+                            display: block;
+                            position: relative;
+                            cursor: pointer;
+                            margin: 2px 0;
+                            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+                            --mouse-x: 50%;
+                            --mouse-y: 50%;
+
+                            &::before {
+                                content: '';
+                                position: absolute;
+                                inset: 0;
+                                border-radius: 10px;
+                                padding: 1.6px;
+                                background: radial-gradient(
+                                    circle at var(--mouse-x) var(--mouse-y),
+                                    v.$primary-color 0%,
+                                    v.$primary-color 20%,
+                                    rgba(v.$primary-color, 0.4) 40%,
+                                    transparent 70%
+                                );
+                                -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                                -webkit-mask-composite: xor;
+                                mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+                                mask-composite: exclude;
+                                opacity: 0;
+                                transition: opacity 0.35s ease;
+                                pointer-events: none;
+                            }
+
+                            &:hover {
+                                transform: translateY(-2px) translateX(2px) scale(1.01);
+                                filter: brightness(1.05);
+                                z-index: 10;
+
+                                &::before {
+                                    opacity: 0.7;
+                                }
+                            }
+
+                            &:active {
+                                transform: translateY(-1px) translateX(1px) scale(1);
+                            }
+                        }
                     }
                 }
                 
@@ -109,9 +253,17 @@
                
             
         }
+
+        
     }
 }
 
 .background{
     @include v.bg-default
+}
+
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
