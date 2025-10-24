@@ -6,17 +6,18 @@
         
     <section class="menu">  
 
+        <div class = "navegador-opcoes" routerLink="/" 
+         routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <img src="../../../../assets/house.svg" class = "icon"/>
+            <span>GERENCIAR</span>
+        </div>
         <div class = "navegador-opcoes" routerLink="/employee" 
         routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
             <img src="../../../../assets/person.svg" class = "icon"/>
             <span>COLABORADORES</span>
         </div>
-         <div class = "navegador-opcoes" routerLink="/" 
-         routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-            <img src="../../../../assets/house.svg" class = "icon"/>
-            <span>GERENCIAR</span>
-        </div>
-         <div class = "navegador-opcoes" routerLink="/coeficiente"
+        
+        <div class = "navegador-opcoes" routerLink="/config"
          routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
             <img src="../../../../assets/clock.svg" class = "icon"/>
             <span>PROJETO</span>

@@ -1,0 +1,35 @@
+@use '../../..//styles/variables.scss' as v;
+
+.main{
+    height: 100vh;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 0.15fr 1fr;
+    background-color: v.$background-dark-color;
+
+    .container{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: baseline;
+        margin: 3%;
+        justify-items: stretch;
+
+        .project{
+            @include v.card-default;
+            width: 80%;
+        
+        }
+        .date{
+            @include v.card-default;
+            width: 80%;
+        }
+    }
+}
+
+.background{
+    @include v.bg-default;
+    border-radius: 10px;
+}
+
+
+
