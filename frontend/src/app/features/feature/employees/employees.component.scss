@@ -25,6 +25,8 @@
             background: v.$background-color;
             border-bottom: 1px solid rgba(v.$primary-color, 0.1);
             padding: clamp(1.2rem, 2vw, 1.5rem) clamp(1.5rem, 3vw, 2.5rem);
+            border-radius: 10px;
+            margin: 20px;
             animation: slideDown 0.4s ease-out;
 
             .header-content {
