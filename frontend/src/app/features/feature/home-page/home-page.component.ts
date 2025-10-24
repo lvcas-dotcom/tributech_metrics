@@ -1,4 +1,4 @@
-import {Component, AfterViewInit, ElementRef, OnInit, inject} from '@angular/core'
+import {Component, AfterViewInit, ElementRef, OnInit, inject, computed} from '@angular/core'
 import { SidebarComponent } from '../../../core/layout/sidebar/sidebar.component'
 
 import { DataCardComponent } from '../../../shared/ui/data-card/data-card.component'
@@ -10,6 +10,7 @@ import { IssueCardComponent } from '../../../shared/ui/issue-card/issue-card.com
 import { MetricsService, HighPriorityIssue } from '../../data-acess/services/metrics.service';
 import { CommonModule } from '@angular/common';
 import { UserState } from '../../state/user.state';
+import { DataState } from '../../state/data.state';
 
 @Component({
     selector: 'app-home-page',
@@ -28,13 +29,12 @@ import { UserState } from '../../state/user.state';
 })
 export class HomePageComponent implements AfterViewInit, OnInit {
   private metricsService = inject(MetricsService);
-  private state = inject(UserState);
+  private stateUser = inject(UserState);
+   private stateData = inject(DataState);
 
-  $listUsers = this.state.listUsers;
 
-  horasFeitas: string = '22';
-  horasMinimas: string = '220';
-  calculoHoras: string = '-190';
+  $listUsers = this.stateUser.listUsers;
+  $dataInfo = this.stateData.dataIssues;
 
   issuesCreatedCount: number = 0;
   issuesCompletedBeforeDeadlineCount: number = 0;
@@ -50,7 +50,8 @@ export class HomePageComponent implements AfterViewInit, OnInit {
   constructor(private elementRef: ElementRef) {}
 
   ngOnInit(): void {
-    this.state.loadAllUsers('suporte-geo');
+    this.stateUser.loadAllUsers('suporte-geo');
+    this.stateData.loadIssuesGraph('suporte-geo');
     this.initializeExampleData(); //QUANDO CONECTAR A API, RETIRAR
   }
 
@@ -82,6 +83,12 @@ export class HomePageComponent implements AfterViewInit, OnInit {
     const total = users.reduce((acc, user) => acc + (user.hours?.total ?? 0), 0);
     return total.toFixed(2);
   }
+
+  graphicData = computed(() => {
+    const data = this.$dataInfo();
+    return [data.totalAbertas,data.totalAbertasAtrasadas,data.totalFinalzadasAtrasadas,data.totalFinalizadas]    
+  });
+  
 
   get minimumHours(): string {
     const users = this.$listUsers();

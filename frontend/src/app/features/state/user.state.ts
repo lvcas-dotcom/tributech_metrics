@@ -2,6 +2,8 @@ import { computed, Injectable, Signal, signal } from "@angular/core";
 import { User } from "../data-acess/entities/user.model";
 import { UserService } from "../data-acess/services/users-service.service";
 import { forkJoin } from "rxjs";
+import { Issue } from "../data-acess/entities/issue.model";
+import { IssuesService } from "../data-acess/services/issues-service.service";
 
 @Injectable({
   providedIn: "root"})
@@ -39,7 +41,6 @@ export class UserState {
                     issues: []
                 }));
                 this._listUsers.set(userList);
-                console.log(this._listUsers());
             },
             error: (err) => {
                 console.error('Error loading users:', err);
@@ -53,6 +54,7 @@ export class UserState {
         forkJoin({
             hours: this.userService.getHoursByUser(username,startDate, endDate,projects),
             issues: this.userService.getIssuesByUser(username,startDate, endDate,projects)
+            
         }).subscribe({
             next: ({hours,issues}) =>{
                 const userHours = hours?.[0];
