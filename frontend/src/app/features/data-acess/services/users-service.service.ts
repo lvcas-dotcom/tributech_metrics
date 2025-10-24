@@ -17,7 +17,7 @@ export class UserService{
         
         if(projects) params = params.set('projects',projects);
         
-        return this.http.get<{usuario:string, horas_ajuda:number,horas_totais_mes:number,horas_liquidas:number}[]>(
+        return this.http.get<{usuario:string, email:string, horas_ajuda:number,horas_totais_mes:number,horas_liquidas:number}[]>(
             `${this.api}/metrics/help-hours-by-user`,{params});
     }
 

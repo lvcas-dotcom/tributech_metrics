@@ -32,6 +32,7 @@ class IssueAssignedByUser(BaseModel):
 
 class HelpHoursByUser(BaseModel):
     usuario: str
+    email: str
     mes: date
     horas_ajuda: float
     horas_totais_mes: float

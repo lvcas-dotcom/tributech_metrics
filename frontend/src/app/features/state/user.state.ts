@@ -10,6 +10,7 @@ import { IssuesService } from "../data-acess/services/issues-service.service";
 export class UserState {
     private readonly EMPY_USER: User = {
         username: '',
+        email: '',
         hours: {
             total: 0,
             helpingHours: 0,
@@ -33,6 +34,7 @@ export class UserState {
             next: (users) => {
                 const userList: User[] = users.map(user => ({
                     username: user.usuario,
+                    email: '',
                     hours: {
                         total: user.horas_apontadas,
                         helpingHours: 0,
@@ -60,6 +62,7 @@ export class UserState {
                 const userHours = hours?.[0];
                 this._user.set({
                     username: userHours.usuario,
+                    email: userHours.email,
                     hours: {
                         total: userHours.horas_totais_mes ?? 0,
                         helpingHours: userHours.horas_ajuda ?? 0,
