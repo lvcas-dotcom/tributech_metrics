@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { HomePageComponent } from './features/feature/home-page/home-page.component';
 import { EmployeeDataComponent } from './features/feature/employee-data/employee-data.component';
 import { EmployeesComponent } from './features/feature/employees/employees.component';
-import { ConfigurationComponent } from './features/feature/configuration/configuration.component';
+import { ConfigurationComponent } from './features/feature/configuration-page/configuration.component';
 export const routes: Routes = [
     {
         path:'',
