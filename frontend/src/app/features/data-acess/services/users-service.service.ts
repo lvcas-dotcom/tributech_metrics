@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { environment } from "../../../environments/environment";
+import { CatalogUser } from "../entities/catalog-user.model";
 
 @Injectable({
     providedIn:'root'
@@ -51,5 +52,17 @@ export class UserService{
         
          params = params.set('projects',projects);
         return this.http.get<{usuario: string, horas_apontadas: number}[]>(`${this.api}/metrics/by-user-month`,{params});
+    }
+
+
+    getCatalogUsers(projects: string,startDate?: string, endDate?: string){
+          let params = new HttpParams();
+        if(startDate) params = params.set('start_date',startDate);
+        
+        if(endDate) params = params.set('end_date',endDate);
+        
+        params = params.set('projects',projects);
+
+        return this.http.get<CatalogUser[]>(`${this.api}/metrics/catalog/users`,{params});
     }
 }

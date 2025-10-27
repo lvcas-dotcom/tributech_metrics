@@ -4,6 +4,7 @@ import { UserService } from "../data-acess/services/users-service.service";
 import { forkJoin } from "rxjs";
 import { Issue } from "../data-acess/entities/issue.model";
 import { IssuesService } from "../data-acess/services/issues-service.service";
+import { CatalogUser } from "../data-acess/entities/catalog-user.model";
 
 @Injectable({
   providedIn: "root"})
@@ -20,13 +21,27 @@ export class UserState {
     };
 
     private _user = signal<User>(this.EMPY_USER);
-
+    user = this._user.asReadonly();
     private _listUsers = signal<User[]>([]);
     listUsers = computed(() => this._listUsers());
 
-    user = this._user.asReadonly();
+    private _catalogUsers = signal<CatalogUser[]>([]);
+    readonly catalogUser = this._catalogUsers.asReadonly();
+    
 
     constructor(private userService: UserService) {
+    }
+
+    loadCatalogUser(projects: string,startDate?: string, endDate?: string){
+        this.userService.getCatalogUsers(projects,startDate, endDate).subscribe({
+            next: (users)=>{
+                this._catalogUsers.set(users);
+            },
+            error: (err) => {
+                console.error('Error loading users:', err);
+                this._catalogUsers.set([]);
+            }
+        })
     }
 
     loadAllUsers(projects: string,startDate?: string, endDate?: string){
