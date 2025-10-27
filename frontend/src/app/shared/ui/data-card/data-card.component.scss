@@ -43,7 +43,11 @@
         .card-title {
             font-size: $font-title;
             color: $text-color;
-            font-weight: $font-weight;
+            font-weight: $font-weight;;
+            .hours{
+                font-size: $font-subtitle;
+                font-weight: $font-weight;
+            }
         }
 
         .card-description {

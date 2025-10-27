@@ -1,4 +1,4 @@
-import {Component, AfterViewInit, ElementRef, OnInit, inject} from '@angular/core'
+import {Component, AfterViewInit, ElementRef, OnInit, inject, computed} from '@angular/core'
 import { SidebarComponent } from '../../../core/layout/sidebar/sidebar.component'
 
 import { DataCardComponent } from '../../../shared/ui/data-card/data-card.component'
@@ -9,6 +9,9 @@ import { PointGraphicComponent } from '../../../shared/ui/point-graphic/point-gr
 import { IssueCardComponent } from '../../../shared/ui/issue-card/issue-card.component';
 import { MetricsService, HighPriorityIssue } from '../../data-acess/services/metrics.service';
 import { CommonModule } from '@angular/common';
+import { UserState } from '../../state/user.state';
+import { DataState } from '../../state/data.state';
+import { ConfigurationState } from '../../state/configuration.state';
 
 @Component({
     selector: 'app-home-page',
@@ -27,10 +30,12 @@ import { CommonModule } from '@angular/common';
 })
 export class HomePageComponent implements AfterViewInit, OnInit {
   private metricsService = inject(MetricsService);
+  private stateUser = inject(UserState);
+  private stateData = inject(DataState);
+  private stateParams = inject(ConfigurationState);
 
-  horasFeitas: string = '22';
-  horasMinimas: string = '220';
-  calculoHoras: string = '-190';
+  $listUsers = this.stateUser.listUsers;
+  $dataInfo = this.stateData.dataIssues;
 
   issuesCreatedCount: number = 0;
   issuesCompletedBeforeDeadlineCount: number = 0;
@@ -46,9 +51,9 @@ export class HomePageComponent implements AfterViewInit, OnInit {
   constructor(private elementRef: ElementRef) {}
 
   ngOnInit(): void {
+    this.stateUser.loadAllUsers(this.stateParams.project());
+    this.stateData.loadIssuesGraph(this.stateParams.project());
     this.initializeExampleData(); //QUANDO CONECTAR A API, RETIRAR
-    this.loadIssuesData();
-    this.loadHighPriorityIssues();
   }
 
   ngAfterViewInit(): void {
@@ -74,6 +79,34 @@ export class HomePageComponent implements AfterViewInit, OnInit {
     });
   }
 
+  get totalHours(): string {
+    const users = this.$listUsers();
+    const total = users.reduce((acc, user) => acc + (user.hours?.total ?? 0), 0);
+    return total.toFixed(2);
+  }
+
+  graphicData = computed(() => {
+    const data = this.$dataInfo();
+    return [data.totalAbertas,data.totalAbertasAtrasadas,data.totalFinalzadasAtrasadas,data.totalFinalizadas]    
+  });
+  
+
+  get minimumHours(): string {
+    const users = this.$listUsers();
+    const minimumPerUser = 270;
+    const totalMinimum = users.length * minimumPerUser;
+    return totalMinimum.toString();
+  }
+
+   get diference(): string {
+    const users = this.$listUsers();
+    const total = users.reduce((acc, user) => acc + (user.hours?.total ?? 0), 0);
+    const minimumPerUser = 270;
+    const totalMinimum = users.length * minimumPerUser;
+    const difference = total - totalMinimum;
+    return difference.toFixed(2);
+  }
+
   loadIssuesData(): void {
     const year = this.selectedMonth.getFullYear();
     const month = this.selectedMonth.getMonth() + 1;
@@ -82,7 +115,6 @@ export class HomePageComponent implements AfterViewInit, OnInit {
       next: (data) => {
         this.issuesCreatedCount = data.length;
         
-        // Processar dados para o gráfico (agrupar por projeto)
         const projectCount: { [key: string]: number } = {};
         data.forEach((item: any) => {
           const project = item.projeto || 'Outros';

@@ -6,13 +6,13 @@
     <div class="conteiner">
 
         <div class="cards">
-            <app-data-card class="card" [title]="horasFeitas" [description]="'Horas feitas no mês'"
+            <app-data-card class="card" [title]="totalHours" [description]="'Horas feitas no mês'"
             [imgUrl]="'../../../../assets/check.svg'"/>
 
-            <app-data-card class="card" [title]="horasMinimas" [description]="'Minimo de horas no mês'"
+            <app-data-card class="card" [title]="minimumHours" [description]="'Minimo de horas no mês'"
             [imgUrl]="'../../../../assets/pin.svg'"/>
 
-            <app-data-card class="card" [title]="calculoHoras" [description]="'Diferença de horas'"
+            <app-data-card class="card" [title]="diference" [description]="'Diferença de horas'"
             [imgUrl]="'../../../../assets/exclamation-triangle.svg'"/>
         </div>
 
@@ -53,7 +53,7 @@
                         <div class="card-title">ANÁLISE DE ISSUES</div>
                     </div>
                     <div  class="pie-graphic">
-                        <pie-graphic [values]="[100,2]" [labels]="['Atrasadas','Feitas']" [graphicLabel]="'Issues'"/>
+                        <pie-graphic [values]="graphicData()" [labels]="['Abertas','Atrasadas','Feitas(Atrasadas)','Feitas']" [graphicLabel]="'Issues'"/>
                     </div>
                     
                 </div>
@@ -91,23 +91,13 @@
                             <div class="icon-wrapper">
                                 <img src="../../../../assets/person.svg"  class="card-icon">
                             </div>
-                            <div class="card-title">ENTREGAS POR MÊS</div>
+                            <div class="card-title">HORAS NO MÊS</div>
                         </div>
                         <div class="card-users">
                             
-                            <app-data-card  [title]="'6 issues'" [description]="'Gabriel Arantes'"
-                                [imgUrl]="'../../../../assets/check.svg'" routerLink="/employee/data/gabriel.arantes" />
+                            <app-data-card  *ngFor="let user of $listUsers()" [title]="user.hours.total.toFixed(2)" [description]="user.username"
+                                [imgUrl]="'../../../../assets/check.svg'" routerLink="/employee/data/{{user.username}}" />
                             
-                            <app-data-card  [title]="'11 issues'" [description]="'Bruno Zotarelli'"
-                                [imgUrl]="'../../../../assets/check.svg'"/>
-                            <app-data-card  [title]="'8 issues'" [description]="'Lucas Henrique'"
-                                [imgUrl]="'../../../../assets/check.svg'"/>
-                            <app-data-card  [title]="'3 issues'" [description]="'Filipe Senra'"
-                                [imgUrl]="'../../../../assets/check.svg'"/>
-                            <app-data-card  [title]="'-2 issues'" [description]="'Filipe Ruiz Boligon'"
-                                [imgUrl]="'../../../../assets/check.svg'"/>
-                            <app-data-card  [title]="'9 issues'" [description]="'Thiago Zulli'"
-                                [imgUrl]="'../../../../assets/check.svg'"/>   
                         </div>
                     </div>
                 </div>

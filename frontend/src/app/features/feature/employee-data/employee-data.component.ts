@@ -36,7 +36,7 @@ export class EmployeeDataComponent {
   ngOnInit(): void {
     const routeUsername = this.route.snapshot.paramMap.get('username');
     if (routeUsername) {
-      this.state.loadUser(routeUsername);
+      this.state.loadUser(routeUsername,'suporte-geo');
     }
     
   }
@@ -48,6 +48,18 @@ export class EmployeeDataComponent {
     const sum = helping + active;
     return sum > 0 ? [helping, active] : [0,0];      
   });
+
+  get issueCount(): string {
+    return this.user$()?.issues?.length.toString() ?? '0';
+  }
+
+  get hoursRemain(): string {
+    return (272 - (this.user$()?.hours?.total ?? 0)).toFixed(1).toString();
+  }
+
+  get hoursApontadas(): string {
+    return (this.user$()?.hours?.total ?? 0).toFixed(1).toString();
+  }
 
   get issuesTable(): tableType[] {
     const issues = this.user$()?.issues ?? [];

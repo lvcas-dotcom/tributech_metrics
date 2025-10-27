@@ -1,19 +1,31 @@
 @use '../../../styles/variables' as *;
 .dropdown-container {
   position: relative;
-  width: 15rem;
+  width: 100%;
+  height: 100%;
   
   background-color: transparent;
 
   .input-dropdown {
     width: 100%;
-    padding: 0.2rem;
+    padding: 1.5%;
     border-radius: 5px;
-    border: 1px solid $text-color;
+    border: 1px solid $primery-light-color;
     outline: none;
     background-color: transparent;
     color: $text-color;
     font-family: $font-family-primary;
+
+    &::placeholder{
+      color: $primery-light-color;
+      font-family: $font-family-primary;
+    }
+
+    &:hover{
+      border-color: $primary-color;
+      box-shadow: 0 0 5px rgba($primary-color, 0.5);
+    
+    }
 
     &:focus {
       border-color: $primary-color;
@@ -26,11 +38,12 @@
     width: 100%;
     max-height: 200px;
     overflow-y: auto;
-    border: 1px solid $text-color;
+    border: 1px solid $primery-light-color;
     border-radius: 5px;
     margin-top: 0.2rem;
     z-index: 100;
     font-family: $font-family-primary;
+    color: $primery-light-color;
     li {
       padding: 0.4rem 0.6rem;
       cursor: pointer;

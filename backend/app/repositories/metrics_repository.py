@@ -51,7 +51,7 @@ class MetricsRepository:
           AND (:projects_is_null OR p.name = ANY(:projects))
           AND (:users_is_null OR u.username = ANY(:users))
         GROUP BY u.username, DATE_TRUNC('month', t.spent_at)
-        ORDER BY u.username, mes
+        ORDER BY horas_apontadas desc
     """
     )
 
@@ -101,6 +101,7 @@ class MetricsRepository:
         )
         SELECT
             u.username AS usuario,
+            u.email AS email,
             DATE_TRUNC('month', t.spent_at)::date AS mes,
             ROUND(
                 SUM(
@@ -129,7 +130,7 @@ class MetricsRepository:
         WHERE t.spent_at::date BETWEEN :start_date AND :end_date
           AND (:projects_is_null OR p.name = ANY(:projects))
           AND (:users_is_null OR u.username = ANY(:users))
-        GROUP BY u.username, DATE_TRUNC('month', t.spent_at)
+        GROUP BY u.username,u.email, DATE_TRUNC('month', t.spent_at)
         ORDER BY u.username, mes
     """
     )

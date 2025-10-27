@@ -10,10 +10,10 @@
                     </div>
                     <div class="text">
                         <span class="name">
-                            Gabriel Arantes
+                            {{user$().username}}
                         </span>
                         <span class="description">
-                            gabriel.arantes@tributech.com.br
+                            {{user$().email}}
                         </span>
                     </div>
                 </div>
@@ -27,11 +27,11 @@
         </div>
         
         <div class="card-data">
-            <app-data-card class="card" [title]="'12'" [description]="'Issues Feitas / Mês'"
+            <app-data-card class="card" [title]="issueCount" [description]="'Issues Feitas / Mês'" [label]="'Issues'"
             [imgUrl]="'../../../../assets/exclamation-triangle.svg'"/>
-            <app-data-card class="card" [title]="'-12'" [description]="'Horas Necessárias'"
+            <app-data-card class="card" [title]="hoursRemain" [description]="'Horas Necessárias'"
             [imgUrl]="'../../../../assets/exclamation-triangle.svg'"/>
-            <app-data-card class="card" [title]="'30'" [description]="'Horas Apontadas'"
+            <app-data-card class="card" [title]="hoursApontadas" [description]="'Horas Apontadas'"
             [imgUrl]="'../../../../assets/exclamation-triangle.svg'"/>
         </div>
                

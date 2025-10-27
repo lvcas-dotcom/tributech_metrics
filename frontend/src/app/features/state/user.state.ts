@@ -2,12 +2,15 @@ import { computed, Injectable, Signal, signal } from "@angular/core";
 import { User } from "../data-acess/entities/user.model";
 import { UserService } from "../data-acess/services/users-service.service";
 import { forkJoin } from "rxjs";
+import { Issue } from "../data-acess/entities/issue.model";
+import { IssuesService } from "../data-acess/services/issues-service.service";
 
 @Injectable({
   providedIn: "root"})
 export class UserState {
     private readonly EMPY_USER: User = {
         username: '',
+        email: '',
         hours: {
             total: 0,
             helpingHours: 0,
@@ -26,11 +29,12 @@ export class UserState {
     constructor(private userService: UserService) {
     }
 
-    loadUsers(startDate?: string, endDate?: string,projects?: string){
-        this.userService.getAllUsers('suporte-geo',startDate, endDate).subscribe({
+    loadAllUsers(projects: string,startDate?: string, endDate?: string){
+        this.userService.getAllUsers(projects,startDate, endDate).subscribe({
             next: (users) => {
                 const userList: User[] = users.map(user => ({
                     username: user.usuario,
+                    email: '',
                     hours: {
                         total: user.horas_apontadas,
                         helpingHours: 0,
@@ -45,18 +49,20 @@ export class UserState {
                 this._listUsers.set([]);
             }
         })
-        console.log(this.listUsers())
+        
     }
     
-    loadUser(username: string, startDate?: string, endDate?: string,projects?: string){
+    loadUser(username: string,projects: string, startDate?: string, endDate?: string){
         forkJoin({
             hours: this.userService.getHoursByUser(username,startDate, endDate,projects),
             issues: this.userService.getIssuesByUser(username,startDate, endDate,projects)
+            
         }).subscribe({
             next: ({hours,issues}) =>{
                 const userHours = hours?.[0];
                 this._user.set({
                     username: userHours.usuario,
+                    email: userHours.email,
                     hours: {
                         total: userHours.horas_totais_mes ?? 0,
                         helpingHours: userHours.horas_ajuda ?? 0,

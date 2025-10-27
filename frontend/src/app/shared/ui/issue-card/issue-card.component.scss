@@ -14,23 +14,22 @@
     padding: clamp(0.6rem, 1.5vw, 1.2rem);
     position: relative;
     overflow: visible;
+    min-height: 0;
 
     .card-header {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 1rem;
-        padding-bottom: 0.8rem;
+        margin-bottom: 1%;
+        padding-bottom: 2%;
         position: relative;
         overflow: visible;
 
-        // Container para as linhas com overflow hidden
         &::after,
         &::before {
             pointer-events: none;
         }
 
-        // Linha divisória com efeito hover
         &::after {
             content: '';
             position: absolute;
@@ -43,7 +42,6 @@
             overflow: hidden;
         }
 
-        // Linha que segue o mouse com degradê
         &::before {
             content: '';
             position: absolute;
@@ -216,46 +214,9 @@
 
 
 @media (max-width: 1024px) {
-    .issue-card {
-        padding: clamp(0.5rem, 1.2vw, 1rem);
-    }
+    
 }
 
-@media (max-width: 768px) {
-    .issue-card {
-        .card-header {
-            margin-bottom: 0.6rem;
-            padding-bottom: 0.5rem;
-        }
-        .card-body {
-            gap: 0.6rem;
-            .chart-section {
-                min-height: 150px;
-                max-height: 200px;
-            }
-        }
-    }
-}
-
-@media (max-width: 576px) {
-    .issue-card {
-        padding: 0.6rem;
-        .card-body {
-            .value-section {
-                .value {
-                    font-size: clamp(1rem, 5vw, 1.4rem);
-                }
-                .value-label {
-                    font-size: clamp(0.7rem, 3.5vw, 0.85rem);
-                }
-            }
-            .chart-section {
-                min-height: 130px;
-                max-height: 180px;
-            }
-        }
-    }
-}
 
 @keyframes fadeIn {
     from {
