@@ -11,6 +11,7 @@ import { MetricsService, HighPriorityIssue } from '../../data-acess/services/met
 import { CommonModule } from '@angular/common';
 import { UserState } from '../../state/user.state';
 import { DataState } from '../../state/data.state';
+import { ConfigurationState } from '../../state/configuration.state';
 
 @Component({
     selector: 'app-home-page',
@@ -30,8 +31,8 @@ import { DataState } from '../../state/data.state';
 export class HomePageComponent implements AfterViewInit, OnInit {
   private metricsService = inject(MetricsService);
   private stateUser = inject(UserState);
-   private stateData = inject(DataState);
-
+  private stateData = inject(DataState);
+  private stateParams = inject(ConfigurationState);
 
   $listUsers = this.stateUser.listUsers;
   $dataInfo = this.stateData.dataIssues;
@@ -50,8 +51,8 @@ export class HomePageComponent implements AfterViewInit, OnInit {
   constructor(private elementRef: ElementRef) {}
 
   ngOnInit(): void {
-    this.stateUser.loadAllUsers('suporte-geo');
-    this.stateData.loadIssuesGraph('suporte-geo');
+    this.stateUser.loadAllUsers(this.stateParams.project());
+    this.stateData.loadIssuesGraph(this.stateParams.project());
     this.initializeExampleData(); //QUANDO CONECTAR A API, RETIRAR
   }
 

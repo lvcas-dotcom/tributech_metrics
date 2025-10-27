@@ -183,7 +183,11 @@
                         flex: 1 1 auto;
                         min-height: 0;
                         width: 100%;
+<<<<<<< HEAD
                         max-height: 25vh;
+=======
+                        max-height: 100%;
+>>>>>>> de77678f6137851b378cf3d889429502d2177c57
                         overflow-y: auto;
                         overflow-x: hidden;
                         padding: 3px 0;
@@ -279,6 +283,7 @@
     .conteiner{
         max-height: 100%;
         overflow-y: auto;
+        overflow-x: hidden;
 
         &::-webkit-scrollbar {
             width: 8px;
