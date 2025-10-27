@@ -6,7 +6,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.schemas.catalogs import (
     ProjectItem,
-    UserItem,
     TaskWithHoursItem,
 )
 
@@ -26,19 +25,65 @@ class CatalogsRepository:
     """
     )
 
-    SQL_LIST_USERS = text(
+    SQL_USERS_SUMMARY = text(
+        """
+        WITH timelog_filtered AS (
+            SELECT
+                t.user_id,
+                t.issue_id,
+                SUM(t.time_spent) AS total_time_spent
+            FROM timelogs t
+            JOIN issues i   ON i.id = t.issue_id
+            JOIN projects p ON p.id = i.project_id
+            JOIN issue_assignees ia
+              ON ia.issue_id = t.issue_id
+             AND ia.user_id = t.user_id
+            WHERE t.spent_at::date BETWEEN :start_date AND :end_date
+              AND (:projects_is_null OR p.name = ANY(:projects))
+            GROUP BY t.user_id, t.issue_id
+        )
+        SELECT
+            u.username AS username,
+            u.email AS email,
+            ROUND(COALESCE(SUM(tf.total_time_spent), 0) / 3600.0, 2) AS horas_apontadas,
+            COUNT(DISTINCT tf.issue_id) AS issues_totais,
+            COUNT(DISTINCT CASE
+                WHEN i.closed_at IS NOT NULL
+                     AND i.closed_at::date BETWEEN :start_date AND :end_date
+                THEN tf.issue_id
+            END) AS issues_feitas,
+            COUNT(DISTINCT CASE
+                WHEN i.closed_at IS NOT NULL
+                     AND i.due_date IS NOT NULL
+                     AND i.closed_at::date > i.due_date::date
+                     AND i.closed_at::date BETWEEN :start_date AND :end_date
+                THEN tf.issue_id
+            END) AS issues_feitas_atrasadas
+        FROM timelog_filtered tf
+        JOIN users u ON u.id = tf.user_id
+        JOIN issues i ON i.id = tf.issue_id
+        GROUP BY u.username, u.email
+        ORDER BY u.username
+    """
+    )
+
+    SQL_USERS_WEEKLY_ACTIVITY = text(
         """
         SELECT
-            u.id        AS id,
-            u.username  AS username
+            u.username AS username,
+            t.spent_at::date AS dia,
+            ROUND(SUM(t.time_spent) / 3600.0, 2) AS horas
         FROM timelogs t
         JOIN users u    ON u.id = t.user_id
         JOIN issues i   ON i.id = t.issue_id
         JOIN projects p ON p.id = i.project_id
+        JOIN issue_assignees ia
+          ON ia.issue_id = t.issue_id
+         AND ia.user_id = t.user_id
         WHERE t.spent_at::date BETWEEN :start_date AND :end_date
           AND (:projects_is_null OR p.name = ANY(:projects))
-        GROUP BY u.id, u.username
-        ORDER BY u.username
+        GROUP BY u.username, t.spent_at::date
+        ORDER BY u.username, t.spent_at::date
     """
     )
 
@@ -162,17 +207,25 @@ class CatalogsRepository:
         )
         return [ProjectItem(**r) for r in rows]
 
-    async def list_users(
+    async def list_users_summary(
         self,
         start_date: date,
         end_date: date,
         projects: Optional[Sequence[str]],
-    ) -> List[UserItem]:
+    ) -> List[Dict[str, Any]]:
         params = self._bind_params(start_date, end_date, projects, users=None)
-        rows = (
-            (await self.session.execute(self.SQL_LIST_USERS, params)).mappings().all()
-        )
-        return [UserItem(**r) for r in rows]
+        result = await self.session.execute(self.SQL_USERS_SUMMARY, params)
+        return result.mappings().all()
+
+    async def list_users_weekly_activity(
+        self,
+        start_date: date,
+        end_date: date,
+        projects: Optional[Sequence[str]],
+    ) -> List[Dict[str, Any]]:
+        params = self._bind_params(start_date, end_date, projects, users=None)
+        result = await self.session.execute(self.SQL_USERS_WEEKLY_ACTIVITY, params)
+        return result.mappings().all()
 
     async def list_tasks(
         self,

@@ -1,9 +1,7 @@
 from datetime import datetime, timedelta
-from typing import Optional
+from typing import List, Optional
 
 from pydantic import BaseModel
-from datetime import datetime, timedelta
-from typing import Optional
 
 
 class ProjectItem(BaseModel):
@@ -14,6 +12,20 @@ class ProjectItem(BaseModel):
 class UserItem(BaseModel):
     id: int
     username: str
+
+
+class IssuesAssignedSummary(BaseModel):
+    issues_feitas_atrasadas: int
+    issues_feitas: int
+    issues_totais: int
+
+
+class UserMetricsCatalogItem(BaseModel):
+    username: str
+    email: str
+    horas_apontadas: float
+    issues_assignadas: IssuesAssignedSummary
+    atividade_semanal: List[float]
 
 
 class TaskItem(BaseModel):

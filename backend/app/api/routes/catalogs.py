@@ -6,7 +6,11 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.api.deps import get_session
 from app.services.catalogs_service import CatalogsService
-from app.schemas.catalogs import ProjectItem, UserItem, TaskWithHoursItem
+from app.schemas.catalogs import (
+    ProjectItem,
+    TaskWithHoursItem,
+    UserMetricsCatalogItem,
+)
 
 router = APIRouter(tags=["Catálogos"])
 
@@ -56,9 +60,13 @@ async def catalog_projects(
 
 @router.get(
     "/catalog/users",
-    response_model=List[UserItem],
-    summary="Lista de usuários (com apontamentos no período)",
-    description="Opcionalmente filtra por `projects`.",
+    response_model=List[UserMetricsCatalogItem],
+    summary="Indicadores por usuário no período",
+    description=(
+        "Retorna dados consolidados por usuário, incluindo horas apontadas,"
+        " contagem de issues e atividade diária na última semana."
+        " Opcionalmente filtra por `projects`."
+    ),
 )
 async def catalog_users(
     start_date: Optional[date] = Query(None),
