@@ -1,72 +1,45 @@
 @use "../../../styles/variables" as *;
 
-.sidebar{
-    display: grid;
-    grid-template-rows: 0.1fr 0.9fr 0.1fr ;
-    background-color: $background-color;
-    height: 100%;
-    align-items: start;
-    justify-content: space-between;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.15);
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(180deg, lighten($background-color, 2%), darken($background-color, 2%));
+    height: 100vh;
+    width: 280px;
+    border-right: 1px solid rgba($primary-color, 0.1);
+    box-shadow: 1px 0 20px rgba(0, 0, 0, 0.2);
+    transition: width 0.3s ease-in-out;
 
-    * {
-            background-color: $background-color;
-    }
-    .titulo{
+    .titulo {
         display: flex;
-        flex-direction: line;
         align-items: center;
-        width: 15vw;
-        margin: 0.5rem;
+        padding: 1.5rem;
         font-family: $font-family-primary;
         color: $text-color;
         font-size: 1.5rem;
-        padding: 1rem;
-        box-shadow: 0px 5px 0px -2px #8c44f8;
-        letter-spacing: 0.1rem;
+        font-weight: 600;
+        letter-spacing: 0.05em;
         cursor: pointer;
-        animation: rainbow-shadow 3s ease-in-out infinite;
-        
-        img{
-            width: 2.5rem;
-            height: 2.5rem;
+        border-bottom: 1px solid rgba($primary-color, 0.1);
+        transition: background-color 0.3s ease;
+
+        img {
+            width: 2.75rem;
+            height: 2.75rem;
             margin-right: 1rem;
         }
     }
 
-    @keyframes rainbow-shadow {
-        0% {
-            box-shadow: 0px 3px 0px -2px #5b21b6;
-        }
-        20% {
-            box-shadow: 0px 3px 0px -2px #6d28d9;
-        }
-        40% {
-            box-shadow: 0px 3px 0px -2px #7c3aed;
-        }
-        60% {
-            box-shadow: 0px 3px 0px -2px #8b5cf6;
-        }
-        80% {
-            box-shadow: 0px 3px 0px -2px #6d28d9;
-        }
-        100% {
-            box-shadow: 0px 3px 0px -2px #5b21b6;
-        }
-    }
-
     .menu {
+        flex: 1;
         display: flex;
         flex-direction: column;
-        padding: 0.75rem 0.75rem 1rem;
-        gap: 0.35rem;
-        overflow: auto;
-
-        scrollbar-width: thin;
-        scrollbar-color: rgba(0, 0, 0, .25) transparent;
-
+        padding: 1rem 0.75rem;
+        gap: 0.5rem;
+        overflow-y: auto;
+        
         &::-webkit-scrollbar {
-            width: 8px;
+            width: 6px;
         }
 
         &::-webkit-scrollbar-track {
@@ -74,110 +47,113 @@
         }
 
         &::-webkit-scrollbar-thumb {
-            background: rgba(0, 0, 0, .25);
-            border-radius: 8px;
+            background: rgba($text-color, .2);
+            border-radius: 6px;
+
+            &:hover {
+                background: rgba($primary-color, .4);
+            }
         }
 
+        // -- Itens de Menu --
         .navegador-opcoes {
             position: relative;
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 1.25rem; // Mais espaço entre ícone e texto
             font-family: $font-family-primary;
             font-size: $font-subtitle;
-            color: $text-color;
+            font-weight: 500; // Melhora a legibilidade
+            color: rgba($text-color, 0.8); // Cor padrão um pouco mais suave
             width: 100%;
-            padding: 0.85rem 1.25rem 0.85rem 1.15rem;
-            border-radius: 12px;
+            padding: 0.9rem 1.25rem;
+            border-radius: 8px; // Bordas mais suaves
             cursor: pointer;
             background-color: transparent;
             user-select: none;
             -webkit-tap-highlight-color: transparent;
-            transition:
-                background-color .25s ease,
-                color .25s ease,
-                transform .18s ease,
-                box-shadow .2s ease;
+            // Transições mais refinadas para todas as propriedades
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 
+            // Indicador de item ativo/hover (barra lateral)
             &::before {
                 content: "";
                 position: absolute;
-                left: 0.35rem;
+                left: 0;
                 top: 50%;
                 transform: translateY(-50%) scaleY(0);
-                transform-origin: top;
-                width: 3px;
-                height: 70%;
-                border-radius: 2px;
+                transform-origin: center;
+                width: 4px;
+                height: 60%;
+                border-radius: 0 4px 4px 0; // Bordas arredondadas apenas de um lado
                 background: $primary-color;
-                transition: transform .22s ease;
-                opacity: .9;
+                transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             }
 
+            // Efeito Hover
             &:hover {
-                background-color: rgba(0, 0, 0, 0.08);
-                color: $primary-color;
-                transform: translateX(4px);
-            }
-
-            &:hover::before {
-                transform: translateY(-50%) scaleY(1);
-            }
-
-            &.active {
-                color: $primary-color;
-                background-color: rgba(0,0,0,0.04);
+                background-color: rgba($primary-color, 0.08); // Fundo com a cor primária
+                color: $text-color; // Texto volta à cor total
+                transform: translateX(5px); // Leve movimento para a direita
 
                 &::before {
                     transform: translateY(-50%) scaleY(1);
-                    opacity: .95;
-                    background: $primary-color;
                 }
             }
 
-            &.inactive {
+            // Estado Ativo
+            &.active {
+                background-color: rgba($primary-color, 0.12);
+                color: $primary-color;
+                font-weight: 600; // Destaca o texto do item ativo
+
                 &::before {
-                    transform: translateY(-50%) scaleY(0);
+                    transform: translateY(-50%) scaleY(1);
                 }
-                opacity: .92;
+
+                svg,
+                img {
+                    color: $primary-color; // Ícone também fica com a cor primária
+                    filter: drop-shadow(0 0 8px rgba($primary-color, 0.4));
+                }
+            }
+
+            // Estilo para ícones
+            svg,
+            img {
+                width: 1.35rem;
+                height: 1.35rem;
+                flex-shrink: 0;
+                color: rgba($text-color, 0.8);
+                transition: color 0.25s ease, filter 0.25s ease;
             }
 
             &:focus-visible {
                 outline: 2px solid rgba($primary-color, .65);
                 outline-offset: 3px;
             }
-
-            svg,
-            img {
-                width: 1.25rem;
-                height: 1.25rem;
-                flex: 0 0 1.25rem;
-                opacity: .92;
-            }
         }
     }
 
     .footer {
-        width: 16vw;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        padding: 1.5rem;
         font-family: Montserrat, sans-serif;
-        color: $text-color;
-        font-size: 0.95rem;
+        color: rgba($text-color, 0.6);
+        font-size: 0.8rem;
         text-align: center;
-        padding: 1rem;
-        box-shadow: 0px -10px 15px -3px rgba(0, 0, 0, 0.267);
+        border-top: 1px solid rgba($primary-color, 0.1);
         letter-spacing: 0.05rem;
+        background-color: darken($background-color, 3%);
     }
-
 }
 
 @media (max-width: 1400px) {
-  .sidebar {
-    .titulo {
-      .label { letter-spacing:.1rem; font-size: 1.2rem;}
+    .sidebar .titulo {
+        font-size: 1.3rem;
+        padding: 1.25rem;
     }
-  }
 }
