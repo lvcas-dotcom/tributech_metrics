@@ -3,15 +3,15 @@
     <div class="card-header">
         <div class="avatar-section">
             <div class="avatar-wrapper">
-                <img [src]="employee.avatarUrl" [alt]="employee.nome" class="avatar">
+                <img src="../../../../assets/person.svg" [alt]="employee.username" class="avatar">
                
             </div>
             <div class="employee-info">
-                <h3 class="employee-name">{{ employee.nome }}</h3>
-                <p class="employee-role">{{ employee.cargo }}</p>
-                <div class="employee-tags">
+                <h3 class="employee-name">{{ employee.username }}</h3>
+                <p class="employee-role">{{ employee.email }}</p>
+                <!--<div class="employee-tags">
                     <span class="tag" *ngFor="let tag of employee.tags">{{ tag }}</span>
-                </div>
+                </div>-->
             </div>
         </div>
         
@@ -26,7 +26,7 @@
                 <img src="../../../../assets/clock.svg" alt="Horas" class="metric-icon">
             </div>
             <div class="metric-content">
-                <span class="metric-value">{{ employee.totalHours }}h</span>
+                <span class="metric-value">{{ employee.horas_apontadas }}h</span>
                 <span class="metric-label">Horas Mês</span>
             </div>
         </div>
@@ -36,7 +36,7 @@
                 <img src="../../../../assets/table.svg" alt="Issues" class="metric-icon">
             </div>
             <div class="metric-content">
-                <span class="metric-value">{{ employee.totalIssues }}</span>
+                <span class="metric-value">{{ employee.issues_assignadas.issues_totais }}</span>
                 <span class="metric-label">Issues</span>
             </div>
         </div>
@@ -46,7 +46,7 @@
                 <img src="../../../../assets/check.svg" alt="Concluídas" class="metric-icon">
             </div>
             <div class="metric-content">
-                <span class="metric-value">{{ employee.completedIssues }}</span>
+                <span class="metric-value">{{ employee.issues_assignadas.issues_feitas }}</span>
                 <span class="metric-label">Concluídas</span>
             </div>
         </div>
@@ -58,16 +58,16 @@
             <div class="productivity-stats">
                 <div class="stat-item">
                     <img src="../../../../assets/check.svg" alt="Concluídas" class="stat-icon">
-                    <span class="stat-value">{{ employee.completedIssues }} concluídas</span>
+                    <span class="stat-value">{{ employee.issues_assignadas.issues_totais }} concluídas</span>
                 </div>
                 <div class="stat-item">
                     <img src="../../../../assets/clock.svg" alt="Horas" class="stat-icon">
-                    <span class="stat-value">{{ employee.totalHours }}h trabalhadas</span>
+                    <span class="stat-value">{{ employee.horas_apontadas }}h trabalhadas</span>
                 </div>
             </div>
         </div>
         <div class="productivity-badge">
-            {{ employee.efficiency }}% Performance
+            {{performace}}% Performance
         </div>
     </div>
 
@@ -77,8 +77,8 @@
             <span class="chart-title">Atividade Semanal</span>
         </div>
         <div class="mini-chart">
-            <div class="chart-bar" *ngFor="let activity of employee.weeklyActivity; let i = index"
-                    [style.height.%]="(activity / getMaxActivity(employee.weeklyActivity)) * 100"
+            <div class="chart-bar" *ngFor="let activity of employee.atividade_semanal; let i = index"
+                    [style.height.%]="(activity / getMaxActivity(employee.atividade_semanal)) * 100"
                     [class.active]="i === getCurrentDayIndex()">
                 <span class="bar-value">{{ activity }}</span>
             </div>
@@ -89,18 +89,18 @@
         <div class="projects-section">
             <span class="projects-label">Projetos:</span>
             <div class="projects-tags">
-                <span class="project-tag" *ngFor="let project of employee.projects">
-                    {{ project }}
+                <span class="project-tag" >
+                    suporte-geo
                 </span>
             </div>
         </div>
         
         <div class="status-badges">
-            <span class="badge success" *ngIf="employee.onTimeDeliveries > 0">
-                ✓ {{ employee.onTimeDeliveries }} no prazo
+            <span class="badge success" *ngIf="employee.issues_assignadas.issues_feitas">
+                ✓ {{ employee.issues_assignadas.issues_feitas}} no prazo
             </span>
-            <span class="badge warning" *ngIf="employee.lateDeliveries > 0">
-                ⚠ {{ employee.lateDeliveries }} atrasadas
+            <span class="badge warning" *ngIf="employee.issues_assignadas.issues_feitas_atrasadas > 0">
+                ⚠ {{ employee.issues_assignadas.issues_feitas_atrasadas }} atrasadas
             </span>
         </div>
     </div>
